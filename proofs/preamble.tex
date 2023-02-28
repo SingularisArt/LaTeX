@@ -1,0 +1,270 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                                Basic Packages                                %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[usenames,dvipsnames,pdftex]{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{amsmath,amsfonts,mathtools,amsthm,amssymb}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{derivative}
+\usepackage{multirow}
+\usepackage{tablists}
+\usepackage{tabularx,ragged2e,booktabs}
+\setcounter{tocdepth}{3}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                                Basic Settings                                %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\svsum\sum\def\sum{\svsum\limits}
+
+%%%%%%%%%%%%%
+%  Symbols  %
+%%%%%%%%%%%%%
+
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+%%%%%%%%%%%
+%  Lists  %
+%%%%%%%%%%%
+
+\setlist[itemize,1]{label=--}
+\setlist[itemize,2]{label=\textbullet}
+
+%%%%%%%%%%%%
+%  Tables  %
+%%%%%%%%%%%%
+
+\setlength{\tabcolsep}{5pt}
+\renewcommand\arraystretch{1.5}
+
+%%%%%%%%%%
+%  TikZ  %
+%%%%%%%%%%
+
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{tikzsymbols}
+
+\usetikzlibrary{intersections, angles, quotes, calc, positioning}
+\usetikzlibrary{arrows.meta}
+
+\tikzset{
+  force/.style={thick, {Circle[length=2pt]}-stealth, shorten <=-1pt}
+}
+
+%%%%%%%%%%%%%%%
+%  PGF Plots  %
+%%%%%%%%%%%%%%%
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%  Center Title Page  %
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+%%%%%%%%%%%%%%%%%%%
+%  Footnote Line  %
+%%%%%%%%%%%%%%%%%%%
+
+\renewcommand\footnoterule{\hrule\vspace{0.1cm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%  Modify Links Color  %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{
+  colorlinks,
+  linkcolor=blue,
+  citecolor={black},
+  urlcolor={blue!80!black}
+}
+
+%%%%%%%%%%%%%%%%%%
+% Fix WrapFigure %
+%%%%%%%%%%%%%%%%%%
+
+\newcommand{\wrapfill}{\par\ifnum\value{WF@wrappedlines}>0
+    \parskip=0pt
+    \addtocounter{WF@wrappedlines}{-1}%
+    \null\vspace{\arabic{WF@wrappedlines}\baselineskip}%
+    \WFclear
+\fi}
+
+%%%%%%%%%%%%%%%%%
+% Multi Columns %
+%%%%%%%%%%%%%%%%%
+
+\let\multicolmulticols\multicols
+\let\endmulticolmulticols\endmulticols
+
+\RenewDocumentEnvironment{multicols}{mO{}}
+{
+  \ifnum#1=1
+    #2
+  \else
+    \multicolmulticols{#1}[#2]
+  \fi
+}
+{
+  \ifnum#1=1
+\else
+  \endmulticolmulticols
+\fi
+}
+
+\newlength{\thickarrayrulewidth}
+\setlength{\thickarrayrulewidth}{5\arrayrulewidth}
+
+% %%%%%%%%%%%%%%%%%%%
+% %  Caption Setup  %
+% %%%%%%%%%%%%%%%%%%%
+
+% \captionsetup[figure]{font=small}
+% \captionsetup{justification=centering}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Change Chapter Style  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[Conny]{fncychap}
+
+
+%%%%%%%%%%%%%%%%%
+% Fancy Headers %
+%%%%%%%%%%%%%%%%%
+
+\usepackage{fancyhdr}
+
+\renewcommand\headrulewidth{0.4pt}
+
+\makeatletter
+% \fancyhead[R]{}
+\fancyhead[L]{\@author}
+\fancyfoot[C]{\thepage}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%
+%  Import Figures  %
+%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{import}
+\pdfminorversion=7
+
+\newcommand\incfig[2][1]{
+  \def\svgwidth{#1\columnwidth}
+  \import{./figures/}{#2.pdf_tex}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                                 Environments                                 %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{varwidth}
+\usepackage{thmtools}
+\usepackage[most,many,breakable]{tcolorbox}
+
+\tcbuselibrary{theorems,skins,hooks}
+\usetikzlibrary{arrows,calc,shadows.blur}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Create Environments Styles Based on Given Parameter  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mdfsetup{skipabove=1em,skipbelow=0em}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%  Helpful Commands  %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\createnewtheoremstyle[3]{
+  \declaretheoremstyle[
+  headfont=\bfseries\sffamily, bodyfont=\normalfont, #2,
+  mdframed={
+    #3,
+  },
+  ]{#1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Create the Environment Styles  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\createnewtheoremstyle{thmdefinitionbox}{}{}
+\createnewtheoremstyle{thmtheorembox}{}{}
+\createnewtheoremstyle{thmexamplebox}{}{}
+\createnewtheoremstyle{thmclaimbox}{}{}
+\createnewtheoremstyle{thmcorollarybox}{}{}
+\createnewtheoremstyle{thmpropbox}{}{}
+\createnewtheoremstyle{thmlemmabox}{}{}
+\createnewtheoremstyle{thmexercisebox}{}{}
+\createnewtheoremstyle{thmquestionbox}{}{}
+\createnewtheoremstyle{thmsolutionbox}{}{}
+\createnewtheoremstyle{thmnotationbox}{}{rightline=false, leftline=true, topline=false, bottomline=false}
+
+\createnewtheoremstyle{thmproofbox}{qed=\qedsymbol}{rightline=false, leftline=true, topline=false, bottomline=false}
+\createnewtheoremstyle{thmexplanationbox}{}{rightline=false, leftline=true, topline=false, bottomline=false}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Create the Environments  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\declaretheorem[numberwithin=section, style=thmtheorembox,     name=Theorem]{theorem}
+\declaretheorem[numbered=no,          style=thmexamplebox,     name=Example]{example}
+\declaretheorem[numberwithin=section, style=thmclaimbox,       name=Claim]{claim}
+\declaretheorem[numberwithin=section, style=thmcorollarybox,   name=Corollary]{corollary}
+\declaretheorem[numberwithin=section, style=thmpropbox,        name=Proposition]{prop}
+\declaretheorem[numberwithin=section, style=thmlemmabox,       name=Lemma]{lemma}
+\declaretheorem[numberwithin=section, style=thmexercisebox,    name=Exercise]{exercise}
+\declaretheorem[numbered=no,          style=thmnotationbox,    name=Notation]{notation}
+\declaretheorem[numbered=no,          style=thmproofbox,       name=Proof]{replacementproof}
+\declaretheorem[numbered=no,          style=thmexplanationbox, name=Proof]{expl}
+\declaretheorem[numberwithin=section, style=thmdefinitionbox,  name=Definition]{definition}
+\declaretheorem[numberwithin=section, style=thmquestionbox,    name=Question]{question}
+\declaretheorem[numberwithin=section, style=thmsolutionbox,    name=Solution]{solution}
+
+\AtEndEnvironment{exercise}{
+  \addcontentsline{toc}{subsubsection}{Exercise \arabic{exercise}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Edit Proof Environment  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
+\newenvironment{explanation}[1][\proofname]{\vspace{-10pt}\begin{expl}}{\end{expl}}
+
+\theoremstyle{definition}
+
+\newtheorem*{previouslyseen}{As previously seen}
+\newtheorem*{problem}{Problem}
+\newtheorem*{observe}{Observe}
+\newtheorem*{property}{Property}
+\newtheorem*{intuition}{Intuition}
+\newtheorem*{questionexpl}{Explanation}
+\newtheorem*{note}{Note}

@@ -1,0 +1,26 @@
+\subsection{Power Rule}
+
+Show that
+\[%
+  \odv{}{x}\left(x^{n}\right) = nx^{n - 1}
+.\]%
+
+\begin{proof}
+  In order to prove our desired claim, we let $f(x) = x^{n}$, where $f(x)$ is a
+  differentiable function.
+
+  \begin{align*}
+    \odv{}{x}(x^{n}) &= \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \\
+                     &= \lim_{h \to 0} \frac{\left(a + h\right)^{n} - a^{n}}{h} \\
+                     &= \lim_{h \to 0} \frac{\displaystyle\sum_{k=0}^{n} {n \choose k} a^{k}h^{n - k} - \left(a^{n}\right)}{h} \\
+                     &=\lim_{h \to 0} \frac{\displaystyle\left({n \choose 0}h^{0} + {n \choose 1}a^{n-1}h^{1} + \cdots + {n \choose n}a^{0}h^{n}\right)}{h} \\
+                     &=\lim_{h \to 0} \frac{\displaystyle\left(na^{n-1}h + \frac{n(n-1)}{2}a^{n-2}h^{2} + \cdots + h^{n}\right)}{h} \\
+                     &=\lim_{h \to 0} \frac{\displaystyle\cancel{h}\left(na^{n-1} + \frac{n(n-1)}{2}a^{n-2}h + \cdots + h^{n-1}\right)}{\cancel{h}} \\
+                     &=\lim_{h \to 0} \left(na^{n-1} + \frac{n(n-1)}{2}a^{n-2}h + \cdots + h^{n-1} \right) \\
+                     &=\left(na^{n-1} + \frac{n(n-1)}{2}a^{n-2}0 + \cdots + 0^{n-1}\right) \\
+                     &=na^{n-1}
+  .\end{align*}
+  \[%
+    \therefore \odv{}{x}\left(x^{n}\right) = nx^{n-1}
+  .\]%
+\end{proof}
