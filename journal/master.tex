@@ -1,0 +1,86 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass{article}
+
+\input{./tex-src/preamble.tex}
+\input{./tex-src/theorems.tex}
+\input{./tex-src/todos.tex}
+\input{./tex-src/references.tex}
+\input{./tex-src/times.tex}
+\input{./tex-src/new-commands.tex}
+
+\let\d\pgfcalendarshorthand
+\newcount\pgfcalendarcurrentmonthlastday
+\newcommand\formatdate[2]{\pgfcalendar{cal}{#1}{#1}{#2}}
+
+\newcommand\firstdate{2022-01-01}
+\newcommand\lastdate{\year-\month-\day}
+
+\newcount\lm
+
+\begin{document}
+  \begin{center}
+    \huge{Journal}\\[0.4em]
+    \Large{Hashem A. Damrah}\\[0.2em]
+    \emph{
+      From \formatdate{\firstdate}{\d{m}t \d{d}- \d{y}-} to
+      \formatdate{\lastdate}{\d{m}t \d{d}- \d{y}-}
+    }
+  \end{center}
+
+  \tableofcontents
+  \newpage
+
+  \pgfcalendar{cal}{\firstdate}{\lastdate}{
+    \def\curyear{\d{y}0}
+    \def\curmonth{\d{m}0}
+    \def\curday{\d{d}0}
+
+    \def\yearmonth{\curyear/\curmonth}
+    \def\formatteddate{\curyear/\curmonth/\curday}
+
+    \def\yearmonthd{\curyear-\curmonth}
+    \def\todayformatted{\curyear-\curmonth-\curday}
+
+    \def\firstdayofyear{\curyear-01-01}
+    \def\yeargoalsformat{./\curyear/goals.tex}
+    \def\yearresultsformat{./\curyear/results.tex}
+
+    \def\firstdayofmonth{\yearmonthd-01}
+    \def\monthgoalsformat{./\yearmonth/goals.tex}
+    \def\monthresultsformat{./\yearmonth/results.tex}
+
+    \def\halfyeargoalsformat{./\yearmonth/half-year-goals.tex}
+    \def\halfyearresultsfo\lastdayofmonthrmat{./\yearmonth/half-year-results.tex}
+
+    \def\quarteryeargoalsformat{./\yearmonth/quarter-year-goals.tex}
+    \def\quarteryearresultsformat{./\yearmonth/quarter-year-results.tex}
+
+    \pgfcalendardatetojulian{\yearmonthd-last}{\lm}
+    \pgfcalendarjuliantodate{\the\lm}{\yldm}{\mldm}{\dldm}
+    \def\lastdayofmonth{\yldm-\mldm-\dldm}
+
+    \pgfcalendardatetojulian{\curyear-12-last}{\lm}
+    \pgfcalendarjuliantodate{\the\lm}{\yldym}{\mldym}{\dldym}
+    \def\lastdayofyearofmonth{\yldym-\mldym-\dldym}
+
+    \pgfcalendardatetojulian{\curyear-06-last}{\lm}
+    \pgfcalendarjuliantodate{\the\lm}{\yldhf}{\mldhf}{\dldhf}
+    \def\lastdayofhalfyear{\yldhf-\mldhf-\dldhf}
+
+    \pgfcalendardatetojulian{\curyear-06-last}{\lm}
+    \pgfcalendarjuliantodate{\the\lm}{\yldfm}{\mldfm}{\dldfm}
+    \def\lastdayoffirstmonth{\yldfm-\mldfm-\dldfm}
+
+    \pgfcalendardatetojulian{\curyear-06-last}{\lm}
+    \pgfcalendarjuliantodate{\the\lm}{\yldnm}{\mldnm}{\dldnm}
+    \def\lastdayofninthmonth{\yldnm-\mldnm-\dldnm}
+
+    \getyeargoals
+    \getmonthlygoals
+
+    \gettodaynote
+
+    \getmonthlyresults
+    \getyearresults
+  }
+\end{document}

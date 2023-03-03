@@ -1,0 +1,123 @@
+\def\firstoftwo#1#2{#1}
+\def\secondoftwo#1#2{#2}
+\def\iffileempty#1{
+  \ifnum0\pdffilesize{#1}>0
+    \expandafter\secondoftwo
+  \else
+    \expandafter\firstoftwo
+  \fi
+}
+
+\newcommand\emptyentry[3]{
+  \iffileempty{#1}{
+    \pgfcalendarifdate{#3}{equals=\year-\month-\day}{
+      \phantomsection\addcontentsline{toc}{subsubsection}{#2 (Empty) (Today)}
+    }{
+      \phantomsection\addcontentsline{toc}{subsubsection}{#2 (Empty)}
+    }
+    \newline {\LARGE {\color{red}No journal entry for today!
+  }}}{
+    \pgfcalendarifdate{#3}{equals=\year-\month-\day}{
+      \phantomsection\addcontentsline{toc}{subsubsection}{#2 (Today)}
+    }{
+      \phantomsection\addcontentsline{toc}{subsubsection}{#2}
+    }
+    \input{#1}
+  }
+}
+
+\newcommand\getdayout{
+  \ifthenelse{\equal{\d{d}0}{\string 01}}{
+    \def\daysuff{st}
+  }{
+    \ifthenelse{\equal{\d{d}0}{\string 02}}{
+      \def\daysuff{nd}
+    }{
+      \ifthenelse{\equal{\d{d}0}{\string 03}}{
+        \def\daysuff{rd}
+      }{
+        \def\daysuff{th}
+      }
+    }
+  }
+
+  \def\daynum{\pgfmathprintnumber{\pgfcalendarcurrentday}\textsuperscript{\daysuff}}
+  \def\dayout{\d{w}t the \daynum of \d{m}t, \d{y}0}
+}
+
+\newcommand\getyeargoals{
+  \pgfcalendarifdate{\todayformatted}{equals=\firstdayofyear}{
+    \IfFileExists{\yeargoalsformat}{
+      \noteday{Year \textbf{\d{y}0}}
+      \noindent{\Huge \d{y}0}
+      \phantomsection\addcontentsline{toc}{section}{\textbf{\d{y}0}}
+      \newline
+      \newline
+      {\Large Goals for \textbf{\d{y}0}}
+      \phantomsection\addcontentsline{toc}{subsection}{Goals for \textbf{\d{y}0}}
+      \newline
+      \newline
+      \input{\yeargoalsformat}
+      \newpage
+    }{}
+  }{}
+}
+
+\newcommand\getmonthlygoals{
+  \ifdate{equals=\firstdayofmonth}{
+    \IfFileExists{\monthgoalsformat}{
+      \noteday{Month \textbf{\d{m}t}}
+      \noindent{\Huge \d{m}t}
+      \phantomsection\addcontentsline{toc}{subsection}{\textbf{\d{m}t}}
+      \newline
+      \newline
+      {\Large Goals for \textbf{\d{m}t}}
+      \phantomsection\addcontentsline{toc}{subsubsection}{Goals for \textbf{\d{m}t}}
+      \newline
+      \newline
+      \input{\monthgoalsformat}
+      \newpage
+    }{}
+  }{}
+}
+
+\newcommand\gettodaynote{
+  \IfFileExists{./\formatteddate/note.tex}{
+    \getdayout
+    \noteday{\dayout}
+
+    \noindent{\Large \dayout}
+    \newline
+    \emptyentry{./\formatteddate/note.tex}{\dayout}{\todayformatted}
+    \begin{flushright}
+      \IfFileExists{./\formatteddate/note.xopp}{\hfill\xournal}{\hfill\\}
+    \end{flushright}
+    \newpage
+  }{}
+}
+
+\newcommand\getmonthlyresults{
+  \ifdate{equals=\lastdayofmonth}{
+    \IfFileExists{\monthresultsformat}{
+      {\Large Results for \textbf{\d{m}t}}
+      \phantomsection\addcontentsline{toc}{subsubsection}{Results \textbf{\d{m}t}}
+      \newline
+      \newline
+      \input{\monthresultsformat}
+      \newpage
+    }{}
+  }{}
+}
+
+\newcommand\getyearresults{
+  \ifdate{equals=\lastdayofyearofmonth}{
+    \IfFileExists{\yearresultsformat}{
+      {\Large Results for \textbf{\d{y}0}}
+      \phantomsection\addcontentsline{toc}{subsection}{Results for \textbf{\d{y}0}}
+      \newline
+      \newline
+      \input{\yearresultsformat}
+      \newpage
+    }{}
+  }{}
+}

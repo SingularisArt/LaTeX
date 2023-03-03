@@ -1,0 +1,79 @@
+\usepackage{tcolorbox}
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\mdfsetup{
+  skipabove=1em,
+  skipbelow=0em,
+  innertopmargin=5pt,
+  innerbottommargin=6pt
+}
+
+\newmdenv[
+	backgroundcolor=red!10,
+	frametitle=Wrong
+]{wrong}
+\newmdenv[
+	backgroundcolor=green!10,
+	frametitle=Correct
+]{correct}
+\renewmdenv[
+	bottomline=false,
+	topline=false,
+	rightline=false,
+	fontcolor=black!70,
+]{quote}
+\newmdenv[
+	backgroundcolor=blue!10,
+	frametitle=Goals for Today
+]{goals}
+\newmdenv[
+	backgroundcolor=blue!10,
+	frametitle=Status for my Goals
+]{status}
+\newmdenv[
+	backgroundcolor=blue!10,
+	frametitle=The results of my Goals
+]{results}
+
+\newenvironment{infoenv}{\begin{tcolorbox}[
+  arc=0mm,
+  colback=white,
+  colframe=green!60!black,
+  title=Info,
+  fonttitle=\sffamily,
+]}{\end{tcolorbox}}
+\newenvironment{warning}{\begin{tcolorbox}[
+  arc=0mm,
+  colback=white,
+  colframe=yellow!60!black,
+  title=Warning,
+  fonttitle=\sffamily,
+]}{\end{tcolorbox}}
+\newenvironment{error}{\begin{tcolorbox}[
+  arc=0mm,
+  colback=white,
+  colframe=red!60!black,
+  title=Error,
+  fonttitle=\sffamily,
+]}{\end{tcolorbox}}
+
+\theoremstyle{definition}
+\newtheorem*{problem}{Problem}
+\newtheorem*{question}{Question}
+\newtheorem*{confusion}{Confusion}
+\newtheorem*{example}{Example}
+
+\theoremstyle{plain}
+\newtheorem*{rant}{Rant}
+\newtheorem*{idea}{Idea}
+\newtheorem*{thought}{Thought}
+\newtheorem*{qstanswer}{Question Answer}
+\newtheorem*{cfsanswer}{Confusion Answer}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{claim}{Claim}
+\newtheorem*{acknowledgment}{Acknowledgment}
+\newtheorem*{conclusion}{Conclusion}
