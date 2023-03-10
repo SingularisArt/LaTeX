@@ -2,8 +2,6 @@
 \ProvidesClass{altacv}[2022/11/03 AltaCV v1.6.5, yet another alternative class for a resume/curriculum vitae.]
 
 \DeclareOption{academicons}{\ClassWarning{altacv}{academicons option is now obsolete and unnecessary.}}
-\newif\if@normalphoto
-\DeclareOption{normalphoto}{\@normalphototrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}}
 \newif\if@raggedtwoe
 \DeclareOption{ragged2e}{\@raggedtwoetrue}
@@ -154,46 +152,6 @@
 \NewInfoField{orcid}{\faOrcid}[https://orcid.org/]
 \NewInfoField{location}{\faMapMarker}
 
-\newlength{\altacv@photos@width}
-\newlength{\altacv@photo@diam@left}
-\newlength{\altacv@photo@diam@right}
-\def\altacv@left@photos{}
-\def\altacv@right@photos{}
-
-\newcommand{\@makeaphoto}[2]{%
-  \begin{minipage}{#1}%
-    \if@normalphoto
-      \includegraphics[width=\linewidth]{#2}
-    \else
-      \tikz\path[fill overzoom image={#2}]circle[radius=0.5\linewidth];
-    \fi%
-  \end{minipage}%
-}
-
-\newcommand{\altacv@add@photo@left}[1]{%
-  \appto{\altacv@left@photos}{%
-    \@makeaphoto{\altacv@photo@diam@left}{#1}\hspace{1ex}%
-  }%
-  \addtolength{\altacv@photos@width}{\altacv@photo@diam@left}%
-  \addtolength{\altacv@photos@width}{1ex}%
-}
-\newcommand{\altacv@add@photo@right}[1]{%
-  \appto{\altacv@right@photos}{%
-    \@makeaphoto{\altacv@photo@diam@right}{#1}\hspace{1ex}%
-  }%
-  \addtolength{\altacv@photos@width}{\altacv@photo@diam@right}%
-  \addtolength{\altacv@photos@width}{1ex}%
-}
-\newcommand{\photoL}[2]{%
-  \setlength{\altacv@photo@diam@left}{#1}%
-  \forcsvlist{\altacv@add@photo@left}{#2}%
-}
-\newcommand{\photoR}[2]{%
-  \setlength{\altacv@photo@diam@right}{#1}%
-  \forcsvlist{\altacv@add@photo@right}{#2}%
-}
-\let\photo\photoR
-
 \newcommand{\namefont}{\Huge\bfseries}
 \newcommand{\taglinefont}{\large\bfseries}
 \newcommand{\personalinfofont}{\footnotesize\bfseries}
@@ -202,8 +160,7 @@
 
 \newcommand{\makecvheader}{%
   \begingroup
-  \altacv@left@photos\hfill%
-  \begin{minipage}{\dimexpr\linewidth-\altacv@photos@width}%
+  \begin{minipage}{\dimexpr\linewidth}%
     \raggedright%
     {\namefont\color{name}\MakeUppercase{\@name}\par}
     \medskip
@@ -211,7 +168,6 @@
     \medskip
     {\personalinfofont\@personalinfo\par}
   \end{minipage}\hfill%
-  \altacv@right@photos\par%
   \endgroup\medskip
 }
 
