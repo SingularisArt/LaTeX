@@ -8,13 +8,17 @@ all:
 	make compile
 	make clean
 
+doall:
+	make clean compile clean view
+
 compile:
-	lualatex -synctex=1 $(DOCNAME).tex
-	lualatex -synctex=1 $(DOCNAME).tex
-	lualatex -synctex=1 $(DOCNAME).tex
+	pdflatex -synctex=1 $(DOCNAME).tex
+	pdflatex -synctex=1 $(DOCNAME).tex
+	pdflatex -synctex=1 $(DOCNAME).tex
+	make clean
 
 clean:
-	rm -rf *.aux *.bcf *.fdb_latexmk *.fls *.log *.out *.toc
+	rm -rf *.aux *.bcf *.fdb* *.fls *.log *.out *.toc *.synctex* *.tdo *.loe *.snm *.nav *.auxlock *.maf *.mtc* *.ptc *.bbl *.blg *blx.bib *.run.xml
 
 view:
 	make compile

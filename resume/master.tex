@@ -1,68 +1,209 @@
-\documentclass[doublesided,paper=a4,fontsize=10pt]{my-resume}
+\documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
 
+\geometry{left=1.25cm,right=1.25cm,top=1.5cm,bottom=1.5cm,columnsep=1.2cm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% set geometry
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{paracol}
 
-\setlength\highlightwidth{8cm}
-\setlength\headerheight{4cm}
-\setlength\marginleft{1cm}
-\setlength\marginright{\marginleft}
-\setlength\margintop{1cm}
-\setlength\marginbottom{1cm}
-\usepackage{lipsum}
+\ifxetexorluatex
+  \setmainfont{Lato}
+\else
+  \usepackage[default]{lato}
+\fi
 
+\definecolor{VividPurple}{HTML}{3E0097}
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+\colorlet{heading}{VividPurple}
+\colorlet{headingrule}{VividPurple}
+\colorlet{accent}{VividPurple}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                     Fonts                                   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{\faCircle}
 
-
-\RequirePackage{fontspec}
-\setmainfont{Carlito}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                    Colors                                   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\colorlet{highlightbarcolor}{lightgray}
-\colorlet{headerbarcolor}{darkgray}
-
-\colorlet{headerfontcolor}{white}
-\colorlet{accent}{awesome-red}
-\colorlet{heading}{black}
-\colorlet{emphasis}{black}
-\colorlet{body}{black}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                 Set Document                                %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{pubs-authoryear}
+\addbibresource{publications.bib}
 
 \begin{document}
-\name{Hashem A. Damrah}
-\tagline{
-	My name is Hashem Damrah, and I'm a high school junior, dual enrolled in
-	Portland Community College. I'll be receiving my high school diploma and
-	Associates Degree in 2024.
+\name{Hashem Damrah}
+\tagline{}
+
+% \photoR{2.5cm}{profile}
+\personalinfo{%
+  \email{singularisartt@gmail.com}
+  \phone{971-901-6319}
+  % \mailaddress{Address, Street, 00000 County}
+  \location{Portland, OR}
+  \homepage{singularisart.github.io}
+  \twitter{@SingularisArt}
+  \linkedin{hashem-damrah-a735b4231}
+  \github{github.com/SingularisArt}
+  % \NewInfoField{gitlab}{\faGitlab}[https://gitlab.com/]
+  % \gitlab{your_id}
 }
-\photo[round]{picture.jpg}{\dimexpr
-	\headerheight-\marginbottom}
 
-\makeheader
+\makecvheader
 
-\input{tex-src/sidebar.tex}
-\input{tex-src/main.tex}
+\AtBeginEnvironment{itemize}{\small}
+\columnratio{0.6}
 
-\makebody
-\clearpage
+\begin{paracol}{2}
+  \cvsection{Experience}
 
-\pagestyle{empty}
+  \cvevent{Research Assistant}{Computer Science Department at PSU}{February 2023 -- Current}{Portland Community College}
+  \begin{itemize}
+    \item
+  \end{itemize}
 
-\pubforcefullwidth
-\input{tex-src/another-section.tex}
-\input{tex-src/publications.tex}
+  \divider
+
+  \cvevent{Research Intern}{Geometric Group Theory}{March 2023 -- Current}{American Mathematical Society}
+  \begin{itemize}
+    \item
+  \end{itemize}
+
+  \divider
+
+  \cvevent{Tennis}{President}{December 2022 -- Current}{Portland Community College}
+  \begin{itemize}
+    \item
+  \end{itemize}
+
+  \divider
+
+  \cvevent{National Honors Society}{Vice-President}{November 2022 -- Current}{Baker Web Academy}
+  \begin{itemize}
+    \item
+  \end{itemize}
+
+  \divider
+
+  \cvevent{Student Senate}{Board Member}{September 2022 -- Current}{Portland Community College}
+  \begin{itemize}
+    \item
+  \end{itemize}
+
+  \divider
+
+  \cvevent{Tutor}{}{December 2022 -- Current}{Portland Community College}
+  \begin{itemize}
+    \item
+  \end{itemize}
+
+  \divider
+
+  \cvevent{Front Desk Attendant}{}{December 2022 -- Current}{Portland Community College}
+  \begin{itemize}
+    \item
+  \end{itemize}
+
+  \cvsection{Education}
+
+  \cvevent{High School Diploma}{Baker Web Academy}{March 2020 -- March 2024}{}
+  \cvevent{Associate of Arts}{Portland Community College}{March 2022 -- March 2024}{}
+
+  \cvsection{Certificates}
+
+  \cvtag{Red Hat System Admin I}
+  \cvtag{Red Hat System Admin II}
+
+  \switchcolumn
+
+  \cvsection{Projects}
+
+  \divider
+
+  \divider
+
+  \divider
+
+  \cvsection{Languages}
+
+  \cvskill{English}{5}
+  \cvskill{Arabic}{3}
+  \cvskill{Spanish}{3}
+  \cvskill{Dutch}{2}
+  \cvskill{Latin}{1.5}
+
+  \cvsection{Skills}
+
+  \cvskillsection{Systems}
+  \begin{itemize}
+    \item Arch Based Distros, Ubuntu, Debian, Kali
+    \item MacOS
+    \item Windows 7 - 10, Windows Server
+    \item Virtual Box
+  \end{itemize}
+  \vspace{0.5em}
+
+  \cvskillsection{Software (Front End)}
+  \begin{itemize}
+    \item React-Native, Vue, Angular
+    \item Django, Flask
+  \end{itemize}
+  \vspace{0.5em}
+
+  \cvskillsection{Languages}
+  \cvskill{Bash}{5}
+  \cvskill{Markdown}{5}
+  \cvskill{\LaTeX}{5}
+  \cvskill{Lua}{4.5}
+  \cvskill{Python}{4}
+  \cvskill{JavaScript}{4}
+  \cvskill{C++}{3.5}
+  \cvskill{SQL}{3.5}
+  \cvskill{C\#}{3}
+  \cvskill{C}{3}
+  \cvskill{Php}{3}
+  \cvskill{Ruby}{3}
+  \cvskill{Perl}{3}
+  \cvskill{Java}{3}
+  \cvskill{Rust}{3}
+  \cvskill{R}{3}
+  \cvskill{Vimscript}{2.5}
+
+  \switchcolumn
+  \newpage
+
+  \cvsection{Other Interests}
+
+  \cvtag{Physics}
+  \cvtag{Psychology}
+  \cvtag{Chemistry}
+  \cvtag{Astronomy}
+  \cvtag{Architecture} \\
+  \cvtag{Tennis}
+  \cvtag{Track}
+  \cvtag{Anatomical Drawing}
+  \cvtag{Competitive Memory}
+  \cvtag{Human Language Learning}
+  \cvtag{Programming Language Learning}
+  \cvtag{System Configuration}
+  \cvtag{Journaling}
+  \cvtag{Speed-Reading} \\
+  \cvtag{Speed-Cubing}
+  \cvtag{Volunteering}
+
+  \cvsection{Referees}
+
+  % \cvref{name}{email}{mailing address}
+  \cvref{Banafsheh Rekabdar}{rekabdar@pdx.edu}{}
+\end{paracol}
+
+\newpage
+
+\cvsection{Publications}
+
+\nocite{*}
+
+\printbibliography[heading=pubtype,title={\printinfo{\faBook}{Books}},type=book]
+
+\divider
+
+\printbibliography[heading=pubtype,title={\printinfo{\faFile*[regular]}{Journal Articles}}, type=article]
+
+\divider
+
+\printbibliography[heading=pubtype,title={\printinfo{\faUsers}{Conference Proceedings}},type=inproceedings]
 \end{document}
