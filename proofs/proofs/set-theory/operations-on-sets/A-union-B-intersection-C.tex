@@ -1,0 +1,28 @@
+\subsection{Distributing the union over the intersection}
+\label{sub_sec:distributing_the_union_over_the_intersection}
+
+\begin{theorem}
+  Let $A$, $B$, and $C$ be sets. Then, $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+\end{theorem}
+\begin{proof}
+  Let's make a couple of definitions before we prove anything:
+
+  \textbf{def:} $X \cap Y = \{ a \vert a \in X \land a \in Y \}$
+
+  \textbf{def:} $X \cup Y = \{ a \vert a \in X \lor a \in Y \}$
+
+  Let $D = B \cap C$. We can re-write the statement on the left using the
+  definitions from above as follows:
+  \begin{align*}
+    A \cup D &= \{ x \vert x \in A \lor x \in D \} \\
+             &= \{ x \vert x \in A \lor (x \in B \land x \in C) \} \\
+             &= \{ x \vert (x \in A \land x \in B) \lor (x \in A \land x \in C) \}
+  .\end{align*}
+
+  Using the definitions from above
+  \[%
+    \{ x \vert (x \in A \land x \in B) \lor (x \in A \land x \in C) \} = (A \cap B) \cup (A \cap C)
+  .\qedhere\]%
+\end{proof}
+
+% subsection distributing_the_union_over_the_intersection (end)
