@@ -2,11 +2,12 @@
 \usepackage{arabtex}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[icelandic,latin,dutch,spanish,arabic,english]{babel}
+\usepackage[icelandic,dutch,latin,spanish,arabic,english]{babel}
 
+\usepackage{enumitem}
 \usepackage{stix}
 \usepackage{textcomp}
-\usepackage{amsmath, amssymb, amsthm}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
 \usepackage{tikz-cd}
 \usepackage{titlesec}
@@ -15,6 +16,9 @@
 \usepackage{float}
 \usepackage{lastpage}
 \usepackage{lipsum}
+\usepackage{tablists}
+\usepackage{tabularx}
+\usepackage{wasysym}
 
 % page layout
 \usepackage{geometry}
@@ -24,6 +28,29 @@
 	left=20mm,
 	top=20mm,
 }
+
+\newcolumntype{C}{>{\Centering\arraybackslash}X}
+\setlength{\tabcolsep}{5pt}
+\renewcommand\arraystretch{1.5}
+
+% Caption setup.
+\usepackage[font=bf]{caption}
+\renewcommand\thetable{\Roman{table}}
+\captionsetup[figure]{font=small}
+\captionsetup{justification=centering}
+
+% symbols
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\svsum\sum\def\sum{\svsum\limits}
+
+% lists
+\setlist[itemize,1]{label=--}
+\setlist[itemize,2]{label=\textbullet}
+\setlist[enumerate,1]{label=\protect\circled{\arabic*}}
 
 % figure support
 \usepackage{import}
@@ -46,6 +73,59 @@
 \newcommand{\noteday}[1]{
   \def\@noteday{#1}
 }
+
+% unit stuff
+\usepackage{siunitx}
+\sisetup{
+  locale = US,
+  per-mode = symbol,
+  propagate-math-font = true,
+  reset-math-version = false,
+  exponent-mode = engineering,
+  round-mode = figures,
+  round-precision = 3,
+  drop-zero-decimal,
+}
+
+% Distance
+\DeclareSIUnit{\millimeter}{mm}
+\DeclareSIUnit{\centimeter}{cm}
+\DeclareSIUnit{\decimeter}{dm}
+\DeclareSIUnit{\inch}{in}
+\DeclareSIUnit{\foot}{ft}
+\DeclareSIUnit{\yard}{yd}
+\DeclareSIUnit{\meter}{m}
+\DeclareSIUnit{\kilometer}{km}
+\DeclareSIUnit{\mile}{mi}
+\DeclareSIUnit{\astronomicalunit}{au}
+\DeclareSIUnit{\lightyear}{ly}
+
+% Temperature
+\DeclareSIUnit{\fahrenheit}{F}
+\DeclareSIUnit{\celsius}{C}
+
+% Time
+\DeclareSIUnit{\millisecond}{ms}
+\DeclareSIUnit{\second}{sec}
+\DeclareSIUnit{\minute}{min}
+\DeclareSIUnit{\hour}{hr}
+\DeclareSIUnit{\day}{d}
+\DeclareSIUnit{\week}{wk}
+\DeclareSIUnit{\month}{mos}
+\DeclareSIUnit{\year}{yr}
+
+% Weight
+\DeclareSIUnit{\milligram}{mg}
+\DeclareSIUnit{\gram}{g}
+\DeclareSIUnit{\ounce}{oz}
+\DeclareSIUnit{\pound}{lb}
+\DeclareSIUnit{\kilogram}{kg}
+\DeclareSIUnit{\ton}{t}
+
+% Liquid
+\DeclareSIUnit{\gallon}{gal}
+\DeclareSIUnit{\liter}{L}
+\DeclareSIUnit{\milliliter}{mL}
 
 % fancy headers
 \usepackage{fancyhdr}

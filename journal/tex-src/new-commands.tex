@@ -42,7 +42,7 @@
   }
 
   \def\daynum{\pgfmathprintnumber{\pgfcalendarcurrentday}\textsuperscript{\daysuff}}
-  \def\dayout{\d{w}t the \daynum of \d{m}t, \d{y}0}
+  \def\dayout{\d{w}t the \daynum~of~\d{m}t, \d{y}0}
 }
 
 \newcommand\getyeargoals{
@@ -121,3 +121,8 @@
     }{}
   }{}
 }
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt] (char) {#1};}
+}
+\newcommand\imp[1]{{\color{main}#1}}
