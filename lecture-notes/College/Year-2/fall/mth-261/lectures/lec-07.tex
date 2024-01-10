@@ -1,0 +1,588 @@
+\nte[Section 1.8]{Oct 17 2023 Tue (14:00:38)}{Intro to Linear Transformations}
+
+Another way to view $A\x = \b$ is that this $\x$ vector is transformed
+into the $\b$ vector by multiplying it with matrix $A$.
+
+\begin{example}
+  \label{exm:transform_x_to_b_by_multiplying_by_A}
+
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 & -3 & 1 & 3 \\
+      2 & 0 & 5 & 1 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      4 \\
+      -1 \\
+      3 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{example}
+
+We can view this matrix-vector production as a type of function on vectors.
+
+\begin{definition}[Transformation]
+  \label{def:transformation}
+
+  A \textbf{transformation} $T : \R^n \to \R^m$, under
+  $T(\x) = A\x$ is a rule that assigns each vector $\x \in \R^n$ to
+  another vector in $\R^m$. The set $\R^n$ is called the
+  \textbf{domain} and $\R^m$ is called the \textbf{codomain}.
+
+  \begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}
+      \draw[color=black,very thick](-4,0) circle (1.5);
+      \draw[no marks] (-4,-2) node{domain: $\R^n$};
+
+      \draw[color=black,very thick](4,0) circle (2);
+      \draw[no marks] (4,-2.5) node{codomain: $\R^m$};
+
+      \filldraw[color=linecolor1!60, fill=linecolor1!5,very thick](3.5,0) circle (1);
+      \draw[no marks,color=linecolor1] (3.5,-1.3) node{range};
+
+      \draw[dashed,very thick](-4,1.5)--++(7.5,-0.5);
+      \draw[dashed,very thick](-4,-1.5)--++(7.5,0.5);
+      \draw[->,very thick](-3.25,0.75)node[left]{$\x$}--++(6.25,-0.25)node[right,color=linecolor1]{$T(\x)$};
+      \draw[->,very thick](-3.25,-0.75)node[left]{$\y$}--++(6.25,0.25)node[right,color=linecolor1]{$T(\y)$};
+      \draw[->,very thick](-3.25,0)node[left]{$\zero$}--++(6.25,-0.5);
+    \end{tikzpicture}
+
+    \caption{}
+    \label{fig:transformation}
+  \end{figure}
+\end{definition}
+
+$\forall \x \in \R^n$, $T(\x) \in \R^m$ is called the
+\textbf{image} of $\x$ under $T$. You can think of the image as the $y$ value
+from the function $f(x)$.
+
+\begin{note}
+  \label{nte:range_may_not_be_the_same_size_as_codomain}
+
+  The range of a transformation may not be the same as the codomain. In general,
+  the range is typically smaller than the codomain.
+\end{note}
+
+\section{Matrix Transformations}
+\label{sec:matrix_transformations}
+
+The rest of this section focuses on mappings associated with matrix
+multiplication. $\forall \x \in \R^n$, $T(\x)$ is computed as $A\x$,
+where $A$ is an $m \times n$ matrix. We denote this with $\x \mapsto A\x$ or $\x
+\mapsto T(\x)$ or $T : \R^n \to \R^m$, where $n$ is the
+number of columns of $A$ and $m$ is the number of rows of $A$. The range for a
+matrix transformation is just the set of all linear combinations of the columns
+of $A$.
+
+\begin{question}
+  \label{qst:matrix_transformation}
+
+  Consider the following matrix and vectors
+  \[%
+    A =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & -3 \\
+      3 & 5 \\
+      -1 & 7 \\
+    \end{bNiceMatrix},\quad
+    \u =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      -1 \\
+    \end{bNiceMatrix},\quad
+    \b =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      2 \\
+      -5 \\
+    \end{bNiceMatrix},\aand
+    \c =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      2 \\
+      5 \\
+    \end{bNiceMatrix}
+  .\]%
+  Define the transformation $T: \R^2 \to \R^3$ as $T(\x) =
+  A\x$. Note that $\x$ is a vector in the domain $\R^2$.
+
+  \begin{enumerate}
+    \label{enum:matrix_transformation_qst}
+
+    \item Find the image of $\u$ under $T$.
+
+    \item Find a vector $\x \in \R^2$ whose image under $T$ is $\b$.
+
+    \item Is there more than one $\x$ whose image under $T$ is $\b$?
+
+    \item Determine if $\c$ is in the range of $T$.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:matrix_transformation}
+
+  \begin{enumerate}
+    \label{enum:matrix_transformation_sol} $ $
+
+    \item The question is asking what is $T(\u)$? We can compute this by
+      \[%
+        T(\u) = A\u =
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 & -3 \\
+          3 & 5 \\
+          -1 & 7 \\
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[columns-width=auto]
+          2 \\
+          -1 \\
+        \end{bNiceMatrix} =
+        2
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          3 \\
+          -1 \\
+        \end{bNiceMatrix} -
+        1\begin{bNiceMatrix}[columns-width=auto]
+          -3 \\
+          5 \\
+          7 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          5 \\
+          1 \\
+          9 \\
+        \end{bNiceMatrix}
+      .\]%
+
+    \item The question is asking to find $\x$ such that $T(\x) = \b$ or $A\x =
+      \b$. To solve, we need to convert this into an augmented matrix and solve
+      using the Row Reduction Algorithm
+      \[%
+        \begin{bNiceArray}{c|c}[columns-width=auto]
+          A & \b \\
+        \end{bNiceArray} =
+        \begin{bNiceArray}{cc|c}[columns-width=auto]
+          1 & -3 & 3 \\
+          3 & 5 & 2 \\
+          -1 & 7 & -5 \\
+        \end{bNiceArray}
+        \rref
+        \begin{bNiceArray}{cc|c}[columns-width=auto]
+          \circled{1} & 0 & \sfrac{3}{2} \\
+          0 & \circled{1} & -\sfrac{1}{2} \\
+          0 & 0 & 0 \\
+        \end{bNiceArray}
+        \longleftrightarrow
+        \x =
+        \begin{bNiceMatrix}[columns-width=auto]
+          \sfrac{3}{2} \\
+          -\sfrac{1}{2} \\
+        \end{bNiceMatrix}
+      .\]%
+
+    \item No, because the solution to $A\x = \b$ was unique because there aren't
+      any free variables.
+
+    \item The question is asking if $\exists \x \in \R^2$ such that
+      $T(\x) = \c$ (i.e., $\c$ is the image of $\x$ under $T$). To solve, we
+      need to convert this into an augmented matrix and solve using the Row
+      Reduction Algorithm
+      \[%
+        \begin{bNiceArray}{c|c}[columns-width=auto]
+          A & \c \\
+        \end{bNiceArray} =
+        \begin{bNiceArray}{cc|c}[columns-width=auto]
+          \circled{1} & -3 & 3 \\
+          3 & 5 & 2 \\
+          -1 & 7 & 5 \\
+        \end{bNiceArray}
+        \echelon
+        \begin{bNiceArray}{cc|c}[columns-width=auto]
+          \circled{1} & -3 & 3 \\
+          0 & \circled{1} & 2 \\
+          0 & 0 & -35 \\
+        \end{bNiceArray}
+      .\]%
+      The row $[\,0~0~-35\,]$ tells us that $A\x = \c$ is inconsistent. Thus,
+      $\x$ does not exist, and $\c$ is not in the range of $T$. \qedhere
+  \end{enumerate}
+\end{solution}
+
+% section matrix_transformations (end)
+
+\section{Linear Transformations}
+\label{sec:linear_transformations}
+
+\begin{definition}[Linear Transformation]
+  \label{def:linear_transformation}
+
+  Let $T : \R^n \to \R^m$. The transformation $T$ is \textbf{linear} if it
+  satisfies the following properties:
+  \begin{enumerate}
+    \label{enum:linear_transformation}
+
+    \item $\forall \u, \v \in \R^m$, $T(\u + \v) = T(\u) + T(\v)$.
+      \imp{``Preserving vector addition''}.
+
+    \item $\forall c, \u \in \R^n$, $T(c\u) = cT(\u)$. \imp{``Preserving scalar
+      multiplication''}.
+  \end{enumerate}
+\end{definition}
+
+\begin{purpleframe}
+  \label{prpl:linear_transformation}
+
+  If $T$ is a linear transformation, then $T(\vec{0}) = \vec{0}$ and we can also
+  combine both properties \circled{1} and \circled{2} into the following
+  equation
+  \[%
+    T(c\u + d\v) = cT(\u) + dT(\v)
+  ,\]%
+  $\forall c, d, \u, \v \in \R^n$, where $\R^n$ is the
+  domain of $T$. In general, we can write
+  \[%
+    T(c_1\v_1 + c_2\v_2 + \ldots + c_p\v_p) = \sum_{i=1}^p c_i(T(\v_i))
+  .\]%
+  Combing both properties is sometimes called the \textbf{superposition
+  principle}.
+\end{purpleframe}
+
+\begin{note}
+  \label{nte:linear_transformation}
+
+  Matrix transformations $T(\x) = A\x$ are linear because
+  \[%
+    T(c\u + d\v) = A(c\u + d\v) = A(c\u) + A(d\v) = cA\u + dA\v = cT(\u) + dT(\v)
+  ,\]%
+  however, not all linear transformations start in this form.
+\end{note}
+
+\begin{question}
+  \label{qst:linear_transformation_1}
+
+  Given a scalar $r$, let $T : \R^2 \to \R^2$, under $T(\x) = r\x$. When $0 \le
+  r \le 1$, the transformation $T$ is called a \textbf{contraction}. When $r >
+  1$, then $T$ is called a \textbf{dilation}. Let $r = 3$ and show that $T$ is a
+  linear transformation.
+\end{question}
+
+\begin{solution}
+  \label{sol:linear_transformation_1}
+
+  Let $c, d, \u, \v \in \R^2$. We need to show that $T(c\u + d\v) = cT(\u) +
+  dT(\v)$. So, we get
+  \[%
+    T(c\u + d\v) = 3(c\u + d\v) = 3c\u + 3d\v = c \cdot \underbrace{3\u}_{T(\u)} + d \cdot \underbrace{3\v}_{T(\v)} = cT(\u) + dT(\v)
+  .\qedhere\]%
+\end{solution}
+
+\begin{question}
+  \label{qst:linear_transformation_2}
+
+    Let $T : \R^2 \to \R^3$ be a transformation defined by
+    \[%
+			T\left(\begin{bNiceMatrix}[columns-width=auto]
+				x \\
+				y \\
+			\end{bNiceMatrix}\right) =
+			\begin{bNiceMatrix}[columns-width=auto]
+				-5x-y \\
+				-3x-3 \\
+				x-3y \\
+			\end{bNiceMatrix}
+    .\]%
+    Determine if $T$ is linear. Note that $T$ can also be written as
+    $T(x,y)=(-5x-y,-3x-3,x-3y)$.
+\end{question}
+
+\begin{solution}
+  \label{sol:linear_transformation_2}
+
+  We want to show $T(c\u + d\v) = cT(\u) + dT(\v)$. Let $\u = (2, 1)$ and $\v =
+  (0, 3)$ (pick nontrivial values). Let $c = 1$ and $d = -2$. Now, let's compute
+  $T(c\u + d\v)$
+  \[%
+    T(c\u + d\v) = T(1\u - 2\v)
+    = T\left(\begin{bNiceMatrix}[columns-width=auto]
+        2 \\
+        1 \\
+      \end{bNiceMatrix} -
+      2\begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        3 \\
+    \end{bNiceMatrix}\right)
+    = T\left(\begin{bNiceMatrix}[columns-width=auto]
+        2 \\
+        -5 \\
+    \end{bNiceMatrix}\right)
+    = \begin{bNiceMatrix}[columns-width=auto]
+      -5(2) - (-5) \\
+      -3(2) - 3 \\
+      (2) - 3(-5) \\
+    \end{bNiceMatrix}
+    = \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      -9 \\
+      17 \\
+    \end{bNiceMatrix}
+  .\]%
+  Now, let's compute $cT(\u) + dT(\v)$
+  \[%
+    cT(\u) + dT(\v) = 1T\left(\begin{bNiceMatrix}[columns-width=auto]
+        2 \\
+        1 \\
+    \end{bNiceMatrix}\right) -
+    2T\left(\begin{bNiceMatrix}[columns-width=auto]
+        6 \\
+        3 \\
+    \end{bNiceMatrix}\right) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -11 \\
+      9 \\
+      -1 \\
+    \end{bNiceMatrix} -
+    2\begin{bNiceMatrix}[columns-width=auto]
+      -3 \\
+      -3 \\
+      -9 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      -3 \\
+      17 \\
+    \end{bNiceMatrix}
+  .\]%
+  Since $T(c\u + d\v) \ne cT(\u) + dT(\v)$, $T$ is not linear.
+\end{solution}
+
+\begin{question}
+  \label{qst:linear_transformation_3}
+
+  Consider the following vectors
+  \[%
+    \u = \begin{bNiceMatrix}[columns-width=auto]
+      -4 \\
+      5 \\
+    \end{bNiceMatrix},\quad
+    \x = \begin{bNiceMatrix}[columns-width=auto]
+      40 \\
+      -24 \\
+    \end{bNiceMatrix},\quad
+    \v = \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      -2 \\
+    \end{bNiceMatrix}\aand
+    \y = \begin{bNiceMatrix}[columns-width=auto]
+      17 \\
+      36 \\
+    \end{bNiceMatrix}
+  .\]%
+  Let $T : \R^2 \to \R^2$ be a linear transformation such that $T(\u) = \x$ and
+  $T(\v) = \y$. Use the fact that $T$ is linear to determine the following
+  vectors.
+
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \label{enum:linear_transformation_3_qst}
+
+      \item $T\left(\sfrac{1}{2}\u\right)$
+
+      \item $T(\u + \v)$.
+
+      \item $T(2\u-3\v)$.
+    \end{enumerate}
+  \end{multicols}
+\end{question}
+
+\begin{solution}
+  \label{sol:linear_transformation_3} $ $
+
+  \begin{enumerate}
+    \label{enum:linear_transformation_3_sol}
+
+    \item We can factor out the half and solve for the rest
+      \[%
+        T\left(\frac{1}{2}\u\right) = \frac{1}{2}T(\u) = \frac{1}{2}\x = \frac{1}{2}
+        \begin{bNiceMatrix}[columns-width=auto]
+          40 \\
+          -24 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          20 \\
+          -12 \\
+        \end{bNiceMatrix}
+      .\]%
+
+    \item We can use the fact that we can break up the addition since it's a
+      linear transformation
+      \[%
+        T(\u + \v) = T(\u) + T(\v) = \x + \y =
+        \begin{bNiceMatrix}[columns-width=auto]
+          40 \\
+          -24 \\
+        \end{bNiceMatrix} +
+        \begin{bNiceMatrix}[columns-width=auto]
+          17 \\
+          36 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          57 \\
+          12 \\
+        \end{bNiceMatrix}
+      .\]%
+
+    \item Since this is a linear transformation, we can use the fact that
+      \[%
+        T(a\u + b\v) = aT(\u) + bT(\v)
+      ,\]%
+      to get the following solution
+      \[%
+        T(2\u - 3\v) = 2T(\u) - 3T(\v) = 2\x - 3\y =
+        2\begin{bNiceMatrix}[columns-width=auto]
+          40 \\
+          -24 \\
+        \end{bNiceMatrix} -
+        3\begin{bNiceMatrix}[columns-width=auto]
+          17 \\
+          36 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          29 \\
+          -156 \\
+        \end{bNiceMatrix}
+      .\qedhere\]%
+  \end{enumerate}
+\end{solution}
+
+\begin{question}
+  \label{qst:linear_transformation_4}
+
+  Consider the following vectors
+  \[%
+    \e_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix},\quad
+    \e_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      1 \\
+    \end{bNiceMatrix},\quad
+    \y_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      8 \\
+      9 \\
+    \end{bNiceMatrix},\quad
+    \y_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      -1 \\
+    \end{bNiceMatrix},\quad
+    \v =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      -4 \\
+    \end{bNiceMatrix},\aand
+    \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      a \\
+      b \\
+    \end{bNiceMatrix}
+  .\]%
+
+  Let $T : \R^2 \to \R^2$ be a linear transformation such that $T(\e_1) = \y_1$
+  and $T(\e_2) = \y_2$. Find the images of $\v$ and $\x$ under $T$.
+\end{question}
+
+\begin{solution}
+  \label{sol:linear_transformation_4}
+
+  First, we need to rewrite $\v$ and $\x$ in terms of $\c_1$ and $\c_2$
+  \begin{alignat*}{6}
+    \v &=
+    \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      -4 \\
+    \end{bNiceMatrix}
+    &&= \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      -4 \\
+    \end{bNiceMatrix}
+    &&= -5\begin{bNiceMatrix}[columns-width=auto,last-row]
+      1 \\
+      0 \\
+      \imp{\e_1} \\
+    \end{bNiceMatrix} -
+    4\begin{bNiceMatrix}[columns-width=auto,last-row]
+      0 \\
+      1 \\
+      \imp{\e_2} \\
+    \end{bNiceMatrix}
+    &&= - 5\e_1 - 4\e_2 \\
+    \x &= \begin{bNiceMatrix}[columns-width=auto]
+      a \\
+      b \\
+    \end{bNiceMatrix}
+    &&= \begin{bNiceMatrix}[columns-width=auto]
+      a \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      b \\
+    \end{bNiceMatrix}
+    &&= a
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix} +
+    b\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      1 \\
+    \end{bNiceMatrix}
+    &&= a\e_1 + b\e_2
+  .\end{alignat*}
+
+  Thus, since $T$ is linear, we get
+  \begin{alignat*}{5}
+    T(\v) &= T(-5\e_1 -4\e_2) &&= -5 \cdot \underbrace{T(\e_1)}_{\y_1} - 4 \cdot \underbrace{T(\e_1)}_{\y_2} &&= -5\y_1 - 4\y_2 &&= -5
+    \begin{bNiceMatrix}[columns-width=auto]
+      8 \\
+      9 \\
+    \end{bNiceMatrix} -
+    4\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      -1 \\
+    \end{bNiceMatrix} &&=
+    \begin{bNiceMatrix}[columns-width=auto]
+      -40 \\
+      -41 \\
+    \end{bNiceMatrix} \\
+    T(\x) &= T(a\e_1 + b\e_2) &&= a \cdot T(\c_1) + b \cdot T(\e_2) &&= a\y_1 + b\y_2 &&= a
+    \begin{bNiceMatrix}[columns-width=auto]
+      8 \\
+      9 \\
+    \end{bNiceMatrix} +
+    b\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      -1 \\
+    \end{bNiceMatrix} &&=
+    \begin{bNiceMatrix}[columns-width=auto]
+      8a \\
+      9a - b \\
+    \end{bNiceMatrix}
+  .\qedhere\end{alignat*}
+\end{solution}
+
+% section linear_transformations (end)
+
+\newpage

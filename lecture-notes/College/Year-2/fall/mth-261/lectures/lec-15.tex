@@ -1,0 +1,696 @@
+\nte[Sections 4.4 and 4.6]{Nov 21 2023 Tue (14:00:05)}{Systems and Bases}
+
+\section{Coordinate Systems}
+\label{sec:coordinate_systems}
+
+\begin{theorem}[Unique Representation Theorem]
+  \label{thm:unique_representation_theorem}
+
+  Let $\B = \{\b_1, \b_2, \ldots, \b_n\}$ be a basis for a vector space $V$.
+  Then $\forall \x \in V$ there is a unique set of scalars $c_1, c_2, \ldots,
+  c_n$ such that
+  \begin{equation}\label{eqt:thm_unique_representation_theorem}
+    \x = c_1\b_1 + c_2\b_2 + \cdots + c_n\b_n
+  .\end{equation}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:unique_representation_theorem}
+
+  Since $\beta$ spans $V$, there exists scalars such that
+  \cref{eqt:thm_unique_representation_theorem} holds. Suppose $\x$ also has the
+  representation
+  \[%
+    \x = d_1\b_1 + \cdots d_n\b_n
+  ,\]%
+  for scalars $d_1, \dots, d_n$. Then, subtracting, we have
+  \begin{equation}\label{eqt:prf_unique_representation_theorem_1}
+    \zero = \x - \x = (c_1 - d_1)\b_1 + \cdots + (c_n - d_n)\b_n
+  .\end{equation}
+  Since $\beta$ is linearly independent, the weights in
+  \cref{eqt:prf_unique_representation_theorem_1} must all be zero. That is, $c_j
+  = d_j$ for $1 \le j \le n$.
+\end{proof}
+
+The uniqueness of the representation allows us to use the basis $\B$ as a
+``coordinates system''.
+
+\begin{definition}[Coordinates of a Vector]
+  \label{def:coordinates_of_a_vector}
+
+  Suppose $\B = \{\b_1, \b_2, \ldots, \b_n\}$ is a basis for a vector space $V$
+  and $\x \in V$. Then the \textbf{coordinates of $x$ relative to the basis
+  $\B$} (also called the \textit{$\B$-coordinate vector of $\x$}) is the vector
+  \[%
+    [\x]_\B =
+    \begin{bNiceMatrix}[columns-width=auto]
+      c_1 \\
+      c_2 \\
+      \vdots \\
+      c_n \\
+    \end{bNiceMatrix}
+  .\]%
+  where $c_1, c_2, \ldots, c_n$ are the unique scalars such that $\x = c_1\b_1
+  + c_2\b_2 + \cdots + c_n\b_n$. Also, the transformation $\x \mapsto [\x]_\B$
+  is called the \textbf{coordinate mapping determine by $\B$}.
+\end{definition}
+
+\begin{example}
+  \label{exm:coordinates_of_a_vector}
+
+  Consider the following vectors
+  \[%
+    \b_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix},\quad
+    \b_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+    \end{bNiceMatrix},\quad
+    \e_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix},\aand
+    \e_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\]%
+  Let $\B = \{\b_1, \b_2\}$ and $\E = \{\e_1, \e_2\}$ be bases for the vector
+  space $\R^2$. Now consider the vector
+  \[%
+    \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      6 \\
+    \end{bNiceMatrix}
+  .\]%
+  Let's look at this vector from the perspectives of each basis. Notice that we
+  can write $\x$ as
+  \[%
+    \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      6 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      6 \\
+    \end{bNiceMatrix} =
+    1\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix} + 6
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      1 \\
+    \end{bNiceMatrix} = 1\e_1 + 6\e_2
+  .\]%
+  Thus, the $\E$-coordinates of $\x$ must be $[\x]_\E = (1, 6)$. Now notice that
+  we can write $\x$ as
+  \[%
+    \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      6 \\
+    \end{bNiceMatrix} =
+    -2\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix} + 3
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+    \end{bNiceMatrix} = -2\b_1 + 3\b_2
+  .\]%
+  Thus, the $\B$-coordinates of $\x$ must be $[\x]_\B = (-2, 3)$. Graphically,
+  each coordinate vector $[\x]_\E$ and $[\x]_\B$ gives us ``directions'' for
+  graphing $\x$ on a coordinates system whose grid lines are formed by linear
+  combinations of $\E$ and $\B$, respectively.
+  \begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}[scale=0.5]
+      \draw[black!60] (-2,-2) grid (3,7);
+      \filldraw[black] (1,6) circle (3pt) node[below right]{$\x$};
+      \draw[ultra thick,linecolor1,<->] (1,0) node[below]{$\e_2$} -- (0,0) -- (0,1) node[left]{$\e_1$};
+      \draw[thick,linecolor1,-] (-2,0) -- (3,0);
+      \draw[thick,linecolor1,-] (0,-2) -- (0,7);
+      \draw (0.5,-2.5) node[below]{$\R^2$ with a $\E$-grid};
+    \end{tikzpicture}\qquad\qquad\qquad
+    \begin{tikzpicture}[scale=0.25]
+      \pgftransformcm{2.5}{0}{1}{2}{\pgfpoint{0}{0}}
+      \draw[black!60] (-3,-2) grid (3,7);
+      \filldraw[black] (-2,3) circle (3pt) node[above right]{$\x$};
+      \draw[ultra thick,linecolor1,<->] (1,0) node[right]{$\b_2$} -- (0,0) -- (0,1) node[left]{$\b_1$};
+      \draw[thick,linecolor1,-] (-3,0) -- (3,0);
+      \draw[thick,linecolor1,-] (0,-2) -- (0,7);
+      \draw (0,-2.5) node[below]{$\R^2$ with a $\B$-grid};
+    \end{tikzpicture}
+
+    \caption{}
+    \label{fig:coordinates_of_a_vector}
+  \end{figure}
+
+  The reason we care about seeing vectors from different perspectives or
+  ``grids'' is because some calculations or operations may be easier in
+  different grids.
+\end{example}
+
+\begin{question}
+  \label{qst:coordinates_of_a_vector}
+
+  Consider the following vectors
+  \[%
+    \b_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      -4 \\
+      3 \\
+    \end{bNiceMatrix},\quad
+    \b_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 \\
+      2 \\
+      -2 \\
+    \end{bNiceMatrix},\quad
+    \b_3 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      -7 \\
+      0 \\
+    \end{bNiceMatrix},\quad
+    \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 \\
+      -7 \\
+      10 \\
+    \end{bNiceMatrix},\aand
+    [\y]_\B =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      0 \\
+      -1 \\
+    \end{bNiceMatrix}
+  .\]%
+
+  \begin{enumerate}
+    \label{enum:coordinates_of_a_vector_qst}
+
+    \item Find the coordinate vector $[\x]_\B$ of $\x$ relative to the basis
+      $\B = \{\b_1, \b_2, \b_3\}$.
+
+    \item Find the vector $\y$ determined by the given coordinate vector
+      $[\y]_\B$ for the basis $\B = \{\b_1, \b_2, \b_3\}$.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:coordinates_of_a_vector} $ $
+
+  \begin{enumerate}
+    \label{enum:coordinates_of_a_vector_sol}
+
+    \item Recall, if $[\x]_\B = (c_1, c_2, c_3)$, then $\x = c_1\b_1 + c_2\b_2 +
+      c_3\b_3$. So, you can solve this vector equation with
+      \[%
+        \begin{bNiceArray}{ccc|c}
+          \b_1 & \b_2 & \b_3 & \x \\
+        \end{bNiceArray} =
+        \begin{bNiceArray}{ccc|c}
+          1 & 5 & 4 & 5 \\
+          -4 & 2 & -7 & -7 \\
+          3 & -2 & 0 & 10 \\
+        \end{bNiceArray} \rref
+        \begin{bNiceArray}{ccc|c}[last-row]
+          \circled{1} & 0 & 0 & 4 \\
+          0 & \circled{1} & 0 & 1 \\
+          0 & 0 & \circled{1} & -1 \\
+          \imp{c_1} & \imp{c_2} & \imp{c_3} & \\
+        \end{bNiceArray} \rightarrow [\x]_\B = (4, 1, -1)
+      .\]%
+
+    \item Recall, if $[\y]_\B = (3, 0, -1)$, then
+      \[%
+        \y = 3\b_1 + 0\b_2 - 1\b_3 =
+        3\begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          -4 \\
+          3 \\
+        \end{bNiceMatrix} +
+        0\begin{bNiceMatrix}[columns-width=auto]
+          5 \\
+          2 \\
+          -2 \\
+        \end{bNiceMatrix} -
+        1\begin{bNiceMatrix}[columns-width=auto]
+          4 \\
+          -7 \\
+          0 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          -1 \\
+          -5 \\
+          9 \\
+        \end{bNiceMatrix}
+      .\qedhere\]%
+  \end{enumerate}
+\end{solution}
+
+Recall that we can write $\x = c_1\b_1 + c_2\b_2 + c_3\b_3$ from part $1$ to
+\[%
+  \underbrace{
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & 5 & 4 \\
+      -4 & 2 & -7 \\
+      3 & -2 & 0 \\
+    \end{bNiceMatrix}
+  }_{\imp{P_\B}}
+  \underbrace{
+    \begin{bNiceMatrix}[columns-width=auto]
+      c_1 \\
+      c_2 \\
+      c_3 \\
+    \end{bNiceMatrix}
+  }_{\imp{[\x]_\B}} =
+  \underbrace{
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 \\
+      -7 \\
+      10 \\
+    \end{bNiceMatrix}
+  }_{\imp{\x}}
+.\]%
+The matrix $P_\B$ is called the \textbf{change-of-coordinates matrix} from $\B$
+to the standard basis $\E \in \R^n$. In general, if $\B = \{\b_1, \b_2, \dots,
+\b_n\}$ is a basis for $\R^n$, then the change-of-coordinates matrix from $\B$
+to the standard basis is given by
+\[%
+  P_\B =
+  \begin{bNiceMatrix}[columns-width=auto]
+    \b_1 & \b_2 & \cdots & \b_n \\
+  \end{bNiceMatrix}
+,\]%
+and if $\x \in \R^n$, then $P_\B[\x]_\B = \x$.
+
+This matrix allows us to view ``moving'' from a $\B$-grid of $\R^n$ to a
+$\E$-grid of $\R^n$ as a transformation. Specifically, the transformation
+$[\x]_\B \mapsto \x$ is given by the formula
+\[%
+  T([\x]_\B) = P_\B[\x]_\B
+.\]%
+However, remember that $x \mapsto [\x]_\B$ was the coordinate mapping determined
+by $\B$. Because $P_\B$ is invertible, then we can obverse that
+\[%
+  \rcancel{P\I_\B} \rcancel{P_\B}[\x]_\B = P\I_\B\x \implies P\I_\B\x = [\x]_\B
+.\]%
+Hence, the transformation $[\x]_\B \mapsto x$ whose standard matrix is given by
+$P_\B$, is a linear, one-to-one, and onto from $\R^n$ to $\R^n$. In addition,
+$P_\B$ is invertible. The same applies to $\x \mapsto [\x]_\B$, denoted as
+$[~]_\B$, and $P\I_\B$.
+
+\begin{question}
+  \label{qst:change_of_coordinates_matrix}
+
+  Consider the following basis of $\R^3$ below.
+  \[%
+    \B = \left\{
+      \underset{\imp{\b_1}}{
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          0 \\
+          3 \\
+        \end{bNiceMatrix}
+      },
+      \underset{\imp{\b_2}}{
+        \begin{bNiceMatrix}[columns-width=auto]
+          2 \\
+          1 \\
+          8 \\
+        \end{bNiceMatrix}
+      },
+      \underset{\imp{\b_3}}{
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          -1 \\
+          2 \\
+        \end{bNiceMatrix}
+      }
+    \right\}
+  .\]%
+  \begin{enumerate}
+    \label{enum:change_of_coordinates_matrix_qst}
+
+    \item Find the change-of-coordinates matrix from $\B$ to the standard basis
+      $\E$ in $\R^3$.
+
+    \item Use your answer in part $1$ to find the change-of-coordinates matrix
+      from $\E$ to $\B$.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:change_of_coordinates_matrix} $ $
+
+  \begin{enumerate}
+    \label{enum:change_of_coordinates_matrix_sol}
+
+    \item Since $\B = \{\b_1, \b_2, \b_3\}$, then the change-of-coordinates from
+      $\B$ to $\E$ is given by
+      \[%
+        P_\B =
+        \begin{bNiceMatrix}[columns-width=auto]
+          \b_1 & \b_2 & \b_3 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 & 2 & 1 \\
+          0 & 1 & -1 \\
+          3 & 8 & 2 \\
+        \end{bNiceMatrix}
+      .\]%
+
+    \item Then, the change-of-coordinates from $\E$ to $\B$ is given by
+      $P\I_\B$. We can find $P\I_\B$ by row reducing the augmented matrix
+      \[%
+        \begin{bNiceMatrix}[columns-width=auto]
+          P_\B~I \\
+        \end{bNiceMatrix} =
+        \begin{bNiceArray}{ccc|ccc}
+          1 & 2 & 1 & 1 & 0 & 0 \\
+          0 & 1 & -1 & 0 & 1 & 0 \\
+          3 & 8 & 2 & 0 & 0 & 1 \\
+        \end{bNiceArray} \rref
+        \begin{bNiceArray}{ccc|ccc}[last-row]
+          \CodeBefore
+          \tikz \draw[thick,main] ([xshift=1mm]1-|4) rectangle ([xshift=-2mm]last-|last);
+          \Body
+          1 & 0 & 0 & 10 & 4 & -3 ~ \\
+          0 & 1 & 0 & -3 & -1 & 1 ~ \\
+          0 & 0 & 1 & -3 & -2 & 1 ~ \\
+          & & & & \imp{P\I_\B} & \\
+        \end{bNiceArray}
+      .\qedhere\]%
+  \end{enumerate}
+\end{solution}
+
+% section coordinate_systems (end)
+
+\section{Change of Basis}
+\label{sec:change_of_basis}
+
+\begin{definition}[Change of Coordinates Matrix]
+  \label{def:change_of_coordinates_matrix}
+
+  The matrix $\underset{\D \leftarrow \B}{P}$ is called the
+  \textbf{change-of-coordinates matrix from} $\B$ to $\D$. That is, multiplying
+  a vector by $\underset{\D \leftarrow \B}{P}$ converts from $\B$-coordinates to
+  $\D$-coordinates.
+\end{definition}
+
+Let's look at transforming vectors between two non-standard basis $\B$ and $\D$.
+
+\begin{question}
+  \label{qst:transforming_vectors_between_two_non_standard_basis}
+
+  Consider two bases $\B = \{\b_1, \b_2\}$ and $\D = \{\d_1, \d_2\}$ for a
+  vector space $V$ such that $\b_1 = 4\d_1 + \d_2$ and $\b_2 = -6\d_1 + \d_2$.
+  Suppose $\x$ is a vector in $V$ such that $\x = 3\b_1 + \b_2$. Find the
+  $[\x]_\D$.
+\end{question}
+
+\begin{solution}
+  \label{sol:transforming_vectors_between_two_non_standard_basis}
+
+  First, $\x = 3\b_1 + \b_2$ tells us that $[\x]_\B = (3, 1)$. Recall, the
+  transformation $[~]_\D$ is linear, giving us
+  \begin{align*}
+    [\x]_\D &= [3\b_1 + \b_2]_\D = 3[\b_1]_\D + 1[\b_2]_\D \rightarrow [\x]_\D = 3[\b_1]_D + 1[\b_2]_\D \\
+    T(\x) &= T(3\b_1 + \b_2) = 3T(\b_1) + 1T(\b_2) \\
+    \textrm{Matrix eq:}~&\phantom{=}
+    \begin{bNiceMatrix}[columns-width=auto]
+      [\b_1]_\D & [\b_2]_\D \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      1 \\
+    \end{bNiceMatrix} =
+    [\x]_\D \quad \textrm{Notice:}~
+    \begin{array}{l}
+      \b_1 = 4\d_1 + \d_2 \rightarrow [\b_1]_\D = (4, 1) \\
+      \b_2 = -6\d_1 + \d_2 \rightarrow [\b_2]_\D = (-6, 1)
+    \end{array} \\
+    &\phantom{=}\underset{\imp{\underset{\D \leftarrow \B}{P}}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        4 & -6 \\
+        1 & 1 \\
+      \end{bNiceMatrix}
+    }
+    \underset{\imp{[\x]_\B}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        3 \\
+        1 \\
+      \end{bNiceMatrix}
+    } =
+    3\begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      1 \\
+    \end{bNiceMatrix} +
+    1\begin{bNiceMatrix}[columns-width=auto]
+      -6 \\
+      1 \\
+    \end{bNiceMatrix} =
+    \underset{\imp{[\x]_\D}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        6 \\
+        4 \\
+      \end{bNiceMatrix}
+    }
+  .\qedhere\end{align*}
+\end{solution}
+
+\begin{theorem}
+  \label{thm:unique_invertible_matrix_between_two_bases}
+
+  Let $\B = \{\b_1, \b_2, \ldots, \b_n\}$ and $\D = \{\d_1, \d_2, \ldots,
+  \d_n\}$ be bases of a vector space $V$. Then there is a unique $n \times n$
+  invertible matrix $\underset{\D \leftarrow \B}{P}$ such that
+  \[%
+    [\x]_\D = \underset{\D \leftarrow \B}{P}[\x]_\B \qtq{where} \underset{\D \leftarrow \B}{P} = \left[~[\b_1]_\D~[\b_2]_\D~\cdots~[\b_n]_\D~\right]
+  .\]%
+\end{theorem}
+
+Since $\underset{\D \leftarrow \B}{P}$ is the change-of-coordinates from $\B$ to
+$\D$ and this matrix is invertible, then we have
+\[%
+  \underset{\D \leftarrow \B}{P}\I[\x]_\D = [\x]_\B
+,\]%
+which shows that $\underset{\D \leftarrow \B}{P}\I$ is the change-of-coordinates
+matrix from $\D$ to $\B$, giving us
+\[%
+  \underset{\D \leftarrow \B}{P}\I = \underset{\B \leftarrow \D}{P}
+.\]%
+
+Given two bases $\B = \{\b_1, \b_2, \ldots, \b_n\}$ and $\D = \{\d_1, \d_2,
+\ldots, \d_n\}$ of a vector space $V$, then we can use row reduction to get the
+change-of-coordinates matrix from $\B$ to $\D$ as shown below.
+\[%
+  [\,\d_1~\cdots~\d_n~\vert~\b_1~\cdots~\b_n\,] \rightarrow \left[\,I~\underset{\D \leftarrow \B}{P}\,\right]
+.\]%
+Also, we can get the change-of-coordinates matrix from $\D$ to $\B$ with the row
+reduction below.
+\[%
+  [\,\b_1~\cdots~\b_n~\vert~\d_1~\cdots~\d_n\,] \rightarrow \left[\,I~\underset{\B \leftarrow \D}{P}\,\right]
+.\]%
+
+\begin{question}
+  \label{qst:change_of_basis}
+
+  Consider the following vectors
+  \[%
+    \b_1 = \begin{bNiceMatrix}[columns-width=auto]
+      -9 \\
+      1 \\
+    \end{bNiceMatrix},\quad
+    \b_2 = \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      -1 \\
+    \end{bNiceMatrix},\quad
+    \d_1 = \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      -4 \\
+    \end{bNiceMatrix},\aand
+    \d_2 = \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -5 \\
+    \end{bNiceMatrix}
+  .\]%
+
+  Let $\B = \{\b_1, \b_2\}$ and $\D = \{\d_1, \d_2\}$ be bases for $\R^2$.
+  \begin{enumerate}
+    \label{enum:change_of_basis_qst}
+
+    \item Find the change-of-coordinates matrix from $\B$ to $\D$.
+
+    \item Use your answer in part $1$ to find the change-of-coordinates matrix
+      from $\D$ to $\B$.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:change_of_basis} $ $
+
+  \begin{enumerate}
+    \label{enum:change_of_basis_sol}
+
+    \item To find $\underset{D \leftarrow B}{P}$, we setup
+      $[\,\d_1~\d_2~\vert~\b_1~\b_2\,]$ and row reduce, giving us
+      \begin{align*}
+        \begin{bNiceArray}{cc|cc}
+          1 & 3 & -9 & -5 \\
+          -4 & -5 & 1 & -1 \\
+        \end{bNiceArray} \rref
+        \begin{bNiceArray}{cc|cc}
+          1 & 0 & 6 & 4 \\
+          0 & 1 & -5 & -3 \\
+        \end{bNiceArray} \rightarrow
+        \underset{D \leftarrow B}{P} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          6 & 4 \\
+          -5 & -3 \\
+        \end{bNiceMatrix}
+      .\end{align*}
+
+    \item To find $\underset{B \leftarrow D}{P}$, we find the determinant of
+      $\underset{D \leftarrow B}{P}$ and divide by it, giving us
+      \[%
+        \underset{B \leftarrow D}{P} = \underset{D \leftarrow B}{P}\I = \frac{1}{(6)(-3) - (4)(-5)}
+        \begin{bNiceMatrix}[columns-width=auto]
+          -3 & -4 \\
+          5 & 6 \\
+        \end{bNiceMatrix} =
+        \frac{1}{2}\begin{bNiceMatrix}[columns-width=auto]
+          -3 & -4 \\
+          5 & 6 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          -\sfrac{3}{2} & -2 \\
+          \sfrac{5}{2} & 3 \\
+        \end{bNiceMatrix}
+      .\qedhere\]%
+  \end{enumerate}
+\end{solution}
+
+\begin{question}
+  \label{qst:}
+
+  Let $\X = \{\x_1, \x_2, \x_3\}$ and $\Y = \{\y_1, \y_2, \y_3\}$ be bases for a
+  vector space $V$. Suppose that $\y_1 = 4\x_1 - \x_2$, $\y_2 = \x_1 + 2\x_2 -
+  4\x_3$, and $\y_3 = -3\x_2 + 3\x_3$.
+  \begin{enumerate}
+    \label{enum:_qst}
+
+    \item Find the coordinate vectors $[\y_1]_\X$, $[\y_2]_\X$, and $[\y_3]_\X$.
+      Then use these coordinate vectors to write the change-of-coordinates
+      matrix from $\Y$ to $\X$.
+
+    \item Use your answer in part $1$ to find $[\v]_\X$ for $\v = 5\y_1 - 2\y_2
+      + \y_3$. \textit{Use calculator.}
+
+    \item Use your answer in part $1$ to find the change-in-coordinates matrix
+      from $\X$ to $\Y$. \textit{Use calculator.}
+
+    \item Suppose $[\w]_\X = (2,0,2)$. Use your answer in part $3$ to find
+      $[\w]_\Y$. \textit{Use calculator.}
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:} $ $
+
+  \begin{enumerate}
+    \label{enum:_sol}
+
+    \item Notice
+      \[%
+        \begin{rcases*}
+          \begin{aligned}
+            \y_1 &= 4\x_1 - \x_2 &&\rightarrow [\y_1]_\X = \langle 4, 1, 0 \rangle \\
+            \y_2 &= \x_1 + 2\x_2 - 4\x_3 &&\rightarrow [\y_2]_\X = \langle 1, 2, -4 \rangle \\
+            \y_3 &= -3\x_2 + 3\x_3 &&\rightarrow [\y_3]_\X = \langle 0, -3, 3 \rangle \\
+          \end{aligned}
+        \end{rcases*}
+        \underset{\X \leftarrow \Y}{P} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          4 & 1 & 0 \\
+          -1 & 2 & -4 \\
+          0 & -3 & 3 \\
+        \end{bNiceMatrix}
+      .\]%
+
+    \item We know that $\v = 5\y_1 - 2\y_2 + \y_3 \rightarrow [\v]_\Y = (5, -2,
+      1)$. Thus,
+      \[%
+        [\v]_\X = \underset{\X \leftarrow \Y}{P} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          4 & 1 & 0 \\
+          -1 & 2 & -4 \\
+          0 & -3 & 3 \\
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[columns-width=auto]
+          5 \\
+          -2 \\
+          1 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          18 \\
+          -12 \\
+          11 \\
+        \end{bNiceMatrix}
+      .\]%
+
+    \item $\begin{bNiceArray}{ccc|ccc}
+        4 & 1 & 0 & 1 & 0 & 0 \\
+        -1 & 2 & -4 & 0 & 1 & 0 \\
+        0 & -3 & 3 & 0 & 0 & 1 \\
+      \end{bNiceArray} \rref
+      \begin{bNiceArray}{ccc|ccc}[last-row]
+        \CodeBefore
+        \tikz \draw[thick,main] ([xshift=1mm]1-|4) rectangle ([xshift=-2.2mm]last-|last);
+        \Body
+        \circled{1} & 0 & 0 & \sfrac{2}{7} & \sfrac{1}{7} & \sfrac{1}{7} ~ \\
+        0 & \circled{1} & 0 & -\sfrac{1}{7} & -\sfrac{4}{7} & -\sfrac{4}{7} ~ \\
+        0 & 0 & \circled{1} & \sfrac{4}{21} & -\sfrac{16}{21} & -\sfrac{3}{7} ~ \\
+        & & & & \imp{\underset{\Y \leftarrow \X}{P}} & \\
+      \end{bNiceArray}$.
+
+    \item $[\w]_\Y = \underset{\Y \leftarrow \X}{P} [\w]_\X
+      \begin{bNiceMatrix}[columns-width=auto]
+        \sfrac{2}{7} & \sfrac{1}{7} & \sfrac{1}{7} \\
+        -\sfrac{1}{7} & -\sfrac{4}{7} & -\sfrac{4}{7} \\
+        \sfrac{4}{21} & -\sfrac{16}{21} & -\sfrac{3}{7}
+      \end{bNiceMatrix}
+      \begin{bNiceMatrix}[columns-width=auto]
+        2 \\
+        0 \\
+        2 \\
+      \end{bNiceMatrix} =
+      \begin{bNiceMatrix}[columns-width=auto]
+        \sfrac{6}{7} \\
+        -\sfrac{10}{7} \\
+        \sfrac{26}{21} \\
+      \end{bNiceMatrix}$. \qedhere
+  \end{enumerate}
+\end{solution}
+
+% section change_of_basis (end)
+
+\newpage

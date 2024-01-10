@@ -1,0 +1,452 @@
+\nte[Section 1.3]{Oct 03 2023 Tue (14:00:24)}{Vectors and Vector Equations}
+
+\section{Vectors and Vector Equations}
+\label{sec:vectors_and_vector_equations}
+
+\begin{definition}[Vector]
+  \label{def:vector}
+
+  A \textbf{vector} is a matrix with one column. The set of all vectors with $n$
+  real number entries (or rows) is denoted as $R^n$.
+\end{definition}
+
+\begin{example}
+  \label{exm:vector}
+
+  A vector in $\R^3$ is denoted as
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -2 \\
+      5 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{example}
+
+\begin{notation}
+  \label{ntn:ways_to_denote_a_vector}
+
+  To denote a variable is a vector, you can either use a boldface letter such as
+  $\mathbf{u}$, or a letter with an arrow on top, e.g. $\u$. To create vectors,
+  you can either use order pairs $\u = (3, 1, 2)$, or use braket notation, $\u =
+  \langle 3, 1, 2 \rangle$
+\end{notation}
+
+\begin{note}
+  \label{nte:ways_to_denote_a_vector}
+
+  Throughout these notes, I'll be using the arrow notation to along with the
+  parentheses notation denote vectors.
+\end{note}
+
+\subsection{Vector Operations}
+\label{sub_sec:vector_operations}
+
+Vectors in $\R^2$ can be represented as ordered pairs $(x, y)$ and thus as a
+point in the plane. Typically we also draw a arrow from the origin to the point.
+
+\begin{multicols}{2}
+  \noindent Scaling a vector $\u$ ($\v$) by $c$ will be \textbf{stretched} or
+  \textbf{shorten} by a factor of $c$, such as
+  \begin{align*}
+    \frac{1}{2}\underset{\color{linecolor2}{\u}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        4 \\
+        2 \\
+      \end{bNiceMatrix}
+    }
+    = \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      1 \\
+    \end{bNiceMatrix}
+    {\color{linecolor2}{\,=\,\frac{1}{2}\u}} \oor
+    -2\underset{\color{linecolor1}{\v}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        -1 \\
+        1 \\
+      \end{bNiceMatrix}
+    }
+    = \begin{bNiceMatrix}[columns-width=auto]
+      -2 \\
+      2 \\
+    \end{bNiceMatrix}
+    {\textcolor{linecolor1}{\,=\,-2\v}}
+  \end{align*}\columnbreak
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[
+        axis equal image,
+        xmin=-5.25, xmax=5.25,
+        ymin=-3.25, ymax=3.25,
+        ]
+
+        \addplot[color=linecolor2,->,thick,mark=none] coordinates{(0,0)(4,2)} node[above]{$\u$};
+        \addplot[color=linecolor2,->,thick,mark=none] coordinates{(0,0)(2,1)} node[above]{$\frac{1}{2}\u$};
+        \addplot[color=linecolor1,->,thick,mark=none] coordinates{(0,0)(-1,1)} node[above]{$\v$};
+        \addplot[color=linecolor1,->,thick,mark=none] coordinates{(0,0)(2,-2)} node[below]{$-2\v$};
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+\end{multicols}
+\begin{multicols}{2}
+  \noindent The sum $\u + \v$ corresponds to the point obtained by drawing the
+  vector $\u$, then drawing the vector $\v$ from the end of $\u$ as if it were
+  the origin, for example:
+  \begin{equation*}
+    \underset{\color{linecolor2}{\u}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        2 \\
+        4 \\
+      \end{bNiceMatrix}
+    } +
+    \underset{\color{linecolor1}{\v}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        5 \\
+        1 \\
+      \end{bNiceMatrix}
+    }
+    = \underset{\u + \v}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        7 \\
+        5 \\
+      \end{bNiceMatrix}
+    }
+  \end{equation*}\columnbreak
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[
+        xmin=-1, xmax=10.25,
+        ymin=-1, ymax=6.25,
+        ]
+
+        \addplot[color=linecolor2,->,thick,mark=none] coordinates{(0,0)(2,4)} node[above left]{$\u$};
+        \addplot[color=linecolor1,->,thick,mark=none] coordinates{(2,4)(7,5)} node[above left]{$\v$};
+        \addplot[color=black,->,thick,mark=none] coordinates{(0,0)(7,5)} node[above right]{$\u + \v$};
+        \addplot[color=linecolor1!50,->,thick,mark=none] coordinates{(0,0)(5,1)} node[below right]{$\v$};
+        \addplot[color=linecolor2!50,->,thick,mark=none] coordinates{(5,1)(7,5)} node[below right]{$\u$};
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+\end{multicols}
+
+\begin{purpleframe}[Algebraic Properties of $R^n$]
+  \label{prpl:algebraic_properties_of_rn}
+
+  $\forall \u, \v, \w \in \R^n$ and $\forall c, d \in \R$, where $c$ and $d$ are
+  scalers, we get the following properties.
+
+  \begin{multicols}{2}\noindent
+    \begin{enumerate}
+      \label{enum:algebraic_properties_of_rn}
+
+      \item $\u + \v = \v + \u$.
+      \item $(\u + \v) + \w = \u + (\v + \w)$.
+      \item $\u + \zero = \u$.
+      \item $\u + (-\u) = \u - \u = \zero$.
+
+      \item $c(\u + \v) = c\u + c\v$.
+      \item $(c + d)\u = c\u + d\u$.
+      \item $c(d\u) = (cd)\u$.
+      \item $1\u = \u$
+    \end{enumerate}
+  \end{multicols}
+\end{purpleframe}
+
+\begin{note}
+  \label{nte:the_zero_vector}
+
+  The $\zero$ vector is $(0, \dots, 0) \in \R^n$.
+\end{note}
+
+\begin{note}
+  \label{nte:vector_equals}
+
+  Two vectors are equal if and only if their corresponding entries are equal.
+\end{note}
+
+% subsection vector_operations (end)
+
+\subsection{Linear Combinations}
+\label{sub_sec:linear_combinations}
+
+\begin{definition}[Linear Combination]
+  \label{def:linear_combination}
+
+  Given vectors $\v_1, \v_2 \dots, \v_p \in \R$ and scalers $c_1, c_2, \dots,
+  c_p \in \R$, the vector $\y$ is defined as
+  \[%
+    \y = \sum_{i=1}^p c_i\v_i
+  ,\]%
+  is called the \textbf{linear combination} of $\v_1 \v_2, \dots, \v_p$ with
+  weights $c_1, c_2, \dots, c_p$.
+\end{definition}
+
+\begin{question}
+  \label{qst:linear_combination}
+
+  Consider the following vectors
+  \[%
+    \a_1 = \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      -2 \\
+      -5 \\
+    \end{bNiceMatrix},\quad
+    \a_2 = \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      5 \\
+      6 \\
+    \end{bNiceMatrix},\aand
+    \b = \begin{bNiceMatrix}[columns-width=auto]
+      7 \\
+      4 \\
+      -3 \\
+    \end{bNiceMatrix}
+  .\]%
+
+  Use the Row Reduction Algorithm to determine if $\b$ is a linear combination
+  of $\a_1$ and $\a_2$.
+\end{question}
+
+\begin{solution}
+  \label{sol:linear_combination}
+
+  Let $x_1, x_2 \in \R$ be the scalers. We need to find $x_1$ and $x_2$ such
+  that $x_1\a_1 + x_2\a_2 = \b$. This can be rewritten as
+  \[%
+    x_1
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      -2 \\
+      -5 \\
+    \end{bNiceMatrix} +
+    x_2
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      5 \\
+      6 \\
+    \end{bNiceMatrix}
+    = \begin{bNiceMatrix}[columns-width=auto]
+      7 \\
+      4 \\
+      -3 \\
+    \end{bNiceMatrix}
+    \longleftrightarrow
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      -2x_1 \\
+      -5x_1 \\
+    \end{bNiceMatrix}
+    +
+    \begin{bNiceMatrix}[columns-width=auto]
+      2x_2 \\
+      5x_2 \\
+      6x_2 \\
+    \end{bNiceMatrix}
+    = \begin{bNiceMatrix}[columns-width=auto]
+      7 \\
+      4 \\
+      -3 \\
+    \end{bNiceMatrix}
+    \longleftrightarrow
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 + 2x_2 \\
+      -2x_1 + 5x_2 \\
+      -5x_1 + 6x_2 \\
+    \end{bNiceMatrix}
+    = \begin{bNiceMatrix}[columns-width=auto]
+      7 \\
+      4 \\
+      -3 \\
+    \end{bNiceMatrix}
+  ,\]%
+  which can be written as the following system of equations
+  \[%
+    \sysdelim..\systeme{
+      x_1 + 2x_2 = 7,
+      -2x_1 + 5x_2 = 4,
+      -5x_1 + 6x_2 = -3
+    } \longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      1 & 2 & 7 \\
+      -2 & 5 & 4 \\
+      -5 & 6 & -3 \\
+    \end{bNiceArray}
+  .\]%
+
+  Use the Row Reduction Algorithm to solve the system of equations.
+  \begin{align*}
+    \sysdelim..\systeme{
+      2R_1 + R_2 \rightarrow R_2,
+      5R_1 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 2 & 7 \\
+      0 & \circled{9} & 18 \\
+      0 & 16 & 32 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme{
+      \frac{1}{2}R_2 \rightarrow R_2
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 2 & 7 \\
+      0 & \circled{1} & 2 \\
+      0 & 16 & 32 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme{
+      -16R_2 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 2 & 7 \\
+      0 & \circled{1} & 2 \\
+      0 & 0 & 0 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme{
+      -2R_2 + R_1 \rightarrow R_1
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 0 & 3 \\
+      0 & \circled{1} & 2 \\
+      0 & 0 & 0 \\
+    \end{bNiceArray}
+  .\end{align*}
+
+  That means $x_1 = 3$ and $x_2 = 2$. Thus $\b$ is a linear combination of
+  $\a_1$ and $\a_2$, which makes $\b$ a linear combination of
+  \[%
+    3\a_1 + 2\a_2 = \b
+  .\qedhere\]%
+\end{solution}
+
+\begin{purpleframe}
+  \label{prpl:linear_combinations}
+
+  The vector equation $x_1\a_1 + x_2\a_2 + \dots + x_n\a_n = \b$ has the same
+  solution set as the linear system whose augmented matrix is
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      \color{gray}{|} & \color{gray}{|} &  & \color{gray}{|} & \color{gray}{|} \\
+      \a_1 & \a_2 & \cdots & \a_n & \b \\
+      \color{gray}{|} & \color{gray}{|} &  & \color{gray}{|} & \color{gray}{|}
+    \end{bNiceMatrix} \quad\text{or just}\quad [\,\a_1~\a_2~\cdots~\a_n~\b\,]
+  .\]%
+\end{purpleframe}
+
+\begin{example}
+  \label{exm:linear_combinations}
+
+  The augmented matrix of the vectors in \cref{qst:linear_combination} is
+  \[%
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      1 & 2 & 7 \\
+      -2 & 5 & 4 \\
+      -5 & 6 & -3 \\
+    \end{bNiceArray}
+  .\]%
+\end{example}
+
+\begin{definition}[Span]
+  \label{def:span}
+
+  Let $\v_1, \v_2, \dots, \v_p \in R^n$. The \textbf{span} of the vectors $\v_1,
+  \v_2, \dots, \v_p$, denoted as $\Sspan\{\v_1$, $\v_2$, $\dots$, $\v_p\}$ is
+  the set of all linear combinations of $\v_1, \v_2, \dots, \v_p$. That is,
+  $\Sspan\{\v_1$, $\v_2$, $\dots$, $\v_p\}$ is the collection of all the vectors
+  $\b$ that can be written as
+  \[%
+    \b = \sum_{i=1}^p x_i\v_i
+  ,\]%
+  for some scalers $x_1, x_2, \dots, x_p$.
+\end{definition}
+
+\begin{question}
+  \label{qst:solve_for_h_to_be_linear_combination}
+
+  Consider the following vectors
+  \[%
+    \a_1 = \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -4 \\
+      1 \\
+    \end{bNiceMatrix}, \qquad
+    \a_2 = \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      1 \\
+      4 \\
+    \end{bNiceMatrix}, \qquad
+    \b = \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      -26 \\
+      h \\
+    \end{bNiceMatrix}
+  .\]%
+
+  For what value(s) of $h$ is $\b$ a linear combination of $\a_1$ and $\a_2$?
+  Justify your answer.
+\end{question}
+
+\begin{solution}
+  \label{sol:solve_for_h_to_be_linear_combination}
+
+  The equivalent augmented matrix of $x_1\a_1 + x_2\a_2 = \b$ is
+  \[%
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \a_1 & \a_2 & \b \\
+    \end{bNiceArray} =
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      3 & 6 & 6 \\
+      -4 & 1 & -26 \\
+      1 & 4 & h \\
+    \end{bNiceArray}
+  .\]%
+
+  We can then solve for $h$ like we've done in
+  \cref{sec:criteria_for_consistent_linear_systems}, where we would find an $h$
+  value such that the matrix is consistent.
+
+  \begin{align*}
+    \sysdelim..\systeme{
+      \frac{1}{3}R_1 \rightarrow R_1
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 2 & 2 \\
+      -4 & 1 & -26 \\
+      1 & 4 & h \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme{
+      4R_1 + R_2 \rightarrow R_2,
+      \-1R_1 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 2 & 2 \\
+      0 & \circled{9} & 18 \\
+      0 & 2 & h - 2 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme{
+      \frac{1}{9}R_2 \rightarrow R_2
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 2 & 2 \\
+      0 & \circled{1} & 2 \\
+      0 & 2 & h - 2 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme{
+      -2R_2 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      \circled{1} & 2 & 2 \\
+      0 & \circled{1} & 2 \\
+      0 & 0 & \boxed{h + 2} \\
+    \end{bNiceArray}
+  .\end{align*}
+
+  In order for this to be consistent, we want to avoid $[\,0~0~\vert~b\,]$ ,
+  where $b \ne 0$.
+
+  Thus, $h + 2 = 0 \implies h = -2$. So, $h = -2$.
+\end{solution}
+
+% subsection linear_combinations (end)
+
+% section vectors_and_vector_equations (end)
+
+\newpage

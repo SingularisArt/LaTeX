@@ -1,0 +1,589 @@
+\nte[Section 1.9]{Oct 19 2023 Thu (14:04:04)}{Matrix of Linear Transformations}
+
+\begin{question}
+  \label{qst:matrix_of_linear_transformations}
+
+  Let $\e_1 = (1,0)$ and $\e_2 = (0,1)$ and suppose that $T : \R^2 \to \R^3$ is
+  a linear transformation such that
+  \[%
+    T(\e_1) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 \\
+      -7 \\
+      2 \\
+    \end{bNiceMatrix}\aand
+    T(\e_2) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -3 \\
+      8 \\
+      0 \\
+    \end{bNiceMatrix}
+  .\]%
+  Find the matrix-based formula for the image of any $\x$ in $\R^2$.
+\end{question}\noindent
+
+\begin{solution}
+  \label{sol:matrix_of_linear_transformations}
+
+  DO THIS
+\end{solution}
+
+\begin{note}
+  \label{nte:j_column_of_identity_matrix}
+
+  Notice that the vectors $\e_1$ and $\e_2$ are the $1$st and $2$nd columns of
+  the identity matrix $I_2$. In general, we say that $\e_j$ is the $j$th column
+  of the general identity matrix $I_n$. Usually $n$ is indicated within the
+  context of the problem.
+\end{note}
+
+\begin{theorem}
+  \label{thm:standard_matrix}
+
+  Let $T : \R^n \to \R^m$ be a linear transformation. Then there exists a unique
+  matrix $A$, called the \textbf{standard matrix} for the linear transformation
+  $T$, such that
+  \[%
+    T(\x) = A\x,~\forall \x \in \R^n
+  .\]%
+  In fact, $A$ is the $m \times n$ matrix whose $j$th column is the vector
+  $T(\e_j)$, where $\e_j$ is the $j$th column of the identity matrix
+  \[%
+    A = \left[\,T(\e_1)~\cdots~T(\e_n)\,\right] \in \R^n
+  .\]%
+\end{theorem}
+
+\begin{proof}
+  \label{prf:standard_matrix}
+
+  Write $\x = I_n\x = [\,\e_1~\cdots~\e_n\,]\x = x_1\e_1 + \cdots + x_n\e_n$ and
+  use the linearity to compute
+  \begin{align*}
+    T(\x) &= T(x_1\e_1 + \cdots + x_n\e_n) = x_1T(\e_1) + \cdots + x_nT(\e_n) \\
+          &= [\,T(\e_1)~\cdots~T(\e_n)\,]
+          \begin{bNiceMatrix}[columns-width=auto]
+            x_1 \\
+            \vdots \\
+            x_n \\
+          \end{bNiceMatrix} = A\x
+  .\qedhere\end{align*}
+\end{proof}
+
+\begin{note}
+  \label{nte:standard_matrix}
+
+  Not all linear transformations \textbf{start} as a matrix transformation.
+  However, \cref{thm:standard_matrix} shows that we can eventually write all
+  linear transformations as a matrix transformation.
+\end{note}
+
+\begin{question}
+  \label{qst:standard_matrix_1}
+
+  Find the standard matrix $A$ for the (linear) dilation transformation $T(\x) =
+  3\x$, $\forall \x \in \R^2$.
+\end{question}
+
+\begin{solution}
+  \label{sol:standard_matrix_1}
+
+  Let $T : \R^2 \to \R^2$, so $A$ is $2 \times 2$. To use
+  \cref{thm:standard_matrix}, we need to find $T(\e_1)$ and $T(\e_2)$, where
+  $\e_1$ and $\e_2$ are the columns of $I_2$. We have
+  \[%
+    \sysdelim..\systeme*{
+      T(\e_1) = 3\e_1 =
+      3\begin{bNiceMatrix}[columns-width=auto]
+        1 \\
+        0 \\
+      \end{bNiceMatrix} =
+      \begin{bNiceMatrix}[columns-width=auto]
+        3 \\
+        0 \\
+      \end{bNiceMatrix},
+      \phantom{.},
+      T(\e_2) = 3\e_2 =
+      3\begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        1 \\
+      \end{bNiceMatrix} =
+      \begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        3 \\
+      \end{bNiceMatrix}
+    } \rightarrow A = [\,T(\e_1)~T(\e_2)\,] =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 & 0 \\
+      0 & 3 \\
+    \end{bNiceMatrix}
+  .\]%
+  We then get the matrix-based formula for the image of any $\x$ in $\R^2$ as
+  \[%
+    T(\x) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 & 0 \\
+      0 & 3 \\
+    \end{bNiceMatrix}\x
+  .\qedhere\]%
+\end{solution}
+
+\section{Rotation Transformation}
+\label{sec:rotation_transformation}
+
+\subsection{Collection of Transformations}
+\label{sub_sec:collection_of_transformations}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|c|c|}
+  \toprule
+  \textbf{Transformation} & \textbf{Matrix Representation} \\
+  \midrule
+  Reflection through the $x_1$ axis & $\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$ \\
+  \midrule
+  Reflection through the $x_2$ axis & $\begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$ \\
+  \midrule
+  Reflection through the line $x_2 = x_1$ & $\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$ \\
+  \midrule
+  Reflection through the line $x_2 = -x_1$ & $\begin{bmatrix} 0 & -1 \\ -1 & 0 \end{bmatrix}$ \\
+  \midrule
+  Reflection through the origin & $\begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix}$ \\
+  \midrule
+  Rotation about the origin counterclockwise & $\begin{bmatrix} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{bmatrix}$ \\
+  \midrule
+  Rotation about the origin clockwise & $\begin{bmatrix} \cos(\theta) & \sin(\theta) \\ -\sin(\theta) & \cos(\theta) \end{bmatrix}$ \\
+  \midrule
+  Horizontal contraction and expansion & $\begin{bmatrix} k & 0 \\ 0 & 1 \end{bmatrix}$ \\
+  \midrule
+  Vertical contraction and expansion & $\begin{bmatrix} 1 & 0 \\ 0 & k \end{bmatrix}$ \\
+  \midrule
+  Horizontal shear & $\begin{bmatrix} 1 & k \\ 0 & 1 \end{bmatrix}$ \\
+  \midrule
+  Vertical shear & $\begin{bmatrix} 1 & 0 \\ k & 1 \end{bmatrix}$ \\
+  \midrule
+  Projection onto the $x_1$ axis & $\begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}$ \\
+  \midrule
+  Projection onto the $x_2$ axis & $\begin{bmatrix} 0 & 0 \\ 0 & 1 \end{bmatrix}$ \\
+  \bottomrule
+  \caption{Matrix Representations of Various Transformations}
+  \label{fig:matrix_representations_of_various_transformations}
+\end{longtable}
+
+% subsection collection_of_transformations (end)
+
+\begin{question}
+  \label{qst:standard_matrix_2}
+
+  Let $T : \R^2 \to \R^2$ be the linear transformation that rotates each vector
+  in $\R^2$ about the origin through an angle $\theta$ (in radians)
+  counterclockwise. Find the standard matrix $A$ for this linear transformation.
+\end{question}
+
+\begin{solution}
+  \label{sol:standard_matrix_2}
+
+  We can use \cref{thm:standard_matrix} to find $T(\x) = A\x$, $\forall \x \in
+  \R^2$. Firstly, we need to determine $\e_1 = (1, 0)$ and $\e_2 = (0, 1)$ under
+  $T$.
+  \begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}
+      \begin{axis}[
+        clip=false,
+        axis equal image,
+        axis lines=middle,
+        xmin=-1.25,xmax=1.25,ymin=-0.25,ymax=1.25,
+        ]
+        \addplot[style2,->] coordinates{(0,0)(1,0)} node[below right]{$\e_1$};
+        \addplot[style2,->] coordinates{(0,0)(0,1)} node[above left]{$\e_2$};
+        \addplot[color=black,dashed,thick,domain=-1:1,samples=100] {sqrt(1-x^2)};
+        \addplot[style1,<-,domain=0.65:0.75,samples=100] {sqrt(0.75^2-x^2)} node[left,pos=0.6]{$\theta$};
+        \addplot[style1,<-,domain=-0.35:0,samples=100] {sqrt(0.75^2-x^2)} node[above,pos=0.4]{$\theta$};
+        \addplot[style1,->] coordinates{(0,0)(0.866,0.5)} node[above right]{$(\cos(\theta), \sin(\theta))$};
+        \addplot[style1,->] coordinates{(0,0)(-0.5,0.866)} node[above left]{$(-\sin(\theta), \cos(\theta))$};
+      \end{axis}
+    \end{tikzpicture}
+
+    \caption{}
+    \label{fig:rotating_around_origin}
+  \end{figure}
+
+  We observe that
+  $T(\e_1) =
+  \begin{bNiceMatrix}[columns-width=auto]
+    \cos(\theta) \\
+    \sin(\theta) \\
+  \end{bNiceMatrix}\aand
+  T(\e_2) =
+  \begin{bNiceMatrix}[columns-width=auto]
+    -\sin(\theta) \\
+    \cos(\theta) \\
+  \end{bNiceMatrix}$. Therefore, we have
+  \[%
+    A = [\,T(\e_1)~T(\e_2)\,] =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \cos(\theta) & -\sin(\theta) \\
+      \sin(\theta) & \cos(\theta) \\
+    \end{bNiceMatrix}
+  ,\]%
+  where $A$ is the standard matrix of $T$ such that $T(\x) = A\x$.
+\end{solution}
+
+\begin{question}
+  \label{qst:rotation_about_origin_counterclockwise}
+
+  Let $T : \R^2 \to \R^2$ be a rotation about the origin counterclockwise by
+  $\sfrac{pi}{3}$ radians. Find the standard matrix for $T$.
+\end{question}
+
+\begin{solution}
+  \label{sol:rotation_about_origin_counterclockwise}
+
+  Using \cref{fig:matrix_representations_of_various_transformations}, we have
+  \[%
+    A =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \cos(\theta) & -\sin(\theta) \\
+      \sin(\theta) & \cos(\theta) \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \cos\left(\frac{pi}{3}\right) & -\sin\left(\frac{pi}{3}\right) \\
+      \sin\left(\frac{pi}{3}\right) & \cos\left(\frac{pi}{3}\right) \\
+    \end{bNiceMatrix} \approx
+    \begin{bNiceMatrix}[columns-width=auto]
+      0.5 & -0.866 \\
+      0.866 & 0.5 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\begin{question}
+  \label{qst:vertical_shear}
+
+  Let $T : \R^2 \to \R^2$ be a vertical shear such that $T(\e_1) = \e_1 + 3\e_2$
+  and $T(\e_2) = \e_2$. Find the standard matrix for $T$.
+\end{question}
+
+\begin{solution}
+  \label{sol:vertical_shear}
+
+  We know that
+  \[%
+    T(\e_1) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix} +
+    3\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      1 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      3 \\
+    \end{bNiceMatrix}
+  .\]%
+  Thus, $A = [\,T(\e_1)~T(\e_2)\,] = \begin{bNiceMatrix}[columns-width=auto]
+  1 & 0 \\ 3 & 1 \\ \end{bNiceMatrix}$.
+\end{solution}
+
+% section rotation_transformation (end)
+
+\section{Types of Transformations}
+\label{sec:types_of_transformations}
+
+\begin{definition}[Onto]
+  \label{def:onto}
+
+  A transformation $T : \R^n \to \R^m$ is \textbf{onto} or \textbf{surjective}
+  if, $\forall \b \in \R^m$, $\exists \x \in \R^n$ such that $T(\x) = \b$.
+
+	\begin{figure}[H]
+		\centering
+
+		\begin{tikzpicture}[scale=0.8]
+			\draw[color=black,very thick](-2.5,0) circle (1.5);
+			\draw[no marks] (-2.5,-2) node{$\R^n$};
+			\draw[color=black,very thick](2.5,0) circle (2);
+			\draw[no marks] (2.5,-2.5) node{$\R^m$};
+			\filldraw[color=linecolor1!60, fill=linecolor1!5,very thick](2,0) circle (1);
+			\draw[no marks,color=linecolor1] (2,-1.4) node{range};
+			\draw[dashed,very thick](-2.5,1.5)--++(4.5,-0.5);
+			\draw[dashed,very thick](-2.5,-1.5)--++(4.5,0.5);
+			\draw[no marks] (0,2.5) node{$T$ is \textbf{not} onto};
+		\end{tikzpicture}\qquad\qquad\qquad
+		\begin{tikzpicture}[scale=0.8]
+			\draw[color=black,very thick](-2.5,0) circle (1.5);
+			\draw[no marks] (-2.5,-2) node{$\R^n$};
+			\filldraw[color=linecolor1!60,fill=linecolor1!5,very thick](2.5,0) circle (2);
+      \draw[no marks] (2.5,-2.5) node{$\text{range} = \R^m$};
+			\draw[dashed,very thick](-2.5,1.5)--++(5,0.5);
+			\draw[dashed,very thick](-2.5,-1.5)--++(5,-0.5);
+			\draw[no marks] (0,2.5) node{$T$ \textbf{is} onto};
+		\end{tikzpicture}
+
+    \caption{}
+    \label{fig:onto}
+	\end{figure}
+\end{definition}
+
+The question ``does $T$ map $\R^n$ onto $\R^m$'' is called an
+\textbf{existence-type question}.
+
+\begin{definition}[One-to-One]
+  \label{def:one_to_one}
+
+  A transformation $T : \R^n \to \R^m$ is \textbf{one-to-one}, or
+  \textbf{injective}, if, $\forall \b \in \R^m$, $\exists \x \in \R^n$ where
+  $\x$ is unique such that $T(\x) = \b$.
+
+	\begin{figure}[H]
+		\centering
+
+		\begin{tikzpicture}[scale=0.8]
+			\draw[color=black,very thick](-2.5,0) circle (1.5);
+			\draw[no marks] (-2.5,-2) node{$\R^n$};
+			\draw[color=black,very thick](2.5,0) circle (2);
+			\draw[no marks] (2.5,-2.5) node{$\R^m$};
+			\filldraw[color=linecolor1!60, fill=linecolor1!5,very thick](2,0) circle (1);
+			\draw[no marks,color=linecolor1] (2,-1.4) node{range};
+			\draw[dashed,very thick](-2.5,1.5)--++(4.5,-0.5);
+			\draw[dashed,very thick](-2.5,-1.5)--++(4.5,0.5);
+			\draw[->,very thick](-2.25,0.75)node[left]{$\bullet$}--++(4,-0.25)node[right,color=linecolor1]{$\bullet$};
+			\draw[->,very thick](-2.25,0.25)node[left]{$\bullet$}--++(4,0.25)node[right,color=linecolor1]{$\bullet$};
+			\draw[->,very thick](-2.25,-0.75)node[left]{$\bullet$}--++(4,0.25)node[right,color=linecolor1]{$\bullet$};
+			\draw[->,very thick](-2.25,-0.25)node[left]{$\bullet$}--++(4,-0.25)node[right,color=linecolor1]{$\bullet$};
+			\draw[no marks] (0,2.5) node{$T$ is \textbf{not} one-to-one};
+		\end{tikzpicture}\qquad\qquad\qquad
+		\begin{tikzpicture}[scale=0.8]
+			\draw[color=black,very thick](-2.5,0) circle (1.5);
+			\draw[no marks] (-2.5,-2) node{$\R^n$};
+			\draw[color=black,very thick](2.5,0) circle (2);
+			\draw[no marks] (2.5,-2.5) node{$\R^m$};
+			\filldraw[color=linecolor1!60, fill=linecolor1!5,very thick](2,0) circle (1);
+			\draw[no marks,color=linecolor1] (2,-1.4) node{range};
+			\draw[dashed,very thick](-2.5,1.5)--++(4.5,-0.5);
+			\draw[dashed,very thick](-2.5,-1.5)--++(4.5,0.5);
+			\draw[->,very thick](-2.25,0.75)node[left]{$\bullet$}--++(4,-0.25)node[right,color=linecolor1]{$\bullet$};
+			\draw[->,very thick](-2.25,0)node[left]{$\bullet$}--++(4,0)node[right,color=linecolor1]{$\bullet$};
+			\draw[->,very thick](-2.25,-0.75)node[left]{$\bullet$}--++(4,0.25)node[right,color=linecolor1]{$\bullet$};
+			\draw[no marks] (3.5,0.25) node[color=linecolor1]{$\bullet$};
+			\draw[no marks] (3.5,-0.25) node[color=linecolor1]{$\bullet$};
+			\draw[no marks] (0,2.5) node{$T$ \textbf{is} one-to-one};
+		\end{tikzpicture}
+
+    \caption{}
+    \label{fig:one_to_one}
+	\end{figure}
+\end{definition}
+
+The question ``is $T$ one-to-one'' is called a \textbf{uniqueness-type question}.
+
+\begin{question}
+  \label{qst:onto_or_one_to_one}
+
+  Let $T : \R^4 \to \R^3$ be the linear transformation whose standard matrix $A$
+  is
+  \[%
+    A =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \circled{1} & -4 & 8 & 1 \\
+      0 & \circled{2} & -1 & 3 \\
+      0 & 0 & 0 & \circled{3} \\
+    \end{bNiceMatrix}
+  .\]%
+  Does $T$ map $\R^4$ onto $\R^3$? Is $T$ one-to-one?
+\end{question}
+
+\begin{solution}
+  \label{sol:onto_or_one_to_one} $ $
+
+  \noindent\textbf{Onto}: For $T$ to be onto, $\forall \b \in \R^m$, $\exists \x
+  \in \R^n$ such that $T(\x) = \b$. Recall that \cref{thm:vector_in_span} states
+  that $\forall \b \in \R^m$, the equation $A\x = \b$ has a solution if $A$ has
+  a pivot in every row. Since $A$ has a pivot in every row, that means $T$
+  \textbf{will} map $\R^4$ onto $\R^3$.
+
+  \noindent\textbf{One-to-one}: Consider the augmented matrix of $[\,A~\b\,]$.
+  Notice this will have a free variable
+  \[%
+    \begin{bNiceArray}{cccc|c}[columns-width=auto]
+      \circled{1} & -4 & 8 & 1 &  \\
+      0 & \circled{2} & -1 & 3 & \b \\
+      0 & 0 & 0 & \circled{3} &  \\
+    \end{bNiceArray}
+  .\]%
+  Thus, $A\x = \b$ has an infinite amount of solutions. Therefore, $T$ is
+  \textbf{not} one-to-one.
+\end{solution}
+
+\begin{theorem}
+  \label{them:one_to_one_iff_trivial_solution}
+
+  Let $T : \R^n \to \R^m$ be a linear transformation. Then, $T$ is one-to-one if
+  and only if the equation $T(\x) = \zero$ has only the trivial solution.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:on_to_one_iff_trivial_solution}
+
+  Since $T$ is linear, $T(\zero) = \zero$. If $T$ is one-to-one, then the
+  equation $T(\x) = \zero$ has at most one solution and hence only the trivial
+  solution. If $T$ is not one-to-one, then there is a $\b$ that is the image of
+  at least two different vectors in $\R^n$ -- say, $\u$ and $\v$. That is,
+  $T(\u) = \b$ and $T(\v) = \b$. But then, since $T$ is linear,
+  \[%
+    T(\u - \v) = T(\u) - T(\v) = \b - \b = \zero
+  .\]%
+  The vector $\u - \v$ is not zero, since $\u \ne \v$. Hence, the equation
+  $T(\x) = \zero$ has more than one solution. So, either the two conditions in
+  the theorem are both true or they are both false.
+\end{proof}
+
+\begin{theorem}
+  \label{thm:ways_to_determine_onto_or_one_to_one}
+
+  Let $T : \R^n \to \R^m$ be a linear transformation with the standard matrix
+  $A$.
+
+  \begin{enumerate}
+    \label{enum:ways_to_determine_onto_or_one_to_one}
+
+    \item $T$ maps $\R^n$ onto $\R^m$ if and only if $A$ has a pivot in every
+      \textbf{row}.
+
+    \item $T$ is one-to-one if and only if $A$ has a pivot in every
+      \textbf{column}.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:ways_to_determine_onto_or_one_to_one} $ $
+
+  \begin{enumerate}
+    \label{enum:ways_to_determine_onto_or_one_to_one_prf}
+
+    \item By \cref{thm:vector_in_span}, the columns of $A$ span $\R^m$ if and
+      only if $\forall \b \in \R^m$ the equation $A\x = \b$ is consistent -- in
+      other words, if and only if $\forall \b$, the equation $T(\x) = \b$ has at
+      least one solution. This is true if and only if $T$ maps $\R^n$ onto
+      $\R^m$.
+
+    \item The equations $T(\x) = \zero$ and $A\x = \zero$ are the same except
+      for notation. So, by \cref{them:one_to_one_iff_trivial_solution}, $T$ is
+      one-to-one if and only if $A\x = \zero$ has only the trivial solution.
+      This happens if and only if the columns of $A$ are linearly independent.
+      \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{question}
+  \label{qst:onto_or_one_to_one_2}
+
+  Let $T : \R^2 \to \R^3$ be a linear transformation under
+  $T(x_1, x_2) = (3x_1 + x_2, 5x_1 + 7x_2, x_1 = 3x_2)$.
+  \begin{enumerate}
+    \label{enum:onto_or_one_to_one_2_qst}
+
+    \item Find the standard matrix of $A$. If necessary, row reduce $A$ into
+      echelon form.
+
+    \item Use your result in part $\circled{1}$ to determine if $T$ is onto.
+
+    \item Use your result in part $\circled{1}$ to determine if $T$ is
+      one-to-one.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:onto_or_one_to_one_2} $ $
+
+  \begin{enumerate}
+    \label{enum:onto_or_one_to_one_2_sol}
+
+    \item Let's re-write this formula to $T(\x) = A\x$.
+      \[%
+        T\left(\begin{bNiceMatrix}[columns-width=auto]
+            x_1 \\
+            x_2 \\
+        \end{bNiceMatrix}\right) =
+        \begin{bNiceMatrix}[columns-width=auto]
+          3x_1 + x_2 \\
+          5x_1 + 7x_2 \\
+          x_1 + 3x_2 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          3x_1 \\
+          5x_1 \\
+          x_1 \\
+        \end{bNiceMatrix} +
+        \begin{bNiceMatrix}[columns-width=auto]
+          x_2 \\
+          7x_2 \\
+          3x_2 \\
+        \end{bNiceMatrix} =
+        x_1\begin{bNiceMatrix}[columns-width=auto]
+          3 \\
+          5 \\
+          1 \\
+        \end{bNiceMatrix} +
+        x_2\begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          7 \\
+          3 \\
+        \end{bNiceMatrix} =
+        \underbrace{
+          \begin{bNiceMatrix}[columns-width=auto]
+            3 & 1 \\
+            5 & 7 \\
+            1 & 3 \\
+          \end{bNiceMatrix}
+        }_{A}
+        \underbrace{
+          \begin{bNiceMatrix}[columns-width=auto]
+            x_1 \\
+            x_2 \\
+          \end{bNiceMatrix}
+        }_{\x}
+      .\]%
+      We can then row reduce $A$ into echelon form.
+      \begin{align*}
+        \sysdelim..\systeme*{
+          R_1 \rightarrow R_3
+        } &\longleftrightarrow
+        \begin{bNiceArray}{c|c}[columns-width=auto]
+          \circled{1} & 3 \\
+          5 & 7 \\
+          3 & 1 \\
+        \end{bNiceArray} \\
+        \sysdelim..\systeme*{
+          \-5r_1 + R_2 \rightarrow R_2,
+          \-3R_1 + R_3 \rightarrow R_3
+        } &\longleftrightarrow
+        \begin{bNiceArray}{c|c}[columns-width=auto]
+          \circled{1} & 3 \\
+          0 & \circled{-8} \\
+          0 & -8 \\
+        \end{bNiceArray} \\
+        \sysdelim..\systeme*{
+          \-R_2 + R_3 \rightarrow R_3
+        } &\longleftrightarrow
+        \begin{bNiceArray}{c|c}[columns-width=auto]
+          \circled{1} & 3 \\
+          0 & \circled{-8} \\
+          0 & 0 \\
+        \end{bNiceArray}
+      .\end{align*}
+
+    \item By \cref{thm:ways_to_determine_onto_or_one_to_one}, $A$ \textbf{does
+      not} have a pivot in \textbf{every row}, so $T$ \textbf{is not} onto.
+
+    \item By \cref{thm:ways_to_determine_onto_or_one_to_one}, $A$ \textbf{does}
+      have a pivot in \textbf{every column}, so $T$ \textbf{is} one-to-one.
+      \qedhere
+  \end{enumerate}
+\end{solution}
+
+% section types_of_transformations (end)
+
+\newpage

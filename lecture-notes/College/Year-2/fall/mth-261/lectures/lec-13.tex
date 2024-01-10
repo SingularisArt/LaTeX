@@ -1,0 +1,770 @@
+\nte[Sections 5.1 and 5.2]{Nov 7 2023 Tue (14:01:37)}{Eigenvalues and Eigenvectors}
+
+\section{Easy Transformations}
+\label{sec:easy_transformations}
+
+Consider some transformation $\x \mapsto A\x$. Normally the transformed vector
+$A\x$ is placed at some ``random'' spot which is not related to $\x$. However,
+there are some ``lucky'' vectors whose transformed vector is simply a scalar
+multiple of the original.
+
+For example, consider the following matrix and vectors.
+\[%
+  A = \begin{bNiceMatrix}[columns-width=auto]
+    3 & -2 \\
+    1  & 0 \\
+  \end{bNiceMatrix},\quad
+  \u = \begin{bNiceMatrix}[columns-width=auto]
+    -1 \\
+    1 \\
+  \end{bNiceMatrix},\aand
+  \v = \begin{bNiceMatrix}[columns-width=auto]
+    2 \\
+    1 \\
+  \end{bNiceMatrix}
+.\]%
+We show the vectors $\u$ and $\v$ in the graph below along with their
+transformations $A\u$ and $A\v$.
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \begin{axis}[
+      xmin=-5.75,xmax=5.75,ymin=-1.75,ymax=2.50,
+      ]
+      \addplot[color=linecolor2,->,thick,mark=none] coordinates{(0,0)(4,2)} node[below right]{$A\v$};
+      \addplot[color=linecolor1,->,thick,mark=none] coordinates{(0,0)(2,1)} node[below right]{$\v$};
+      \addplot[color=linecolor1,->,thick,mark=none] coordinates{(0,0)(-1,1)} node[above left]{$\u$};
+      \addplot[color=linecolor2,->,thick,mark=none] coordinates{(0,0)(-5,-1)} node[below right]{$A\u$};
+    \end{axis}
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:vectors_and_transformations}
+\end{figure}
+While the vector $\u$ just gets sent to another point $A\u$, notice that $\v$
+gets transformed into a simple scalar multiple of itself $A\v=2\v$. This
+``lucky'' vector $\v$ is called an ``eigenvector'' of $A$ and the scalar $2$ is
+called an ``eigenvalue'' of $A$. We care about these ``lucky'' vectors because,
+computationally, it is easier to just scale a vector than to perform a
+matrix-vector multiplication.
+
+\begin{definition}[Eigenvalue and Eigenvector]
+  \label{def:eigenvalue_and_eigenvector}
+
+  A scalar $\lambda$ is an \textbf{eigenvalue} of an $n \times n$ matrix $A$ if
+  there is a nontrivial solution $\x$ of $A\x = \lambda\x$ where $\x$ is called
+  an \textbf{eigenvector} corresponding to $\lambda$.
+\end{definition}
+
+\begin{note}
+  \label{nte:eigenvalues_and_eigenvectors}
+
+  Eigenvectors must be nonzero vectors. However, eigenvalues are allowed to be
+  zero because if some vector $\v$ results in $A\v = \zero$, then we can just write
+  $A\v = 0\v$ since $0\v = \zero$. Thus, a matrix $A$ will have an eigenvalue of
+  $\lambda = 0$ if and only if $A$ is not invertible.
+\end{note}
+
+\begin{question}
+  \label{qst:check_if_vector_is_eigenvector}
+
+  Consider the following matrix and vectors below
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      1 & 6 \\
+      5 & 2 \\
+    \end{bNiceMatrix},\quad
+    \u = \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      -5 \\
+    \end{bNiceMatrix},\aand
+    \v = \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -2 \\
+    \end{bNiceMatrix}
+  .\]%
+  Determine if $\u$ or $\v$ are eigenvectors of $A$.
+\end{question}
+
+\begin{solution}
+  \label{sol:check_if_vector_is_eigenvector}
+
+  We check if either $A\u$ or $A\v$ is a scalar multiple of $\u$ or $\v$. In
+  doing so, we get
+  \begin{align*}
+    A\u &= \begin{bNiceMatrix}[columns-width=auto]
+      1 & 6 \\
+      5 & 2 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      -5 \\
+    \end{bNiceMatrix} =
+    6\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      5 \\
+    \end{bNiceMatrix} -
+    5\begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -24 \\
+      20 \\
+    \end{bNiceMatrix} =
+    -4\begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      -5 \\
+    \end{bNiceMatrix} = -4\u \\
+    A\v &= \begin{bNiceMatrix}[columns-width=auto]
+      1 & 6 \\
+      5 & 2 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -2 \\
+    \end{bNiceMatrix} =
+    3\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      5 \\
+    \end{bNiceMatrix} -
+    2\begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -9 \\
+      11 \\
+    \end{bNiceMatrix} \ne
+    \lambda\begin{bNiceMatrix}[columns-width=auto,last-row]
+      3 \\
+      -2 \\
+      \imp{\v} \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  Thus, $\u$ is an eigenvector of $A$ with eigenvalue $\lambda = -4$, but $\v$
+  is not an eigenvector of $A$.
+\end{solution}
+
+\begin{definition}[Eigenspace]
+  \label{def:eigenspace}
+
+  Given a square matrix $A$, if $\lambda$ is an eigenvalue of $A$, then the null
+  space of $A - \lambda I$ is called the \textbf{eigenspace} of $A$
+  corresponding to $\lambda$ and denoted as $E_\lambda$.
+\end{definition}
+
+\begin{question}
+  \label{qst:determine_if_lambda_is_an_eigenvalue}
+
+  Consider the matrix $A =
+  \begin{bNiceMatrix}[columns-width=auto]
+    6 & -3 & 1 \\
+    3 & 0 & 5 \\
+    2 & 2 & 11 \\
+  \end{bNiceMatrix}$.
+  Determine if $\lambda = 5$ is an eigenvalue of $A$. If so, row reduce the
+  augmented matrix and write the solution in parametric vector form and find the
+  basis for the eigenspace.
+\end{question}
+
+\begin{solution}
+  \label{sol:determine_if_lambda_is_an_eigenvalue}
+
+  Recall, $\lambda = 5$ is an eigenvalue if and only if $A\x = 5\x$ has a
+  nontrivial solution.
+  \[%
+    A\x - 5\x = \zero \rightarrow A\x - 5I\x = \zero \rightarrow \underset{\textrm{A coeff matrix}}{(A - 5I)}\x = \zero
+  .\]%
+  So, we need to row reduce $[\,(A - 5I)~\zero\,]$ into echelon form and check for
+  any free variables. First, we compute $A - 5I$. In doing so, we get
+  \[%
+    A - 5I = \begin{bNiceMatrix}[columns-width=auto]
+      6 & -3 & 1 \\
+      3 & 0 & 5 \\
+      2 & 2 & 11 \\
+    \end{bNiceMatrix} -
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 & 0 & 0 \\
+      0 & 5 & 0 \\
+      0 & 0 & 5 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & -3 & 1 \\
+      3 & -5 & 5 \\
+      2 & 2 & 6 \\
+    \end{bNiceMatrix}
+  .\]%
+  Then, we row reduce $[\,(A - 5I)~\zero\,]$ into echelon form. In doing so, we get
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      (A - 5I)~\vert~\zero \\
+    \end{bNiceMatrix} =
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      1 & -3 & 1 & 0 \\
+      3 & -5 & 5 & 0 \\
+      2 & 2 & 6 & 0 \\
+    \end{bNiceArray} \echelon
+    \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+      \circled{1} & -3 & 1 & 0 \\
+      0 & \circled{4} & 2 & 0 \\
+      0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+    \end{bNiceArray}
+  .\]%
+  Since $x_3$ is free, $A\x = \lambda\x$ has a nontrivial solution. So, $\lambda
+  = 5$ is an eigenvalue of $A$. Since $\lambda = 3$ is an eigenvalue, we can
+  continue row reducing $[\,(A - 5I)~\zero\,]$ into reduced echelon form. In doing
+  so, we get
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      (A - 5I)~\vert~\zero \\
+    \end{bNiceMatrix} =
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      1 & -3 & 1 & 0 \\
+      3 & -5 & 5 & 0 \\
+      2 & 2 & 6 & 0 \\
+    \end{bNiceArray} \echelon
+    \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+      \circled{1} & -3 & 1 & 0 \\
+      0 & \circled{4} & 2 & 0 \\
+      0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+    \end{bNiceArray} \rref
+    \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+      \circled{1} & 0 & \sfrac{5}{2} & 0 \\
+      0 & \circled{1} & \sfrac{1}{2} & 0 \\
+      0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+    \end{bNiceArray}
+  .\]%
+  This gives us the following system of equations
+  \[%
+    \sysdelim..\systeme*{
+      x_1 + \sfrac{5}{2}x_3 = 0,
+      x_2 + \sfrac{1}{2}x_3 = 0,
+      x_3 = x_3
+    } \generalsol
+    \sysdelim..\systeme*{
+      x_1 = -\sfrac{5}{2}x_3,
+      x_2 = -\sfrac{1}{2}x_3,
+      x_3 = x_3
+    } \rightarrow 
+    \x = \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{5}{2}x_3 \\
+      -\sfrac{1}{2}x_3 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{5}{2} \\
+      -\sfrac{1}{2} \\
+      1 \\
+    \end{bNiceMatrix}
+  .\]%
+  Any eigenvector of $\lambda = 5$ is a scalar multiple of $\x$. We can pick
+  any $x_3$ we want, but we will pick $x_3 = 2$. This result will give us a basis for the
+  eigenspace $E_5$. In doing so, we get
+  \[%
+    \left\{\begin{bNiceMatrix}[columns-width=auto,last-row]
+      -5 \\
+      -1 \\
+      2 \\
+      \imp{\v_1} \\
+    \end{bNiceMatrix}\right\}
+  .\qedhere\]%
+\end{solution}
+
+\begin{purpleframe}
+  \label{prpl:eigenspace}
+
+  A basis for an eigenspace $E_{\lambda}$ of a matrix $A$ also gives the
+  eigenvectors of $A$ corresponding to the eigenvalue $\lambda$. That is, to
+  find eigenvectors corresponding to $\lambda$, you just need to find a basis
+  for $E_{\lambda}$.
+\end{purpleframe}
+
+\begin{question}
+  \label{qst:find_eigenvector_given_eigenvalue}
+
+  Consider the following matrix shown below.
+  \begin{equation*}
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      4 & -1 & 6 \\
+      2 & 1 & 6 \\
+      2 & -1 & 8 \\
+    \end{bNiceMatrix}
+  \end{equation*}
+  This matrix has an eigenvalue of $\lambda = 2$. Find the corresponding
+  eigenvectors of $\lambda = 2$ by finding a basis for the eigenspace $E_2$.
+\end{question}
+
+\begin{solution}
+  \label{sol:find_eigenvector_given_eigenvalue}
+
+  First, we compute $A - 2I$. In doing so, we get
+  \[%
+    A - 2I = \begin{bNiceMatrix}[columns-width=auto]
+      4 & -1 & 6 \\
+      2 & 1 & 6 \\
+      2 & -1 & 8 \\
+    \end{bNiceMatrix} -
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 & 0 & 0 \\
+      0 & 2 & 0 \\
+      0 & 0 & 2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 & -1 & 6 \\
+      2 & -1 & 6 \\
+      2 & -1 & 6 \\
+    \end{bNiceMatrix}
+  .\]%
+  Then, we row reduce $[\,(A - 2I)~\zero\,]$ into echelon form. In doing so, we
+  get
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      (A - 2I)~\vert~\zero \\
+    \end{bNiceMatrix} =
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      2 & -1 & 6 & 0 \\
+      2 & -1 & 6 & 0 \\
+      2 & -1 & 6 & 0 \\
+    \end{bNiceArray} \rref
+    \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+      \circled{1} & -\sfrac{1}{2} & 3 & 0 \\
+      0 & 0 & 0 & 0 \\
+      0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+    \end{bNiceArray}
+  .\]%
+  This gives us the following system of equations
+  \begin{align*}
+    &\sysdelim..\systeme*{
+      x_1 - \sfrac{1}{2}x_2 + 3x_3 = 0,
+      x_2 = x_2,
+      x_3 = x_3
+    } \generalsol
+    \sysdelim..\systeme*{
+      x_1 = \sfrac{1}{2}x_2 - 3x_3,
+      x_2 = x_2,
+      x_3 = x_3
+    } \\
+    \longrightarrow~&\x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{2}x_2 - 3x_3 \\
+      x_2 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{2}x_2 \\
+      1x_2 \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      -3x_3 \\
+      0 \\
+      1x_3 \\
+    \end{bNiceMatrix} =
+    x_2\begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{2} \\
+      1 \\
+      0 \\
+    \end{bNiceMatrix} +
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      -3 \\
+      0 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  Any eigenvector of $\lambda = 2$ is a scalar multiple of $\x$. We can pick
+  any $x_2$ and $x_3$ we want, but we will pick $x_2 = 2$ and $x_3 = 1$. This
+  result will give us a basis for the eigenspace $E_2$. In doing so, we get
+  \[%
+    \left\{
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        1 \\
+        2 \\
+        0 \\
+        \imp{\v_1} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        -3 \\
+        0 \\
+        1 \\
+        \imp{\v_2} \\
+      \end{bNiceMatrix}
+    \right\}
+  .\qedhere\]%
+\end{solution}
+
+\begin{theorem}
+  \label{thm:eigenvectors_are_linearly_independent}
+
+  If $\v_1, \v_2, \dots, \v_r$ are eigenvectors corresponding to distinct
+  eigenvalues $\lambda_1, \lambda_2, \dots, \lambda_r$ of an $n \times n$
+  matrix $A$, then the set of vectors $\{\v_1, \v_2, \dots, \v_r\}$ is linearly
+  independent.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:eigenvectors_are_linearly_independent}
+
+  Suppose $\left\{\v_1, \dots, \v_r\right\}$ is linearly dependent. Since $\v_1$
+  is nonzero, \cref{thm:characterization_of_linearly_dependent_sets} says that
+  one of the vectors in the set is a linear combination of the preceding
+  vectors. Let $p$ be the least index such that $\v_{p + 1}$ is a linear
+  combination of the preceding vectors. Then, there exists scalars $c_1, \dots,
+  c_p$ such that
+  \begin{equation}\label{eqt:prf_eigenvectors_are_linearly_independent_1}
+    c_1\v_1 + \cdots + c_p\v_p = \v_{p + 1}
+  .\end{equation}
+  Multiplying both sides of
+  \cref{eqt:prf_eigenvectors_are_linearly_independent_1} by $A$ and using the
+  fact that $A\v_k = \lambda_k\v_k$, $\forall k$, we obtain $\forall k$, we
+  obtain
+  \begin{align}
+    c_1A\v_1 + \cdots + c_pA\v_p &= A\v_{p+1} \notag \\
+    c_1\lambda_1\v_1 + \cdots + c_p\lambda_p\v_p &= \lambda_{p+1}\v_{p+1} \label{eqt:prf_eigenvectors_are_linearly_independent_1}
+  .\end{align}
+  Multiplying both sides of
+  \cref{eqt:prf_eigenvectors_are_linearly_independent_1} by $\lambda_{p+1}$ and
+  subtracting the result from
+  \cref{eqt:prf_eigenvectors_are_linearly_independent_2}, we have
+  \begin{equation}\label{eqt:prf_eigenvectors_are_linearly_independent_3}
+    c_1(\lambda_1 - \lambda_{p+1})\v_1 + \cdots + c_p(\lambda_p - \lambda_{p+1})\v_p = \zero
+  .\end{equation}
+  Since $\left\{\v_1, \dots, \v_p\right\}$ is linearly independent, the weights
+  in \cref{eqt:prf_eigenvectors_are_linearly_independent_3} are all zero. But
+  one of the factors $\lambda_i - \lambda_{p+1}$ are zero, because the
+  eigenvalues are distinct. Hence, $c_i = 0$ for $i = 1, \dots, p$. But then
+  \cref{eqt:prf_eigenvectors_are_linearly_independent_1} says that $\v_{p+1} =
+  \zero$, which is impossible. Hence, $\left\{\v_1, \dots, \v_r\right\}$ cannot
+  be linearly dependent and therefore must be linearly independent.
+\end{proof}
+
+\begin{theorem}
+  \label{thm:eigenvalues_of_triangular_matrix}
+
+  The eigenvalues of a triangular matrix (upper, lower, or diagonal) are the
+  entries on its main diagonal.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:eigenvalues_of_triangular_matrix}
+
+  For simplicity, consider the $3 \times 3$ case. If $A$ is upper triangular,
+  then $A - \lambda I$ has the form
+  \begin{align*}
+    A - \lambda I &= \begin{bNiceMatrix}[columns-width=auto]
+      a_{11} & a_{12} & a_{13} \\
+      0 & a_{22} & a_{23} \\
+      0 & 0 & a_{33} \\
+    \end{bNiceMatrix} -
+    \begin{bNiceMatrix}[columns-width=auto]
+      \lambda & 0 & 0 \\
+      0 & \lambda & 0 \\
+      0 & 0 & \lambda \\
+    \end{bNiceMatrix} \\
+    &= \begin{bNiceMatrix}[columns-width=auto]
+      a_{11} - \lambda & a_{12} & a_{13} \\
+      0 & a_{22} - \lambda & a_{23} \\
+      0 & 0 & a_{33} - \lambda \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  The scalar $\lambda$ is an eigenvalue of $A$ if and only if the equation $(A -
+  \lambda I)\x = \zero$ has a nontrivial solution, that is, if and only if the
+  equation has a free variable. Because of the zero entries in $A - \lambda I$,
+  it is easy to see that $(A - \lambda I)\x = \zero$ has a free variable if and
+  only if at least one of the entries on the diagonal of $A - \lambda I$ is
+  zero. This happens if and only if $\lambda$ equals one of the entries
+  $a_{11}$, $a_{22}$, $a_{33}$ in $A$.
+\end{proof}
+
+\begin{example}
+  \label{exm:eigenvalues_of_triangular_matrix}
+
+  Consider the following matrices below.
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      3 & 6 & -8 \\
+      0 & 0 & 6 \\
+      0 & 0 & -2 \\
+    \end{bNiceMatrix}\aand
+    B = \begin{bNiceMatrix}[columns-width=auto]
+      4 & 0 & 0 \\
+      -2 & 1 & 0 \\
+      5 & 3 & 4 \\
+    \end{bNiceMatrix}
+  .\]%
+  Thus, matrix $A$ has eigenvalues $\lambda = 3, 0, -2$ while the matrix $B$
+  has eigenvalues $\lambda = 4, 1$. Also, since $4$ is repeated in the diagonal
+  of $B$, we say that the eigenvalue $\lambda = 4$ has a \textbf{multiplicity}
+  of $2$.
+\end{example}
+
+% section easy_transformations (end)
+
+\section{Finding Eigenvalues in General}
+\label{sec:finding_eigenvalues_in_general}
+
+\begin{definition}[Characteristic Polynomial and Equation]
+  \label{def:characteristic_polynomial_and_equation}
+
+  Given a square matrix $A$, the determinant $\det(A - \lambda I)$ is called the
+  \textbf{characteristic polynomial}. To find the eigenvalues $\lambda$ of $A$,
+  solve the characteristic polynomial $\det(A - \lambda I) = 0$.
+\end{definition}
+
+\begin{example}
+  \label{exm:characteristic_polynomial_and_equation}
+
+  Let's say that a $5 \times 5$ matrix $A$ has a characteristic polynomial of
+  $\det(A - \lambda I) = \lambda^5 + 6\lambda^4 + 9\lambda^3$. If we factor this
+  polynomial and set it equal to $0$ we get
+  \[%
+    \lambda^5 + 6\lambda^4 + 9\lambda^3 = \lambda^3(\lambda^2 + 6\lambda + 9) = \lambda^{\imp{3}}(\lambda + 3)^{\imp{2}} \sz 0~\rightarrow~\lambda = -3,0
+  .\]%
+  Hence, the eigenvalues of $A$ must be $\lambda = -3$ with multiplicity
+  $\imp{2}$, and $\lambda = 0$ with multiplicity $\imp{3}$.
+\end{example}
+
+\begin{definition}[Multiplicity]
+  \label{def:multiplicity}
+
+  When the characteristic polynomial is factored, the exponent of each linear
+  factor corresponds to the \textbf{multiplicity} of the eigenvalue.
+\end{definition}
+
+\begin{question}
+  \label{qst:find_lamda_such_that_det_is_zero}
+
+  Consider the matrix shown below.
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      2 & 3 \\
+      3 & -6 \\
+    \end{bNiceMatrix}
+  .\]%
+  Find a $\lambda$ such that $\det(A - \lambda I) = \zero$.
+\end{question}
+
+\begin{solution}
+  \label{sol:find_lamda_such_that_det_is_zero}
+
+  We need to find a $\lambda$ such that $\det(A - \lambda I) = \zero$. In doing
+  so, we get
+  \begin{align*}
+    \det(A - \lambda I) =
+    \begin{vNiceMatrix}[columns-width=auto]
+      2 - \lambda & 3 \\
+      3 & -6 - \lambda \\
+    \end{vNiceMatrix} &=
+    (2 - \lambda)(-6 - \lambda) - (3)(3) = -12 + 6\lambda - 2\lambda + \lambda^2 - 9 \\
+    &= \lambda^2 + 4\lambda - 21 \sz 0 \\
+    &= (\lambda - 3)^3(\lambda + 7)^1 = 0 \rightarrow \sysdelim..\systeme*{
+      \lambda = -7~\textrm{mult.}~1,
+      \lambda = 3~\textrm{mult.}~1
+    }
+  .\qedhere\end{align*}
+\end{solution}
+
+\begin{question}
+  \label{qst:find_eigenvalues_then_eigenvectors}
+
+  Consider the matrix shown below.
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      3 & -2 & 3 \\
+      0 & -1 & 0 \\
+      6 & 7 & -4 \\
+    \end{bNiceMatrix}
+  .\]%
+  Find the eigenvalues of $A$, then find the corresponding eigenvectors.
+\end{question}
+
+\begin{solution}
+  \label{sol:find_eigenvalues_then_eigenvectors}
+
+  For the eigenvalues, we solve the characteristic equation $\det(A - \lambda I)
+  = 0$. In doing so, we get
+  \begin{align*}
+    \det(A - \lambda I) =
+    \begin{vNiceMatrix}[columns-width=auto]
+      3 - \lambda & -2 & 3 \\
+      0 & -1 - \lambda & 0 \\
+      6 & 7 & -4 - \lambda \\
+    \end{vNiceMatrix} &=
+    \rcancel{a_{21}C_{21}} + a_{22}C_{22} + \rcancel{a_{23}C_{23}} = a_{22}C_{22} \\
+    &= (-1 - \lambda)(-1)^{2+2}
+    \begin{vNiceMatrix}[columns-width=auto]
+      3 - \lambda & 3 \\
+      6 & -4 - \lambda \\
+    \end{vNiceMatrix} \\
+    &= (-1 - \lambda)\left[(3 - \lambda)(-4 - \lambda) - (3)(6)\right] \\
+    &= (-1 - \lambda)[-12 + 4x - 3\lambda + \lambda^2 - 18] \\
+    &= (-1 - \lambda)[\lambda^2 + \lambda - 30] \\
+    &= (-1 - \lambda)(\lambda + 6)(\lambda - 5) \sz 0 \rightarrow  \lambda = \underset{\textrm{multiplicity of}~1}{-1, -6, 5}
+  .\end{align*}
+  For the eigenvectors, find a basis for each eigenspace, $E_{-1}$, $E_{-6}$,
+  and $E_5$. In doing so, we get
+  \begin{align*}
+    \underline{\lambda = -1}&:
+    \begin{bNiceMatrix}[columns-width=auto]
+      (A + 1I)~\zero \\
+    \end{bNiceMatrix} =
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      4 & -2 & 3 & 0 \\
+      0 & 0 & 0 & 0 \\
+      6 & 7 & -3 & 0 \\
+    \end{bNiceArray} \rref
+    \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+      \circled{1} & 0 & \sfrac{3}{8} & 0 \\
+      0 & \circled{1} & -\sfrac{3}{4} & 0 \\
+      0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+    \end{bNiceArray} \\
+    & \sysdelim..\systeme*{
+     x_1 = -\sfrac{3}{8}x_3,
+     x_2 = \sfrac{3}{4}x_3,
+     x_3 = x_3
+    } \rightarrow \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{3}{8}~x_3 \\
+      \sfrac{3}{4}~x_3 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{3}{8} \\
+      \sfrac{3}{4} \\
+      1 \\
+    \end{bNiceMatrix} \underrightarrow{\textrm{pick}~x_3 = 8}
+    \begin{bNiceMatrix}[columns-width=auto,last-row]
+      -3 \\
+      6 \\
+      8 \\
+      \imp{\v_1} \\
+    \end{bNiceMatrix} \\
+    \underline{\lambda = -6}&:
+    \begin{bNiceMatrix}[columns-width=auto]
+      (A + 6I)~\zero \\
+    \end{bNiceMatrix} =
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      9 & -2 & 3 & 0 \\
+      0 & 5 & 0 & 0 \\
+      6 & 7 & 2 & 0 \\
+    \end{bNiceArray} \rref
+    \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+      \circled{1} & 0 & -\sfrac{1}{3} & 0 \\
+      0 & \circled{1} & 0 & 0 \\
+      0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+    \end{bNiceArray} \\
+    & \sysdelim..\systeme*{
+     x_1 = \sfrac{1}{3}x_3,
+     x_2 = 0,
+     x_3 = x_3
+    } \rightarrow \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{3}~x_3 \\
+      0 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{3} \\
+      0 \\
+      1 \\
+    \end{bNiceMatrix} \underrightarrow{\textrm{pick}~x_3 = 3}
+    \begin{bNiceMatrix}[columns-width=auto,last-row]
+      1 \\
+      0 \\
+      3 \\
+      \imp{\v_2} \\
+    \end{bNiceMatrix} \\
+    \underline{\lambda = 5}&:
+    \begin{bNiceMatrix}[columns-width=auto]
+      (A - 5I)~\zero \\
+    \end{bNiceMatrix} =
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      -2 & -2 & 3 & 0 \\
+      0 & -6 & 0 & 0 \\
+      6 & 7 & -9 & 0 \\
+    \end{bNiceArray} \rref
+    \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+      \circled{1} & 0 & -\sfrac{3}{2} & 0 \\
+      0 & \circled{1} & 0 & 0 \\
+      0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+    \end{bNiceArray} \\
+    & \sysdelim..\systeme*{
+     x_1 = \sfrac{3}{2}x_3,
+     x_2 = 0,
+     x_3 = x_3
+    } \rightarrow \x =
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{3}{2}~x_3 \\
+      0 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{3}{2} \\
+      0 \\
+      1 \\
+    \end{bNiceMatrix} \underrightarrow{\textrm{pick}~x_3 = 2}
+    \begin{bNiceMatrix}[columns-width=auto,last-row]
+      3 \\
+      0 \\
+      2 \\
+      \imp{\v_3} \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  Thus, the eigenvalues of $A$ are $\lambda = -1, -6, 5$ with multiplicities $1,
+  1, 1$ respectively. Their corresponding eigenvectors (basis for their
+  eigenspaces) are
+  \[%
+    E_1 = \begin{bNiceMatrix}[columns-width=auto]
+      -3 \\
+      6 \\
+      8 \\
+    \end{bNiceMatrix},\quad
+    E_2 = \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+      3 \\
+    \end{bNiceMatrix},\aand
+    E_3 = \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      0 \\
+      2 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+% section finding_eigenvalues_in_general (end)
+
+\newpage

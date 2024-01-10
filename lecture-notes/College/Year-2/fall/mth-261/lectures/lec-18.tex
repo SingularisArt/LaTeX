@@ -1,0 +1,493 @@
+\nte[Sections 6.4 and 6.5]{Dec 05 2023 Tue (14:02:04)}{Least-Squares Problems}
+
+\section{What is a Least-Squares Problem?}
+\label{sec:what_is_a_least_squares_problem_}
+
+\begin{definition}[Least-Squares Solution]
+  \label{def:least_squares_solution}
+
+  Given an $m \times m$ matrix $A$ and $\b \in \R^n$, a \textbf{least-squares
+  solution} of $A\x = \b$ is a vector $\xh \in \R^n$ such that $\lVert \b - A\xh
+  \rVert \le \lVert \b - A\x \rVert$, $\forall \x \in \left\{\a \in \R^n \mid \a
+  \ne \xh\right\}$.
+\end{definition}
+
+For the least-squares problem, the vector $A\xh$ must be the projection of $\b$
+onto a subspace, which contains $A\xh$. Let's say that the columns of $A$ are
+$\a_1, \a_2, \dots, \a_n$ and $\x = (x_1, x_2, \dots, x_n)$. Thus,
+\[%
+  A\xh = x_1\a_1 + x_2\a_2 + \cdots + x_n\a_n
+.\]%
+In other words, $A\xh$ is a linear combination of the columns of $A$, which is
+just $\Col(A)$. Therefore, we have
+\[%
+  A\xh = \proj_{\Col(A)}(\b) \oor \bh = \proj_{\Col(A)}(\b)
+.\]%
+Hence, we can write $A\xh = \b$.
+
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \draw[linecolor1!25,fill=linecolor1!25] (-0.25,-0.25)--(1,1)--(7.5,1)--(6.5,-0.25)--cycle node[below,linecolor1]{$\Col(A)$};
+    \draw[->,very thick](2,0.5)--++(0,2) node[left]{$\b - \bh = \z$};
+    \draw[->,very thick,linecolor2](2,0.5)--++(2.25,2) node[right]{$\b = \z + \bh$};
+    \draw[->,very thick,linecolor1](2,0.5)--++(2.25,0) node[right]{$\bh = A\xh$};
+    \draw[->,very thick,linecolor1](2,0.5)--++(1.25,-.35) node[right]{$\a_i$};
+    \draw[dashed,thick,black!50](4.25,0.5)--++(0,2);
+    \draw[dashed,thick,black!50](2,2.5)--++(2.25,0);
+    \filldraw[black] (2,0.5) circle (2pt) node[left]{$\zero$};
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:least_squares}
+\end{figure}
+
+Notice that $\b - \bh$ must be orthogonal to any column $\a_i$ of $A$. Thus,
+$\a_i \cdot (\b - \bh) = 0$, which can be re-written as
+\[%
+  \a_i\T(\b - \bh) = 0~\forall a_i \in A
+.\]%
+Hence, we can just expand this equation to the whole of $A\T$. That is, we can
+write $A\T(\b - \bh) = \zero$. Since $\bh = A\xh$, then we have
+\[%
+  A\T(\b - A\xh) = \zero \rightarrow A\T \b - A\T A\xh = \zero \rightarrow A\T A\xh = A\T \b
+.\]%
+
+\begin{definition}[Normal Equations]
+  \label{def:normal_equations}
+
+  The \textbf{normal equations} of $A\x = \b$ are $A\T A\xh = A\T \b$. Solving
+  these equations will allow us to find $\xh$.
+\end{definition}
+
+\begin{note}
+  \label{nte:difference_between_normal_equations_and_a_x_b}
+
+  The difference between $A\x = \b$ and the normal equation is that the normal
+  equations are always constant.
+\end{note}
+
+\begin{question}
+  \label{qst:least_squares_solution}
+
+  Consider the matrix and vector below
+  \[%
+    A =
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 & 0 \\
+      0 & 2 \\
+      1 & 1 \\
+    \end{bNiceMatrix}\aand
+    \b =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      0 \\
+      11 \\
+    \end{bNiceMatrix}
+  .\]%
+  Notice that $A\x = \b$ is inconsistent. Hence, find instead the least-squares
+  solution $\xh$ of this system.
+\end{question}
+
+\begin{solution}
+  \label{sol:least_squares_solution}
+
+  First, we setup $A\T A\xh = A\T\b$ by computing $A\T A$ and $A\T\b$. In doing
+  so, we get
+  \[%
+    A\T A =
+    \underset{\imp{\underline{2} \times 3}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        4 & 0 & 1\\
+        0 & 2 & 1 \\
+      \end{bNiceMatrix}
+    }
+    \underset{\imp{3 \times \underline{2}}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        4 & 0 \\
+        0 & 2 \\
+        1 & 1 \\
+      \end{bNiceMatrix}
+    } =
+    \underset{\imp{2 \times 2}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        17 & 1 \\
+        1 & 5 \\
+      \end{bNiceMatrix}
+    } \aand
+    A\T\b = \begin{bNiceMatrix}[columns-width=auto]
+      4 & 0 & 1\\
+      0 & 2 & 1 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      0 \\
+      11 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      19 \\
+      11 \\
+    \end{bNiceMatrix}
+  .\]%
+  Notice $\det(A\T A) = (17)(5) - (1)(1) = 84 \ne 0$. Thus, $A\T A$ is
+  invertible. Hence, we can solve for $\xh$ by multiplying both sides of the
+  equation by $(A\T A)^{-1}$. Thus, we get
+  \[%
+    \underbrace{\rcancel{(A\T A)\I} \rcancel{A\T A}}_{I}\xh = (A\T A)\I\b \rightarrow I\xh = (A\T A)\I A\T\b \rightarrow \xh = (A\T A)\I A\T\b
+  .\]%
+  Thus, we have
+  \[%
+    (A\T A)\I = \frac{1}{84}
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 & -1 \\
+      -1 & 17 \\
+    \end{bNiceMatrix}
+    \rightarrow \xh = \frac{1}{84}
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 & -1 \\
+      -1 & 17 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      19 \\
+      11 \\
+    \end{bNiceMatrix} =
+    \frac{1}{84}
+    \begin{bNiceMatrix}[columns-width=auto]
+      84 \\
+      186 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+    \end{bNiceMatrix}
+  .\]%
+  Thus,
+  \[%
+    \xh = \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\begin{definition}[Least-Squares Error]
+  \label{def:least_squares_error}
+
+  The distance between $\b$ and its approximation $\bh = A\xh$ is called the
+  \textbf{least-squares error}.
+\end{definition}
+
+\begin{example}
+  \label{exm:least_squares_error}
+
+  In our example above, the least-squares error is
+  \[%
+    \lVert \b-A\xh \rVert = \left\vert\left\vert
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      0 \\
+      11 \\
+    \end{bNiceMatrix} -
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 & 0 \\
+      0 & 2 \\
+      1 & 1 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+    \end{bNiceMatrix}\right|\right| = \left|\left|
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      0 \\
+      11 \\
+    \end{bNiceMatrix} -
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      4 \\
+      3 \\
+    \end{bNiceMatrix}\right|\right| = \left|\left|
+    \begin{bNiceMatrix}[columns-width=auto]
+      -2 \\
+      -4 \\
+      9 \\
+    \end{bNiceMatrix}\right|\right| = \sqrt{(-2)^2 + (-4)^2 + (9)^2} = \sqrt{69} \approx 8.31
+  .\]%
+  So, not quite close to zero, but, as stated previously, this is our best
+  possible approximation.
+\end{example}
+
+\begin{theorem}
+  \label{thm:least_squares_solution_conditions}
+
+  Let $A$ be an $m \times n$ matrix. The following statements are all logically
+  equivalent:
+  \begin{enumerate}
+    \item The equation $A\x = \b$ has a unique least-squares solution $\forall
+      \b \in \R^m$.
+
+    \item The columns of $A$ are linearly independent.
+
+    \item The matrix $A\T A$ is invertible.
+  \end{enumerate}
+  When these statements are true, the least-squares solution $\xh$ is
+  given by $\xh = (A\T A)\I A\T\b$.
+\end{theorem}
+
+Notice that this theorem implies that $A\T A$ is not always invertible.
+Specifically, this happens when the columns of $A$ are not linearly independent.
+However, this just implies that the normal equations $A\T A\xh = A\T\b$ are not
+unique, there will be an infinite number of solutions.
+
+\begin{question}
+  \label{qst:qr_factorization_to_find_least_squares_solution_1}
+
+  Consider the following matrices and vector
+  \[%
+    A =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & 3 & 5 \\
+      1 & 1 & 0 \\
+      1 & 1 & 2 \\
+      1 & 3 & 3 \\
+    \end{bNiceMatrix},\quad
+    Q =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{1}{2} \\
+      \sfrac{1}{2} & \sfrac{-1}{2} & \sfrac{-1}{2} \\
+      \sfrac{1}{2} & \sfrac{-1}{2} & \sfrac{1}{2} \\
+      \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{-1}{2} \\
+    \end{bNiceMatrix},\quad
+    R =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 & 4 & 5 \\
+      0 & 2 & 3 \\
+      0 & 0 & 2 \\
+    \end{bNiceMatrix},\aand
+    \b =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      5 \\
+      7 \\
+      -3 \\
+    \end{bNiceMatrix}
+  .\]%
+  We observe that through the Gram-Schmidt Process, the QR factorization of $A$
+  is $A = QR$. Use this factorization to find the least-squares solution
+  $\xh$ for $A\x = \b$. \textit{Use your calculator to matrix multiply.}
+\end{question}
+
+\begin{solution}
+  \label{sol:qr_factorization_to_find_least_squares_solution_1}
+
+  First, we setup $A\T A\xh = A\T\b$, so we compute $A\T A$ and $A\T\b$. In
+  doing so, we get
+  \[%
+    A\T A = \begin{bNiceMatrix}[columns-width=auto]
+      6 & 2 & 2 & 2 \\
+      2 & 2 & 0 & 0 \\
+      2 & 0 & 2 & 0 \\
+      2 & 0 & 0 & 2 \\
+    \end{bNiceMatrix}\aand
+    A\T\b = \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      -4 \\
+      2 \\
+      6 \\
+    \end{bNiceMatrix}
+  .\]%
+  Here, $A\T A$ is \underline{not} invertible, since $\det(A\T A) = 0$. Thus, we
+  need to setup the augmented matrix $[\,A\T A~A\T\b\,]$ and row reduce. In
+  doing so, we get
+  \begin{align*}
+    &\begin{bNiceMatrix}[columns-width=auto]
+      (A\T A)~A\T\b \\
+    \end{bNiceMatrix} =
+    \begin{bNiceArray}{cccc|c}
+      6 & 2 & 2 & 2 & 4 \\
+      2 & 2 & 0 & 0 & -4 \\
+      2 & 0 & 2 & 0 & 2 \\
+      2 & 0 & 0 & 2 & 6 \\
+    \end{bNiceArray} \rref
+    \begin{bNiceArray}{cccc|c}
+      \circled{1} & 0 & 0 & 1 & 3 \\
+      0 & \circled{1} & 0 & -1 & -5 \\
+      0 & 0 & \circled{1} & -1 & -2 \\
+      0 & 0 & 0 & 0 & 0 \\
+    \end{bNiceArray} \\
+    &\ngeneralsol~\sysdelim..\systeme*{
+      x_1 = 3 - x_4,
+      x_2 = -5 + x_4,
+      x_3 = -2 + x_4,
+      x_4 = x_4
+    } \rightarrow \xh =
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+      x_4 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 - x_4 \\
+      -5 + x_4 \\
+      -2 + x_4 \\
+      0 + x_4 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -5 \\
+      -2 \\
+      0 \\
+    \end{bNiceMatrix} +
+    x_4\begin{bNiceMatrix}[columns-width=auto]
+      -1 \\
+      1 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  To find a specific least-squares solution, we pick a value for $x_4 = 1$.
+  Then,
+  \[%
+    \xh = \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -5 \\
+      -2 \\
+      0 \\
+    \end{bNiceMatrix} +
+    1\begin{bNiceMatrix}[columns-width=auto]
+      -1 \\
+      1 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      -4 \\
+      -1 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\begin{note}
+  \label{nte:least_squares_solution_with_infinitely_many_solutions}
+
+  $\lVert \b - A\xh \rVert$ is the same for all $\xh$ when there are infinitely
+  many solutions, i.e., $A\T A$ is not invertible.
+\end{note}
+
+% section what_is_a_least_squares_problem_ (end)
+
+\section{Least-Squares~and~QR~Factorization}
+\label{sec:least_squares_and_qr_factorization}
+
+
+\begin{theorem}
+  \label{thm:qr_factorization}
+
+  Given an $m \times n$ matrix $A$ with linearly independent columns, let $A =
+  QR$ be a QR factorization of $A$. Then, for each vector $\b \in \R^m$, the
+  equation $A\x = \b$ has a unique least-squares solution $\xh$ given by
+  \begin{equation}
+    \label{eqt:thm_qr_factorization_1}
+    \xh = R\I Q\T\b
+  .\end{equation}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:qr_factorization}
+
+  Let $\xh = R\I Q\T\b$. Then
+  \[%
+    A\x = QR\xh = QRR\I Q\T = QQ\T\b
+  .\]%
+  By \cref{thm:qr_factorization}, the columns of $Q$ form an orthonormal basis
+  for $\Col(A)$. Hence, by \cref{thm:orthogonal_projections_in_general},
+  $QQ\T\b$ is the orthogonal projection $\bh$ of $\b$ onto $\Col(A)$. Then,
+  $A\xh = \bh$, which shows that $\xh$ is a least-squares solution for $A\x =
+  \b$. The uniqueness of $\xh$ follows from
+  \cref{thm:least_squares_solution_conditions}.
+\end{proof}
+
+Let's show that $A\xh = \bh$, where $\xh = R\I Q\T\b$ and $\bh =
+\proj_{\Col(A)}(\b)$.
+
+Firstly, recall that $Q$ has orthonormal columns which are a basis for
+$\Col(A)$. Hence, by \cref{thm:orthogonal_projections_in_general}, we know that
+\[%
+  \bh = \proj_{\Col(A)}(\b) = QQ\T\b
+.\]%
+Lastly, recall that $A = QR$, giving us
+\[%
+  A\xh = (QR)(R\I Q\T\b) = Q\rcancel{RR\I}Q\T\b = QQ\T\b = \bh
+.\]%
+
+\begin{question}
+  \label{qst:qr_factorization_to_find_least_squares_solution_2}
+
+  Consider the following matrices and vector
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      1 & 3 & 5 \\
+      1 & 1 & 0 \\
+      1 & 1 & 2 \\
+      1 & 3 & 3 \\
+    \end{bNiceMatrix},\quad
+    Q = \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{1}{2} \\
+      \sfrac{1}{2} & \sfrac{-1}{2} & \sfrac{-1}{2} \\
+      \sfrac{1}{2} & \sfrac{-1}{2} & \sfrac{1}{2} \\
+      \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{-1}{2} \\
+    \end{bNiceMatrix},\quad
+    R = \begin{bNiceMatrix}[columns-width=auto]
+      2 & 4 & 5 \\
+      0 & 2 & 3 \\
+      0 & 0 & 2 \\
+    \end{bNiceMatrix},\aand
+    \b = \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      5 \\
+      7 \\
+      -3 \\
+    \end{bNiceMatrix}
+  .\]%
+  We observe that through the Gram-Schmidt Process, the QR factorization of $A$
+  is $A = QR$. Use this factorization to find the least-squares solution $\xh$
+  for $A\x = \b$. \textit{Use your calculator to matrix multiply.}
+\end{question}
+
+\begin{solution}
+  \label{sol:qr_factorization_to_find_least_squares_solution_2}
+
+  From \cref{thm:qr_factorization}, we get
+  \[%
+    \xh = R\I Q\T\b =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 & 4 & 5 \\
+      0 & 2 & 3 \\
+      0 & 0 & 2 \\
+    \end{bNiceMatrix}\I
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{1}{2} \\
+      \sfrac{1}{2} & -\sfrac{1}{2} & -\sfrac{1}{2} & \sfrac{1}{2} \\
+      \sfrac{1}{2} & -\sfrac{1}{2} & \sfrac{1}{2} & -\sfrac{1}{2} \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      5 \\
+      7 \\
+      -3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      10 \\
+      -6 \\
+      2 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+% section least_squares_and_qr_factorization (end)
+
+\newpage

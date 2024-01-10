@@ -1,0 +1,777 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                              Required Packages                               %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Required for creating documents
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Required math packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\usepackage{multicol} % for multiple columns
+\usepackage[usenames,dvipsnames,pdftex]{xcolor} % Required for nicer colors
+\usepackage{hyperref} % Required for hyperlinks
+\usepackage{xparse} % Required for \NewDocumentCommand
+\usepackage{graphicx} % Required for including images
+\usepackage{enumitem} % Required for customizing lists
+\usepackage{float} % Required for positioning figures and tables
+\usepackage{array} % Required for customizing tables
+\usepackage{systeme} % Required for \systeme
+\usepackage{cancel} % Required for \cancel
+\usepackage{derivative} % Required for \odv and \pdv
+\usepackage{authoraftertitle} % Required for \MyTitle
+\usepackage{geometry} % Required for adjusting page dimensions
+\usepackage{minitoc} % Required for creating a mini table of contents
+\usepackage[noabbrev]{cleveref} % Required for clever referencing
+\usepackage{emptypage} % Required for removing page numbers on empty pages
+\usepackage{empheq} % Required for boxing equations
+\usepackage{nicematrix} % Required for better matrices
+\usepackage{booktabs} % Required for better tables
+\usepackage{cellspace} % Required for better spacing in tables
+\usepackage{longtable} % Required for long tables
+\usepackage{xfrac} % Required for extra fraction options
+
+\usepackage{tasks} % Required for creating tasks
+\usepackage[font=bf]{caption} % Required for customizing captions
+\usepackage{siunitx} % Required for SI units
+\usepackage{titletoc} % Required for customizing table of contents
+\usepackage[framemethod=TikZ]{mdframed} % Required for creating boxes
+\usepackage{braket} % Required for creating braket notation
+
+% Required for drawing figures
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage{tikz-cd}
+
+% Required for creating plots
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+
+\usepackage{titling} % Required for customizing title page
+\usepackage{ifthen} % Required for if-then-else statements
+\usepackage{xifthen} % Required for if-then-else statements
+\usepackage{fancyhdr} % Required for customizing headers and footers
+\usepackage{import} % Required for importing pdf_tex files
+\usepackage{titlesec} % Required for customizing sectioning commands
+
+% Required for creating boxes
+\usepackage{varwidth}
+\usepackage{thmtools}
+\usepackage{etoolbox}
+\usepackage[most,many,breakable]{tcolorbox}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                                Basic Settings                                %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define Colors
+\makeatletter
+
+\newcommand\newcolor[3]{
+  \@ifclasswith\class{nocolor}{
+    \definecolor{#1}{HTML}{#3}
+  }{
+    \definecolor{#1}{HTML}{#2}
+  }
+}
+
+\makeatother
+
+\newcolor{linecolor1}{3DC6F3}{000000}
+\newcolor{linecolor2}{F034A3}{000000}
+\newcolor{linecolor3}{F57215}{000000}
+\newcolor{linecolor4}{733786}{000000}
+\newcolor{linecolor5}{80CF5C}{000000}
+\newcolor{correct}{00FF00}{00FF00}
+\newcolor{incorrect}{FF0000}{FF0000}
+\newcolor{tbl}{F035A3}{000000}
+\newcolor{main}{F035A3}{000000}
+\newcolor{solution}{00AEEF}{000000}
+\newcolor{qedsolution}{76B4CF}{000000}
+\newcolor{proof}{F035A3}{000000}
+\newcolor{subsubsection}{B00D15}{000000}
+\newcolor{example}{00A6E4}{000000}
+\newcolor{examplebg}{F2FBF8}{FFFFFF}
+
+\colorlet{definition}{main}
+\colorlet{theorem}{main}
+\colorlet{remark}{main}
+\colorlet{qedproof}{proof}
+\colorlet{question}{example}
+\colorlet{questionfg}{examplebg}
+
+% Geometry
+\geometry{
+  tmargin=2cm,
+  rmargin=1in,
+  lmargin=1in,
+  margin=0.85in,
+  bmargin=2cm,
+  footskip=1cm,
+}
+
+% Tasks
+\settasks{label=\bfseries\arabic*.),label-width=2em}
+
+% Tables
+\newcolumntype{C}{>{\Centering\arraybackslash}X}
+\setlength{\tabcolsep}{5pt}
+\renewcommand\arraystretch{1.5}
+\renewcommand\thetable{\Roman{table}}
+\captionsetup[figure]{font=small}
+\captionsetup{justification=centering}
+\setlength\cellspacetoplimit{6pt}
+\setlength\cellspacebottomlimit{6pt}
+
+% Symbols
+\allowdisplaybreaks
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\svsum\sum\def\sum{\svsum\limits}
+
+% Lists
+\setlist[itemize,1]{label=--}
+\setlist[itemize,2]{label=\textbullet}
+\setlist[enumerate,1]{label=\protect\circled{\arabic*}}
+
+% SI Unitx
+\sisetup{
+  locale = US,
+  per-mode = symbol,
+  propagate-math-font = true,
+  reset-math-version = false,
+  exponent-mode = engineering,
+  round-mode = figures,
+  round-precision = 3,
+  drop-zero-decimal,
+}
+
+\DeclareSIUnit{\millimeter}{mm}
+\DeclareSIUnit{\centimeter}{cm}
+\DeclareSIUnit{\decimeter}{dm}
+\DeclareSIUnit{\inch}{in}
+\DeclareSIUnit{\foot}{ft}
+\DeclareSIUnit{\yard}{yd}
+\DeclareSIUnit{\meter}{m}
+\DeclareSIUnit{\kilometer}{km}
+\DeclareSIUnit{\mile}{mi}
+\DeclareSIUnit{\astronomicalunit}{au}
+\DeclareSIUnit{\lightyear}{ly}
+\DeclareSIUnit{\fahrenheit}{F}
+\DeclareSIUnit{\celsius}{C}
+\DeclareSIUnit{\millisecond}{ms}
+\DeclareSIUnit{\second}{sec}
+\DeclareSIUnit{\minute}{min}
+\DeclareSIUnit{\hour}{hr}
+\DeclareSIUnit{\day}{d}
+\DeclareSIUnit{\week}{wk}
+\DeclareSIUnit{\month}{mos}
+\DeclareSIUnit{\year}{yr}
+\DeclareSIUnit{\milligram}{mg}
+\DeclareSIUnit{\gram}{g}
+\DeclareSIUnit{\ounce}{oz}
+\DeclareSIUnit{\pound}{lb}
+\DeclareSIUnit{\kilogram}{kg}
+\DeclareSIUnit{\ton}{t}
+\DeclareSIUnit{\gallon}{gal}
+\DeclareSIUnit{\liter}{L}
+\DeclareSIUnit{\milliliter}{mL}
+
+% Center Title Page
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+% Footnote Line
+\renewcommand\footnoterule{\hrule\vspace{0.1cm}}
+
+% Modify Links Color
+\hypersetup{
+  colorlinks,
+  linkcolor=main!90,
+  citecolor=black,
+  urlcolor=black,
+}
+
+% TikZ
+\usetikzlibrary{
+  intersections,
+  angles,
+  quotes,
+  calc,
+  positioning,
+  3d,
+  arrows,
+  arrows.meta,
+  patterns,
+}
+
+\tikzset{>=stealth}
+\tikzset{->-/.style={decoration={markings,mark=at position .5 with {\arrow{>}}},postaction={decorate}}}
+
+% PGF Plots
+\pgfplotsset{compat=1.18}
+
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{patchplots}
+\usepgfplotslibrary{external}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
+\tikzexternalenable
+
+\pgfplotsset{style1/.style={color=linecolor1,mark=none,line width=1pt,solid}}
+\pgfplotsset{style2/.style={color=linecolor2,mark=none,line width=1pt,solid}}
+\pgfplotsset{style3/.style={color=linecolor3,mark=none,line width=1pt,solid}}
+\pgfplotsset{style4/.style={color=linecolor4,mark=none,line width=1pt,solid}}
+\pgfplotsset{style5/.style={color=linecolor5,mark=none,line width=1pt,solid}}
+\pgfplotsset{asymptote/.style={color=gray,mark=none,line width=1pt,<->,dashed}}
+\pgfplotsset{soldot/.style={color=linecolor2,only marks,mark=*}}
+\pgfplotsset{holdot/.style={color=linecolor2,fill=white,only marks,mark=*}}
+\pgfplotsset{integration/.style={name path=curve,color=linecolor1,mark=none,line width=0.5pt,solid}}
+
+\pgfplotscreateplotcyclelist{stylelist}{
+  style1,
+  style2,
+  style3,
+  style4,
+  style5,
+}
+
+\def\axisdefaultwidth{175pt}
+\def\axisdefaultheight{\axisdefaultwidth}
+\pgfplotsset{
+  every axis/.append style={
+    axis x line=middle, x axis line style={name path=xaxis},
+    axis y line=middle, y axis line style={name path=yaxis},
+    ticks=none,
+    axis line style={->},
+    xlabel={$x$},
+    ylabel={$y$},
+    samples=1000,
+    cycle list name=stylelist
+  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                           School Specific Commands                           %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%
+%  Helpful Commands  %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+
+\newcommand\resetcounters{
+  \setcounter{section}{0}
+  \setcounter{subsection}{0}
+  \setcounter{subsubsection}{0}
+  \setcounter{paragraph}{0}
+  \setcounter{subparagraph}{0}
+}
+
+\newcommand*\cleartoleftpage{%
+  \clearpage
+  \thispagestyle{empty}
+  \ifodd\value{page}\else\hbox{}\newpage\fi
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Lecture/Chapter Command  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\@notenum{}
+\newcommand\includenote[1]{
+  \ifnum #1<10
+    \def\@notenum{0#1}
+  \else
+    \def\@notenum{#1}
+  \fi
+
+  \setcounter{chapter}{#1}
+  \resetcounters
+  \IfFileExists{\noteloc-\@notenum.tex}{\input{\noteloc-\@notenum.tex}}{}
+}
+
+\newcommand\includenotes[2]{
+  \foreach \n in {#1,...,#2}{
+    \includenote{\n}
+  }
+}
+
+\newcommand{\localtoc}{
+  \startcontents
+  \printcontents{}{1}{\noindent{\color{main}\rule{\textwidth}{0.4pt}\par}\vspace*{-0.3cm}\subsection*{{\color{main}Lecture Note Overview}}}
+  \noindent{{\color{main}\rule{\textwidth}{0.4pt}\par}}
+}
+
+\newcommand{\removetocentry}[1]{%
+  \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+  #1
+  \addtocontents{toc}{\protect\setcounter{tocdepth}{\arabic{tocdepth}}}
+}
+
+\newcommand\customlabel[2]{%
+  \protected@write \@auxout {}{\string \newlabel {#1}{{#2}{\thepage}{#2}{#1}{}} }%
+  \hypertarget{#1}{}
+}
+
+\def\@note{}
+\newcounter{nte}
+\NewDocumentCommand\nte{O{} O{} m m}{%
+  \cleartoleftpage
+  \setcounter{nte}{\arabic{chapter}}
+  \resetcounters
+  \ifthenelse{\isempty{#3}}{%
+    \def\@note{\lecorchap~\arabic{chapter}}
+  }{%
+    \def\@note{\lecorchap~\arabic{chapter}: #4}
+  }%
+  \def\@notetbl{\lecorchap~\arabic{chapter}}
+  \phantomsection\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#4}
+  \customlabel{note_\@notenum}{\@notenum}
+  {\fontsize{10}{12}\selectfont\sffamily\ifstrequal{#1}{}{}{\noindent#1}\ifstrequal{#3}{}{}{\hfill#3}}
+  \vspace*{0.03cm}
+  \hrule
+  \vspace*{0.3cm}
+  \noindent{\bfseries\sffamily\fontsize{20}{30}\selectfont\@note}
+
+  \ifstrequal{#2}{false}{}{\localtoc}
+  \setcounter{section}{0}
+}
+
+% Intro
+\newcommand\createintro{
+  \maketitle
+
+  \pagenumbering{roman}
+  \begin{center}
+    \textbf{{\LARGE Introduction}}
+  \end{center}
+
+  \IfFileExists{./intro.tex}{\input{intro.tex}}{}
+
+  \pagestyle{fancy}
+  \renewcommand\headrulewidth{0pt}
+
+  \fancyhead{}
+  \fancyfoot[C]{%
+    \textit{For more notes like this, visit \href{\linktootherpages}{\shortlinkname}}.%
+  }%
+
+  \begin{tcolorbox}[enhanced,colback=white,center upper,size=fbox, drop shadow southwest,sharp corners]
+    \term: \academicyear, \\
+    Last Update: \today, \\
+    \faculty, \location.
+  \end{tcolorbox}
+
+  \newpage
+  \tableofcontents
+
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
+
+  \renewcommand\headrulewidth{0.4pt}
+  \fancyhead[R]{\@note}
+  \fancyhead[L]{\@author}
+  \fancyfoot[C]{\thepage}
+}
+
+%%%%%%%%%%%%%%%%%%%%%
+%  Random Commands  %
+%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+
+% Import Figures
+\newcommand\incfig[2][1]{
+  \def\svgwidth{#1\columnwidth}
+  \import{\figloc-\@notenum}{#2.pdf_tex}
+}
+
+\makeatother
+
+% Circle
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt] (char) {#1};}
+}
+
+% Correct
+\newcommand\correct[1]{\textcolor{correct}{#1}}
+\newcommand\incorrect[1]{{\color{incorrect}#1}}
+\newcommand\inctocor[2]{\incorrect{#1} \ensuremath{\to} \correct{#2}}
+
+% Important
+\newcommand\imp[1]{{\color{main}#1}}
+
+% For diagonal strikeout in blue
+\newcommand{\blu}[1]{\phantom{#1}}
+
+% For diagonal strikeout in red
+\newcommand{\rcancel}[1]{\renewcommand\CancelColor{\color{red}}\cancel{#1}}
+
+% Helpful text in math
+\newcommand\echelon{\underrightarrow{\textrm{ echelon form }}}
+\newcommand\rref{\underrightarrow{\textrm{ rref }}}
+\newcommand\pick[1]{\xrightarrow[#1]{\textrm{ pick }}}
+\newcommand\generalsol{\xrightarrow[\textrm{solution}]{\textrm{ general }}}
+\newcommand\ngeneralsol{\parbox{4em}{general \\ solution}\textrm{:}}
+\renewcommand\and{\text{and}}
+\newcommand\aand{\quad\text{and}\quad}
+\newcommand\adj{\text{adj}}
+\newcommand\qtq[1]{\quad\textrm{#1}\quad}
+\newcommand\oor{\quad\text{or}\quad}
+\newcommand\Col{\textrm{Col}}
+\newcommand\Nul{\textrm{Null}}
+\newcommand\Row{\textrm{Row}}
+\newcommand\ran{\textrm{rank}}
+\newcommand\dist{\text{dist}}
+\newcommand\sz{\stackrel{\textrm{set}}{=}}
+\newcommand\ce{\overset{\checkmark}{=}}
+\newcommand\proj{\text{proj}}
+
+% Vectors
+\renewcommand\a{\vec{a}}
+\renewcommand\b{\vec{b}}
+\renewcommand\c{\vec{c}}
+\renewcommand\d{\vec{d}}
+\newcommand\e{\vec{e}}
+\newcommand\f{\vec{f}}
+\newcommand\p{\vec{p}}
+\renewcommand\r{\vec{r}}
+\renewcommand\u{\vec{u}}
+\renewcommand\v{\vec{v}}
+\newcommand\w{\vec{w}}
+\newcommand\x{\vec{x}}
+\newcommand\y{\vec{y}}
+\newcommand\z{\vec{z}}
+\newcommand\zero{\vec{0}}
+\newcommand\T{^{\top}}
+\newcommand\I{^{-1}}
+
+% Hat vectors
+\newcommand\ah{\hat{a}}
+\newcommand\bh{\hat{b}}
+\newcommand\ch{\hat{c}}
+\renewcommand\dh{\hat{d}}
+\newcommand\eh{\hat{e}}
+\newcommand\ph{\hat{p}}
+\newcommand\uh{\hat{u}}
+\newcommand\vh{\hat{v}}
+\newcommand\wh{\hat{w}}
+\newcommand\xh{\hat{x}}
+\newcommand\yh{\hat{y}}
+\newcommand\zh{\hat{z}}
+
+% Subspaces
+\newcommand\B{\mathcal{B}}
+\newcommand\CC{\mathbb{C}}
+\newcommand\C{\mathcal{C}}
+\newcommand\D{\mathcal{D}}
+\newcommand\E{\mathcal{E}}
+\newcommand\F{\mathcal{F}}
+\newcommand\R{\mathbb{R}}
+\newcommand\U{\mathcal{U}}
+\newcommand\X{\mathcal{X}}
+\newcommand\Y{\mathcal{Y}}
+\newcommand\W{\mathbf{w}}
+
+% Span
+\newcommand\Sspan{\text{Span}}
+
+% Edit Section/Subsection/Subsubsection
+\makeatletter
+\titleformat*{\section}{\sffamily\scshape\fontsize{14}{16}\bfseries}
+\titleformat*{\subsection}{\color{subsubsection}\scshape\sffamily\fontsize{13}{15}\bfseries}
+\def\@seccntformat#1{\llap{\csname the#1\endcsname\quad}}
+\renewcommand\thesection{\arabic{section}}
+\makeatother
+
+% Edit equation number display
+\makeatletter
+\newcommand*\widefbox[1]{\color{main}\fbox{\hspace{2em}#1\hspace{2em}}}
+\renewcommand\theequation{\arabic{equation}}
+\renewcommand\tagform@[1]{%
+  {\color{main}\boxed{\textbf{#1}}}
+}
+\def\@eqnnum{{\normalfont \normalcolor \theequation}}
+\makeatother
+
+% Equivalently
+\newcommand\equivalently[1]{[ \textbf{Equivalently:} #1 ]}
+
+% L'Hopital's Rule
+\newcommand\lop{\stackrel{\textrm{H}}{=}}
+
+% Check mark
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+% Vinculum
+\newcommand\vinculum[1]{\frac{\hspace{#1cm}}{}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                                 Environments                                 %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mdfsetup{skipabove=1em,skipbelow=0em}
+\tcbuselibrary{theorems,skins,hooks}
+
+\newcommand\qedsolution{{\color{qedsolution}\rule{4mm}{1.5mm}}}
+\newcommand\qedproof{{\color{qedproof}\rule{4mm}{1.5mm}}}
+
+\declaretheoremstyle[
+  headfont=\sffamily\bfseries\color{definition},
+  headformat=\fbox{\arabic{definition}}~\NAME\NOTE,
+  bodyfont=\normalfont,
+  headpunct=,
+  mdframed={
+    linewidth=0.5pt,
+    linecolor=definition,
+  },
+]{thmdefinitionbox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\bfseries\color{theorem},
+  headformat=\fbox{\arabic{theorem}}~\NAME\NOTE,
+  bodyfont=\normalfont,
+  headpunct=,
+  mdframed={
+    linewidth=0.5pt,
+    linecolor=theorem,
+  },
+]{thmtheorembox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\bfseries\color{question}\colorbox{questionfg}{QUESTION \arabic{question}},
+  headformat=\textbf{\NOTE},
+  notefont=\bfseries,
+  bodyfont=\normalfont,
+  notefont={\color{black}\bfseries},
+  notebraces={~ },
+  headpunct=,
+]{thmquestionbox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\bfseries\color{example},
+  headformat=\NAME\NOTE,
+  bodyfont=\normalfont,
+  headpunct=,
+  mdframed={
+    linewidth=0.5pt,
+    linecolor=example,
+    backgroundcolor=examplebg,
+  },
+]{thmexamplebox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\color{solution},
+  headformat=\NAME~\arabic{solution},
+  notefont=\bfseries,
+  headpunct=,
+  qed=\qedsolution,
+  spaceabove=\topsep,
+  spacebelow=\topsep,
+]{thmsolutionbox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\bfseries\color{remark},
+  bodyfont=\itshape,
+  notebraces={~ },
+  notefont=\bfseries,
+  headpunct=,
+  mdframed={
+    linewidth=0.5pt, linecolor=remark,
+    rightline=false, topline=false, bottomline=false,
+  },
+]{thmremarkbox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\color{proof},
+  headformat=\NAME,
+  headindent=0mm,
+  bodyfont=\normalfont,
+  notefont=\bfseries,
+  headpunct=,
+  qed=\qedproof,
+]{thmreplacementproofbox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\color{main},
+  headformat=\NOTE,
+  headindent=0mm,
+  bodyfont=\normalfont,
+  notefont=\bfseries,
+  notebraces={~ },
+  headpunct=,
+  mdframed={
+    linewidth=0.5pt, linecolor=main,
+    topline=true, bottomline=true, leftline=true, rightline=true,
+  }
+]{thmpurpleframebox}
+
+\declaretheoremstyle[
+  headfont=\sffamily\bfseries,
+  headindent=24pt,
+  bodyfont=\normalfont,
+  notefont=\bfseries,
+  notebraces={~},
+  headpunct=:,
+]{thmmaindefinitionbox}
+
+\declaretheoremstyle[
+  headfont=\sffamily,
+  headindent=24pt,
+  bodyfont=\itshape,
+  notefont=\bfseries,
+  notebraces={~ },
+  headpunct=:,
+]{thmmainplainbox}
+
+\declaretheorem[style=thmdefinitionbox,       name=Definition]      {definition}
+\declaretheorem[style=thmtheorembox,          name=Theorem]         {theorem}
+\declaretheorem[style=thmexamplebox,          name=Example]         {example}
+\declaretheorem[style=thmquestionbox,         name=]                {question}
+\declaretheorem[style=thmsolutionbox,         name=SOLUTION]        {solution}
+\declaretheorem[style=thmremarkbox,           name=Remark]          {remark}
+\declaretheorem[style=thmreplacementproofbox, name=PROOF]           {replacementproof}
+\declaretheorem[style=thmpurpleframebox,      name=]                {purpleframe}
+
+\declaretheorem[numbered=no,          style=thmmaindefinitionbox,   name=Note]            {note}
+\declaretheorem[numbered=no,          style=thmmaindefinitionbox,   name=Problem]         {problem}
+
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Lemma]           {lemma}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Corollary]       {corollary}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Proposition]     {proposition}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Conjecture]      {conjecture}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Explanation]     {explanation}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Notation]        {notation}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Recall]          {recall}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Claim]           {claim}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Case]            {case}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Acknowledgment]  {acknowledgment}
+\declaretheorem[numbered=no,          style=thmmainplainbox,        name=Conclusion]      {conclusion}
+
+\renewenvironment{proof}[1][\proofname]{\begin{replacementproof}}{\end{replacementproof}}
+
+\crefname{definition}{definition}{definitions}
+\Crefname{definition}{Definition}{Definitions}
+
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+
+\crefname{example}{example}{examples}
+\Crefname{example}{Example}{Examples}
+
+\crefname{question}{question}{questions}
+\Crefname{question}{Question}{Questions}
+
+\crefname{solution}{solution}{solutions}
+\Crefname{solution}{Solution}{Solutions}
+
+\crefname{remark}{remark}{remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\crefname{note}{note}{notes}
+\Crefname{note}{Note}{Notes}
+
+\crefname{problem}{problem}{problem}
+\Crefname{problem}{Problem}{Problems}
+
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+
+\crefname{conjecture}{conjecture}{conjectures}
+\Crefname{conjecture}{Conjecture}{Conjectures}
+
+\crefname{explanation}{explanation}{explanations}
+\Crefname{explanation}{Explanation}{Explanations}
+
+\crefname{notation}{notation}{notations}
+\Crefname{notation}{Notation}{Notations}
+
+\crefname{recall}{recall}{recalls}
+\Crefname{recall}{Recall}{Recalls}
+
+\crefname{claim}{claim}{claims}
+\Crefname{claim}{Claim}{Claims}
+
+\crefname{case}{case}{cases}
+\Crefname{case}{Case}{Cases}
+
+\crefname{acknowledgment}{acknowledgment}{acknowledgments}
+\Crefname{acknowledgment}{Acknowledgment}{Acknowledgments}
+
+\crefname{conclusion}{conclusion}{conclusions}
+\Crefname{conclusion}{Conclusion}{Conclusions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                     %
+%                          Table of Contents                          %
+%                                                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\contentsmargin{0cm}
+\makeatletter
+
+\titlecontents{chapter}[3.7pc]
+{%
+  \addvspace{30pt}%
+  \begin{tikzpicture}[remember picture, overlay]%
+    \draw[fill=tbl,draw=tbl] (-7,-.1) rectangle (-0.7,.5);%
+    \pgftext[left,x=-3.7cm,y=0.2cm]{\color{white}\Large\sc\bfseries \lecorchap~\thecontentslabel\\*\hspace*{.7em}\ \thecontentslabel};%
+  \end{tikzpicture}%
+  \color{tbl}\large\sc\bfseries%
+}%
+{}
+{}
+{\;\titlerule\;\large\sc\bfseries Page \thecontentspage
+	\begin{tikzpicture}[remember picture, overlay]
+		\draw[fill=tbl,draw=tbl] (2pt,0) rectangle (4,0.1pt);
+	\end{tikzpicture}}%
+
+\titlecontents{section}[3.7pc]
+{\addvspace{2pt}}
+{\contentslabel[\thecontentslabel]{2pc}}
+{}
+{\hfill\small \thecontentspage}
+[]
+
+\titlecontents{subsection}[5.75pc]
+{\addvspace{2pt}}
+{\contentslabel[\thecontentslabel]{2pc}}
+{}
+{\hfill\small \thecontentspage}
+[]%
+
+\renewcommand{\tableofcontents}{%
+  \chapter*{%
+    \vspace*{-20\p@}%
+    \begin{tikzpicture}[remember picture, overlay]%
+      \pgftext[right,x=15cm,y=0.2cm]{\color{tbl}\Huge\sc\bfseries \contentsname};%
+      \draw[fill=tbl,draw=tbl] (13,-.75) rectangle (20,1);%
+      \clip (13,-.75) rectangle (20,1);
+      \pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
+    \end{tikzpicture}}%
+  \@starttoc{toc}}
+
+\makeatother

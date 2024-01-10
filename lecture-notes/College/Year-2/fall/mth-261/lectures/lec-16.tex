@@ -1,0 +1,639 @@
+\nte[Sections 6.1 and 6.2]{Nov 28 2023 Tue (14:01:06)}{Orthogonality}
+
+\section{The Dot Product Revisited}
+\label{sec:the_dot_product_revisited}
+
+\begin{recall}
+  \label{rec:dot_product}
+
+  The \textbf{dot product} of two vectors $\u = (u_1, u_2, \dots, u_n), \v =
+  (v_1, v_2, \dots, v_n) \in \R^n$ is a scalar given by
+  \[%
+    \u \cdot \v = \sum_{i=1}^{n} u_iv_i
+  .\]%
+\end{recall}
+
+\begin{question}
+  \label{qst:recall_dot_product}
+
+  Consider the vectors $\u = (2, -5, -1), \v = (3, 2, -3) \in \R^3$.
+  Compute $\u \cdot \v$ and $\v \cdot \u$.
+\end{question}
+
+\begin{solution}
+  \label{sol:recall_dot_product}
+
+  \begin{align*}
+    \u \cdot \v &= (2)(3) + (-5)(2) + (-1)(-3) = -1 \\
+    \v \cdot \u &= (3)(2) + (2)(-5) + (-3)(-1) = -1
+  .\qedhere\end{align*}
+\end{solution}
+
+\begin{theorem}
+  \label{thm:properties_of_the_dot_product}
+
+  Let $\u$, $\v$, and $\w$ be vectors in $\R^n$, and let $c$ be a scalar. Then
+  we have
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \label{enum:properties_of_the_dot_product}
+
+      \item $\u \cdot \v = \v \cdot \u$
+
+      \item $(\u + \v) \cdot \w = \u \cdot \w + \v \cdot \w$
+
+      \item $(c\u) \cdot \v = c(\u \cdot \v) = \u \cdot (c\v)$
+
+      \item $\u \cdot \u \geq 0$, and $\u \cdot \u = 0$ if and only if $\u = \z$.
+    \end{enumerate}
+  \end{multicols}
+
+  Also, properties $2$ and $3$ above can be combined into the following useful
+  rule
+  \[%
+    (c_1\u_1 + \cdots + c_p\u_p) \cdot \w = c_1(\u_1 \cdot \w) + \cdots + c_p(\u_p \cdot \w)
+  .\]%
+\end{theorem}
+
+The dot product also allows us a natural way to ``measure'' the length of a
+vector (the distance from the origin to the location of the vector).
+
+Consider a vector $\u = (a, b)$ in $\R^2$. We can graph this vector in the
+coordinates system below. By the Pythagorean Theorem, we know that the length of
+the arrow from the origin to $\u$ is given by $\sqrt{a^2+b^2}$.
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \begin{axis}[
+      scale=0.725,
+      axis equal image,
+      axis lines=middle,
+      axis line style={stealth-stealth,very thick},
+      xmin=-1.5,xmax=3.75,ymin=-1.5,ymax=3.25,
+      yticklabels={,,},
+      xticklabels={,,},
+      xlabel={$x_1$},
+      ylabel={$x_2$},
+      grid=none]
+      \addplot[color=linecolor2,very thick,->] coordinates{(0,0)(3,2)} node[midway,sloped,above]{$\sqrt{a^2+b^2}$};
+      \addplot[color=linecolor2,very thick,dashed] coordinates{(0,0)(3,0)} node[midway,below]{$a$};
+      \addplot[color=linecolor2,very thick,dashed] coordinates{(3,0)(3,2)} node[midway,right]{$b$};
+    \end{axis}
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:vector_length}
+\end{figure}
+
+However, also notice that $\u \cdot \u = (a)(a) + (b)(b) = a^2 + b^2$. Thus, the
+length of $\u$ is also $\sqrt{\u \cdot \u}$.
+\begin{definition}[Length of a Vector]
+  \label{def:length_of_a_vector}
+
+  The \textbf{length} of a vector $\v = (v_1, v_2, \ldots, v_n)$ in $\R^n$ is a
+  non-negative scalar denoted as $\lVert \v \rVert$ and defined by
+  \[%
+    \Vert \v \Vert = \sqrt{\v \cdot \v} = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2} \aand \Vert \v \Vert^2 = \v \cdot \v
+  .\]%
+\end{definition}
+
+\begin{note}
+  \label{nte:compute_1_over_length_of_vector_times_length_of_vector}
+  When we compute the length of $c\v$, where $c = \sfrac{1}{\Vert \v \Vert}$, we
+  get
+  \[%
+    \Vert c\v \Vert = \sqrt{(c\v) \cdot (c\v)} = \sqrt{c^2 (\v \cdot \v)} = \sqrt{c^2} \sqrt{\v \cdot \v} = c \Vert \v \Vert = \frac{1}{\Vert \v \Vert} \Vert \v \Vert = 1
+  .\]%
+\end{note}
+
+\begin{definition}[Unit Vector]
+  \label{def:unit_vector}
+
+  A vector of length $1$ is called a \textbf{unit vector}. For any vector $\v
+  \in \R^n$, the scalar multiple $\frac{1}{\Vert \v \Vert} \v$ is called the
+  \textbf{unit vector in the direction of} $\v$. The process of computing such
+  vector is called \textbf{normalizing} $\v$.
+\end{definition}
+
+\begin{question}
+  \label{qst:unit_vector}
+
+  Let $\v = (1, -2, 2, 0)$. Find the unit vector in the direction of $\v$.
+\end{question}
+
+\begin{solution}
+  \label{sol:unit_vector}
+
+  First, compute $\Vert \v \Vert$. In doing so, we get
+  \[%
+    \Vert \v \Vert = \sqrt{(1)^2 + (-2)^2 + (2)^2 + (0)^2} = \sqrt{9} = 3
+  .\]%
+  Thus,
+  \[%
+    \frac{1}{\Vert \v \Vert} \v = \frac{1}{3}
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      -2 \\
+      2 \\
+      0 \\
+    \end{bNiceMatrix}
+    =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{1}{3} \\
+      -\sfrac{2}{3} \\
+      \sfrac{2}{3} \\
+      0 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+We can also use our definition of length to determine a way to find the distance
+between two vectors. Consider two vectors $\u = (a, b)$ and $\v = (c, d)$. Using
+the figure below and the Pythagorean theorem, we observe that the distance
+between the two vectors should be $\sqrt{(c - a)^2 + (d - b)^2}$.
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \begin{axis}[
+      scale=1.25,
+      clip=false,
+      axis equal image,
+      axis lines=middle,
+      axis line style={stealth-stealth,very thick},
+      xmin=-0.75,xmax=8.5,ymin=-0.75,ymax=3.25,
+      yticklabels={,,},
+      xticklabels={,,},
+      xlabel={$x_1$},
+      ylabel={$x_2$},
+      grid=none]
+      \addplot[color=linecolor2!50,very thick,->] coordinates{(0,0)(1,1)} node[above left]{$\u=(a,b)$};
+      \addplot[color=linecolor2!50,very thick,->] coordinates{(0,0)(7,2)} node[above right]{$\v=(c,d)$};
+      \addplot[color=linecolor1,very thick,-] coordinates{(1,1)(7,2)} node[midway,sloped,above]{$\sqrt{(c-a)^2+(d-b)^2}$};
+      \addplot[color=linecolor1,thick,dashed] coordinates{(1,1)(7,1)} node[midway,below]{$c-a$};
+      \addplot[color=linecolor1,thick,dashed] coordinates{(7,1)(7,2)} node[midway,right]{$d-b$};
+    \end{axis}
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:pythaogrean_theorem_vector}
+\end{figure}
+
+\begin{note}
+  \label{nte:v_minus_u}
+
+  Notice that this length is also equal to the length of $\v - \u$.
+  \[%
+    \Vert \v - \u \Vert = \left\vert\left\vert
+    \begin{bNiceMatrix}[columns-width=auto]
+    	c \\
+    	d \\
+    \end{bNiceMatrix} -
+    \begin{bNiceMatrix}[columns-width=auto]
+    	a \\
+    	b \\
+    \end{bNiceMatrix}
+    \right\vert\right\vert = \left\vert\left\vert
+    \begin{bNiceMatrix}[columns-width=auto]
+    	c - a \\
+    	d - b \\
+    \end{bNiceMatrix}
+    \right\vert\right\vert = \sqrt{(c - a)^2 + (d - b)^2}
+  .\]%
+\end{note}
+
+\begin{definition}[Distance Between Vectors]
+  \label{def:distance_between_vectors}
+
+  For any vectors $\u,~\v \in \R^n$, the \textbf{distance between} $\v$ and
+  $\u$, denoted as $\dist(\v, \u)$, is the length $\v - \u$, or just $\dist(\v,
+  \u) = \Vert \v - \u \Vert$.
+\end{definition}
+
+Now consider two perpendicular vectors $\u = (1, 3)$ and $\v = (3, -1)$ and
+their sum $\u + \v = (4, 2)$ below.
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \begin{axis}[
+      clip=false,
+      axis equal image,
+      axis lines=middle,
+      axis line style={stealth-stealth,very thick},
+      xmin=-1.5,xmax=5.5,ymin=-1.5,ymax=4.5,
+      xtick distance=1,
+      ytick distance=1,
+      xlabel={$x_1$},
+      ylabel={$x_2$},
+      grid=none]
+      \addplot[color=linecolor1,very thick,->] coordinates{(0,0)(1,3)} node[above]{$\u$};
+      \addplot[color=linecolor1,very thick,->] coordinates{(0,0)(3,-1)} node[right]{$\v$};
+      \addplot[color=linecolor2,very thick,->] coordinates{(0,0)(4,2)} node[right]{$\u+\v$};
+      \addplot[color=linecolor1!50,thick,dashed] coordinates{(1,3)(4,2)} node[midway,sloped,above]{$\lVert \v \rVert$};
+    \end{axis}
+  \end{tikzpicture}
+
+  \caption{Perpendicular Vectors}
+  \label{fig:perpendicular_vectors}
+\end{figure}
+
+Notice that $\u \cdot \v = (1)(3) + (3)(-1) = 0$. This gives us the following definition.
+
+\begin{definition}[Orthogonal]
+  \label{def:orthogonal}
+
+  Two vectors, $\u,~\v \in \R^n$ are called \textbf{orthogonal} if and only if
+  \[%
+    \c \cdot \v = 0
+  .\]%
+\end{definition}
+
+\begin{note}
+  \label{nte:orthogonal}
+
+  Orthogonal is another way of saying that two vectors are perpendicular to one
+  another, just as in \cref{fig:perpendicular_vectors}.
+\end{note}
+
+\begin{theorem}[The Pythagorean Theorem]
+  \label{thm:the_pythagorean_theorem}
+
+  Two vectors $\u,~\v \in \R^n$ are orthogonal if and only if
+  \[%
+    \Vert \u + \v \Vert^2 = \Vert \u \Vert^2 + \Vert \v \Vert^2
+  .\]%
+\end{theorem}
+
+% section the_dot_product_revisited (end)
+
+\section{Orthogonal Sets}
+\label{sec:orthogonal_sets}
+
+\begin{definition}[Orthogonal Set and Basis]
+  \label{def:orthogonal_set_and_basis}
+
+  A set of vectors $\U = \{\u_1,~\u_2,~\dots,~\u_p\}$ is an \textbf{orthogonal
+  set} if each pair of distinct vectors is orthogonal. That is, $\U$ is
+  orthogonal if $\u_i \cdot \u_j = 0$, when $i \ne j$. Furthermore, if $\U$ is
+  also a basis for some subspace $W$ of $\R^n$, then we can call $\U$ an
+  \textbf{orthogonal basis} for $W$.
+\end{definition}
+
+\begin{theorem}
+  \label{thm:linearly_indenendent_orthogonal_basis}
+
+  If $\U$ is an orthogonal set of nonzero vectors in $\R^n$, then $\U$ is also
+  linearly independent, and therefore, can be a basis for a subspace.
+\end{theorem}
+
+We care about orthogonal bases because the next theorem shows us how to compute
+the weights of a linear combination without row linecolor2uction simply due to the fact
+that a basis is also orthogonal.
+
+\begin{theorem}
+  \label{thm:orthogonal_basis}
+
+  Let $\{\u_1,~\u_2,~\dots,~\u_p\}$ be an orthogonal basis for a subspace $W$ of
+  $\R^n$. $\forall \y \in W$, each of the weights $c_1,~c_2,~\dots,~c_p$ in the
+  linear combination $\y = c_1\u_1 + c_2\u_2 + \cdots + c_p\u_p$ can be computed
+  with the formula
+  \[%
+    c_j = \frac{\y \cdot \u_j}{\u_j \cdot \u_j}~\textrm{for}~j = 1,~2,~\dots,~p \oor c_j = \frac{\y \cdot \u_j}{\Vert \u_j \Vert^2}~\textrm{for}~j = 1,~2,~\dots,~p
+  .\]%
+\end{theorem}
+
+\begin{proof}
+  \label{prf:orthogonal_basis}
+
+  The orthogonality of $\left\{\u_1, \dots, \u_p\right\}$ shows that
+  \[%
+    \y \cdots \u_1 = (c_1\u_1 + c_2\u_2 + \cdots + c_p\u_p) \cdot \u_1 = c_1(\u_1 \cdot \u_1)
+  .\]%
+  Since $\u_1 \cdot \u_1$ is not zero, the equation above can be solved for
+  $c_1$. To find $c_j$ for $j = 2, \dots, p$, compute $\y \cdot \u_j$ and solve
+  for $c_j$.
+\end{proof}
+
+\begin{question}
+  \label{qst:orthogonal_basis}
+
+  Consider the following vectors
+  \[%
+    \u_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix},\quad
+    \u_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -1 \\
+      2 \\
+      1 \\
+    \end{bNiceMatrix},\quad
+    \u_3 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{-1}{2} \\
+      -2 \\
+      \sfrac{7}{2} \\
+    \end{bNiceMatrix},\aand
+    \y =
+    \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      1 \\
+      -8 \\
+    \end{bNiceMatrix}
+  .\]%
+  Find the weights $c_1$, $c_2$, and $c_3$ such that $y = c_1\u_1 + c_2\u_2 +
+  c_3\u_3$. Note that $\{\u_1,~\u_2,~\u_3\}$ is an orthogonal basis of $\R^3$.
+\end{question}
+
+\begin{solution}
+  \label{sol:othogonal_basis}
+
+  We can use \cref{thm:orthogonal_basis} to compute each scalar. In doing so, we
+  get
+  \[%
+    \begin{rcases*}
+      \begin{aligned}
+        c_1 &= \frac{\vec{y} \cdot \vec{u}_1}{\lVert \vec{u}_1 \rVert^2} &&= \frac{(6)(3) + (1)(1) + (-8)(1)}{(3)^2 + (1)^2 + (1)^2} &&= \frac{11}{11} &&= 1 \\
+        c_2 &= \frac{\vec{y} \cdot \vec{u}_2}{\lVert \vec{u}_2 \rVert^2} &&= \frac{(6)(-1) + (1)(2) + (-8)(1)}{(-1)^2 + (2)^2 + (1)^2} &&= -\frac{12}{6} &&= -2 \\
+        c_3 &= \frac{\vec{y} \cdot \vec{u}_3}{\lVert \vec{u}_3 \rVert^2} &&= \frac{(6)\left(-\frac{1}{2}\right) + (1)(-2) + (-8)\left(\frac{7}{8}\right)}{\left(-\frac{1}{2}\right)^2 + (-2)^2 + \left(\frac{7}{2}\right)^2} &&= -\frac{33}{\frac{33}{2}} &&= -2
+      \end{aligned}
+    \end{rcases*}
+    \y = 1\u_1 - 2\u_2 - 2\u_3
+  .\qedhere\]%
+\end{solution}
+
+\begin{definition}[Orthonormal Set]
+  \label{def:orthonormal_set}
+
+  Given an orthogonal set $\U = \{\u_1,~\u_2,~\dots,~\u_p\}$, if the vectors
+  $\u_1$, $\u_2$, $\dots$, $\u_p$ also happen to be unit vectors, then $\U$ is
+  called an \textbf{orthonormal set}. Additionally, if $\U$ is a basis for a
+  subspace $W$ or $\R^n$, then $\U$ is called an \textbf{orthonormal basis} for
+  $W$.
+\end{definition}
+
+\begin{theorem}
+  \label{thm:orthonormal_columns}
+
+  An $m \times n$ matrix $M$ has orthonormal columns if and only if $M\T M = I$.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:orthonormal_columns}
+
+  Let $U = [\,\u_1~\u_2~\cdots~\u_n\,]$ and compute
+  \begin{equation}\label{eqt:prf_orthonormal_columns_1}
+    U\T U =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \u_1\T \\
+      \u_2\T \\
+      \vdots \\
+      \u_n\T \\
+    \end{bNiceMatrix} [\,\u_1~\u_2~\cdots~\u_n\,]
+    = \begin{bNiceMatrix}[columns-width=auto]
+      \u_1\T\u_1 & \u_1\T\u_2 & \cdots & \u_1\T\u_n \\
+      \u_2\T\u_1 & \u_2\T\u_2 & \cdots & \u_2\T\u_n \\
+      \vdots & \vdots & \ddots & \vdots \\
+      \u_n\T\u_1 & \u_n\T\u_2 & \cdots & \u_n\T\u_n \\
+    \end{bNiceMatrix}
+  .\end{equation}
+  The entries in the matrix at the right are inner products, using transpose
+  notation. The columns of $U$ are orthogonal if and only if
+  \begin{equation}\label{eqt:prf_orthonormal_columns_2}
+    \u_1\T\u_2 = \u_2\T\u_1 = 0, \quad \u_1\T\u_3 = \u_3\T\u_1 = 0, \quad \dots, \quad \u_{n-1}\T\u_n = \u_n\T\u_{n-1} = 0
+  .\end{equation}
+  The columns of $U$ all have unit length if and only if
+  \begin{equation}
+    \label{eqt:prf_orthonormal_columns_3}
+    \u_1\T\u_1 = 1, \quad \u_2\T\u_2 = 1, \quad \dots, \quad \u_n\T\u_n = 1
+  .\end{equation}
+  The theorem follows immediately from
+  \cref{eqt:prf_orthonormal_columns_1,eqt:prf_orthonormal_columns_2,eqt:prf_orthonormal_columns_3}.
+\end{proof}
+
+\begin{theorem}
+  \label{thm:properties_of_orthonormal_columns}
+
+  Let $M$ be an $n \times m$ matrix with orthonormal columns, and let $\x,~\y
+  \in \R^n$. Then, we have
+  \begin{enumerate}
+    \label{enum:properties_of_orthonormal_columns_thm}
+
+    \item $\lVert M\x \rVert = \lVert \x \rVert$.
+
+    \item $(M\x) \cdot (M\y) = \x \cdot \y$.
+
+    \item $(M\x) \cdot (M\y) = 0 \iff \x \cdot \y = 0$.
+  \end{enumerate}
+\end{theorem}
+
+% section orthogonal_sets (end)
+
+\section{Orthogonal Projections}
+\label{sec:orthogonal_projections}
+
+Given some random vector $\y$ and a subspace $W$ (with an orthogonal vector
+$\z$), we wish to ``decompose'' the vector $\y$ into two vectors as shown
+below. That is, we want to find another vector $\yh$ such that $\y = \yh + \z$.
+
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \draw[linecolor1!25,fill=linecolor1!25] (-0.25,-0.25)--(1,1)--(6.5,1)--(5.5,-0.25)--cycle node[below,linecolor1]{$W$};
+    \draw[->,very thick](2,0.5)--++(0,2) node[left]{$\z$};
+    \draw[->,very thick,linecolor2](2,0.5)--++(2.25,2) node[right]{$\y$};
+    \draw[->,very thick,linecolor1](2,0.5)--++(2.25,0) node[right]{$\yh=\,?$};
+    \draw[->,very thick,linecolor1](2,0.5)--++(1,0) node[below]{$\u$};
+    \draw[dashed,thick,black!50](4.25,0.5)--++(0,2);
+    \draw[dashed,thick,black!50](2,2.5)--++(2.25,0);
+    \filldraw[black] (2,0.5) circle (2pt) node[left]{$\zero$};
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:projection}
+\end{figure}
+
+Let $\yh$ be some scalar multiple of another vector $\u$. That is, let $\yh =
+\alpha\u$. Typically, we already know $\u$. Next, observe that $\z$ and $\u$ are
+orthogonal because $\u,~\yh \in W$. Thus, $\z \cdot \u = 0$. Now notice that $\z
+= \y - \yh$. Therefore, $0 = \z \cdot \u$ gives us
+\[%
+  0 = \z \cdot \u = (\y - \yh) \cdot \u = (\y - \alpha\u) \cdot \u = \y \cdot \u - \alpha \u \cdot \u
+.\]%
+Solving for $\alpha$ gives us
+\[%
+  0 = \y \cdot \u - \alpha(\u \cdot \u) = \y \cdot \u \rightarrow \alpha = \frac{\y \cdot \u}{\u \cdot \u}
+.\]%
+Thus, we can write $\yh = \frac{\y \cdot \u}{\u \cdot \u}\u$, which is
+called the orthogonal ``projection'' of $\y$ onto $\u$.
+
+\begin{note}
+  \label{nte:orthogonal_complement}
+
+  Sometimes, $\z$ is said to be the \textbf{orthogonal complement} of $\u$,
+  denoted as $\u^\perp$, which is the line that passes through the origin
+  $\zero$ and $\z$.
+\end{note}
+
+\begin{definition}[Orthogonal Projection]
+  \label{def:orthogonal_projection}
+
+  Given two vectors $\y, \u \in \R^n$, the \textbf{orthogonal projection} of
+  $\y$ onto $\u$, denoted $\proj_{\u}(\y)$, or simply $\yh$, is given by the
+  formula
+  \[%
+    \yh = \proj_{\u}(\y) = \frac{\y \cdot \u}{\u \cdot \u} \u
+  .\]%
+\end{definition}
+
+\begin{question}
+  \label{qst:orthogonal_projection}
+
+  Let $\y = (7,6)$ and $\u = (4,2)$. Write $\y$ as a sum of two vectors, the
+  first being in the $\Sspan\{\u\}$ and the second being in $\u^\perp$. In other
+  words, find $\yh$ and $\z$ such that $\y = \yh + \z$ where $\yh \cdot \z = 0$.
+\end{question}
+
+\begin{solution}
+  \label{sol:orthogonal_projection}
+
+  First, we can find $\yh$ as the projection of $\y$ onto $\u$. In doing so, we
+  get
+  \[%
+    \yh = \proj_{\u}(\y) = \frac{\y \cdot \u}{\u \cdot \u} \u = \frac{(7)(4) + (6)(2)}{(4)^2 + (2)^2}
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      2 \\
+    \end{bNiceMatrix} =
+    \frac{40}{20}
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      2 \\
+    \end{bNiceMatrix} =
+    2
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      8 \\
+      4 \\
+    \end{bNiceMatrix}
+  .\]%
+  Since $\y = \yh + \z$, we know that
+  \[%
+    \z = \y - \yh =
+    \begin{bNiceMatrix}[columns-width=auto]
+      7 \\
+      6 \\
+    \end{bNiceMatrix} -
+    \begin{bNiceMatrix}[columns-width=auto]
+      8 \\
+      4 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -1 \\
+      2 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \begin{axis}[
+      clip=false,
+      xmin=-1.5,xmax=10.5,ymin=-1.5,ymax=7.5,
+      xlabel={$x_1$},
+      ylabel={$x_2$}
+      ]
+      \addplot[color=linecolor1,very thick,-] coordinates{(-2,-1)(10,5)} node[right]{$L=\Sspan\{\u\}$};
+      \addplot[color=linecolor1,very thick,->] coordinates{(0,0)(8,4)} node[below right]{$\yh$};
+      \addplot[color=linecolor1,very thick,->] coordinates{(0,0)(4,2)} node[below right]{$\u$};
+      \addplot[color=black!50,very thick,dashed] coordinates{(7,6)(8,4)} node[midway,sloped,rotate=90,right]{\footnotesize$\lVert \y - \yh \rVert$};
+      \addplot[color=linecolor2,very thick,->] coordinates{(0,0)(7,6)} node[above]{$\y$};
+    \end{axis}
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+The shortest distance $\y$ and the line $L = \Sspan\{\u\}$ is the distance
+between $\y$ and $\yh$, which should be
+\[%
+  \lVert \y-\yh \rVert = \sqrt{(-1)^2 + (2)^2} = \sqrt{5} \approx 2.236
+.\]%
+
+\begin{note}
+  \label{nte:l_is_a_subspace_of_r_two}
+
+  $L$ is a subspace of $\R^2$. We can generalize this result for any subspace $W$ of $\R^n$.
+\end{note}
+
+\begin{theorem}[The Best Approximation Theorem]
+  \label{thm:the_best_approximation_theorem}
+
+  Let $W$ be a subspace of $\R^n$. Then, let $\y \in \R^n$ and let $\yh$ be an
+  orthogonal projection of $\y$ onto $W$. Then, $\yh$ is the closest point in
+  $W$ to $\y$ such that
+  \begin{equation}\label{eqt:thm_the_best_approximation_theorem_1}
+    \lVert \y - \yh \rVert < \lVert \y - \v \rVert,~\forall \v \in \left\{\u \in R^n \mid \u \ne \yh\right\}
+  .\end{equation}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:the_best_approximation_theorem}
+
+  Take $\v \in W$ distinct from $\yh$. Then $\yh - \v \in W$. By
+  \cref{thm:the_orthogonal_decomposition_theorem}, $\y - \yh$ is orthogonal to
+  $W$. In particular, $\y - \yh$ is orthogonal to $\yh - \v$. Since
+  \[%
+    \y - \v = (\y - \yh) + (\yh - \v)
+  ,\]%
+  \cref{thm:the_pythagorean_theorem} gives us
+  \[%
+    \lVert \y - \v \rVert^2 = \lVert \y - \yh \rVert^2 + \lVert \yh - \v \rVert^2
+  .\]%
+  Now, $\lVert \yh - \v \rVert^2 > 0$ because $\yh - \v \ne \zero$, and so
+  \cref{eqt:thm_the_best_approximation_theorem_1} follows immediately.
+\end{proof}
+
+\begin{multicols}{2}
+  \begin{center}
+    \begin{tikzpicture}[scale=0.8]
+      \draw[linecolor1!25,fill=linecolor1!25] (-0.5,-0.5)--(1,1)--(6.5,1)--(5.5,-0.5)--cycle node[below,linecolor1]{$W$};
+      \draw[->,very thick,black](2,0.5)--++(2.25,2) node[right]{$\y$};
+      \draw[->,very thick,linecolor1](2,0.5)--++(2.25,0) node[right]{$\yh$};
+      \draw[->,very thick,linecolor1](2,0.5)--++(1.75,-0.5) node[right]{$\v$};
+      \draw[dashed,thick,black](4.25,0.5)--++(0,2) node[midway,right]{$\lVert \y - \yh \rVert$};
+      \draw[dashed,thick,black](3.75,0)--++(0.5,2.5);
+      \filldraw[black] (2,0.5) circle (2pt) node[left]{$\zero$};
+    \end{tikzpicture}
+  \end{center}
+  \columnbreak\noindent
+  This theorem is one of the most important in applied linear algebra. The
+  primary problem in this course is solving the matrix equation $A\x = \b$.
+  However, in many practical settings, with real data, this equation is often
+  inconsistent. So, instead, we try to find another vector $\xh$ such that $A\xh
+  \approx \b$.
+\end{multicols}
+
+In other words, we try to find a vector $\xh$ such that $A\xh$ is as close as
+possible to the vector $\b$. So, if $A\xh \approx \b$, then
+\[%
+  \lVert \b-A\xh \rVert \approx 0
+.\]%
+With the \cref{thm:the_best_approximation_theorem}, we know that $\exists \xh$,
+where $\lVert \b - A \xh \rVert$ is as small as possible
+
+% section orthogonal_projections (end)
+
+\newpage

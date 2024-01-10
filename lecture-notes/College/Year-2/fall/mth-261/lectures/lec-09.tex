@@ -1,0 +1,842 @@
+\nte[Sections 2.1 and 2.2]{Oct 24 2023 Tue (14:03:14)}{Matrix Operations and Inverses}
+
+\section{Matrix Arithmetic}
+\label{sec:matrix_arithmetic}
+
+Let $A$ be a matrix with $m$ rows and $n$ columns. Recall that we say that $A$
+is an $m \times n$ matrix. Here, $m \times n$ is called the \textbf{size} of the
+matrix, \underline{not} the dimension. The scaler entry in the $i$th row and
+the $j$th column of $A$ is denoted $a_{ij}$ and is called the $(i, j)$-entry of
+$A$. For example, consider the matrix below
+\[%
+  A = \begin{bNiceMatrix}[columns-width=auto]
+    3 & 2 & 1 \\
+    4 & 0 & 9 \\
+    -2 & \imp{3} & 2 \\
+  \end{bNiceMatrix}
+.\]%
+The $\imp{3}$ in row $3$ and column $2$ is denoted as $3 = a_{32}$ and
+it's called the $(3,2)$-entry of $A$.
+
+Diagonal entries of a matrix have the form $a_{11}, a_{22}, a_{33}, \dots,
+a_{nn}$. These entries are called the \textbf{main diagonal} of a matrix. In the
+matrix $A$ above, the main diagonal is $a_{11} = 3$, $a_{22} = 0$, and $a_{33} =
+2$.
+
+\begin{definition}[Square Matrix]
+  \label{def:square_matrix}
+
+  A matrix with the same number of rows and columns, denoted as $n \times n$, is
+  called a \textbf{square matrix}. A \textbf{diagonal matrix} is a square matrix
+  whose non-main diagonal entries are all zero.
+\end{definition}
+
+Like vectors, you can add or subtract matrices entry-by-entry. You may only add
+matrices of the same size, otherwise the sum is undefined.
+
+\begin{question}
+  \label{qst:matrix_operation}
+
+  Consider the following matrices
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      4 & 0 & 5 \\
+      -1 & 3 & 2 \\
+    \end{bNiceMatrix},\quad
+    B = \begin{bNiceMatrix}[columns-width=auto]
+      1 & 1 & 1 \\
+      3 & 5 & 7 \\
+    \end{bNiceMatrix},\aand
+    C = \begin{bNiceMatrix}[columns-width=auto]
+      5 & -3 \\
+      1 & 2 \\
+      9 & 2 \\
+    \end{bNiceMatrix}
+  .\]%
+  Compute the following matrix sums if it is defined. If not, explain why.
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \label{enum:matrix_operation_qst}
+
+      \item $A + B$.
+
+      \item $B - 2A$.
+
+      \item $3A + C$.
+    \end{enumerate}
+  \end{multicols}
+\end{question}
+
+\begin{solution}
+  \label{sol:matrix_operation}
+
+  \begin{enumerate}
+    \label{enum:matrix_operation_sol} $ $
+
+    \item $\begin{bNiceMatrix}[columns-width=auto]
+        4 & 0 & 5 \\
+        -1 & 3 & 2 \\
+      \end{bNiceMatrix} +
+      \begin{bNiceMatrix}[columns-width=auto]
+        1 & 1 & 1 \\
+        3 & 5 & 7 \\
+      \end{bNiceMatrix} =
+      \begin{bNiceMatrix}[columns-width=auto]
+        5 & 1 & 6 \\
+        2 & 8 & 9 \\
+      \end{bNiceMatrix}$
+
+    \item $\begin{bNiceMatrix}[columns-width=auto]
+        1 & 1 & 1 \\
+        3 & 5 & 7 \\
+      \end{bNiceMatrix} -
+      2\begin{bNiceMatrix}[columns-width=auto]
+        4 & 0 & 5 \\
+        -1 & 3 & 2 \\
+      \end{bNiceMatrix} =
+      \begin{bNiceMatrix}[columns-width=auto]
+        1 & 1 & 1 \\
+        3 & 5 & 7 \\
+      \end{bNiceMatrix} +
+      \begin{bNiceMatrix}[columns-width=auto]
+        -8 & 0 & -10 \\
+        2 & -6 & -4 \\
+      \end{bNiceMatrix} =
+      \begin{bNiceMatrix}[columns-width=auto]
+        -7 & 1 & -9 \\
+        5 & -1 & 3 \\
+      \end{bNiceMatrix}$
+
+    \item $3A + C$ is undefined due to the different matrix sizes. \qedhere
+  \end{enumerate}
+\end{solution}
+
+\begin{theorem}
+  \label{thm:matrix_arithmetic}
+
+  Let $A$, $B$, and $C$ be matrices of the same size, and let $r$ and $s$ be
+  scalars. Also, let $0$ denote the matrix of all zeros. Then, we get the
+  following properties
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \label{enum:matrix_arithmetic}
+
+      \item $A + B = B + A$
+      \item $(A + B) + C = A + (B + C)$
+      \item $A + 0 = A$
+      \item $r(A + B) = rA + rB$
+      \item $(r + s)A = rA + sA$
+      \item $r(sA) = (rs)A$
+    \end{enumerate}
+  \end{multicols}
+\end{theorem}
+
+% section matrix_arithmetic (end)
+
+\section{Matrix Multiplication}
+\label{sec:matrix_multiplication}
+
+Let $A$ be an $m \times n$ matrix and let $B$ be an $n \times p$ matrix. Then,
+let $\x \in \R^p$. To denote how to multiply $A$ and $B$, we will first look at
+the matrix-vector multiplication $B\x$. Let the columns of $B$ be $\b_1$,
+$\b_2$, $\dots$, $\b_p$ and let the entries of $\x$ be $x_1$, $x_2$, $\dots$,
+$x_p$. First, consider
+\[%
+  B\x = \begin{bNiceMatrix}[columns-width=auto]
+    \b_1 & \b_2 & \cdots & \b_p
+  \end{bNiceMatrix}
+  \begin{bNiceMatrix}[columns-width=auto]
+    x_1 \\
+    x_2 \\
+    \vdots \\
+    x_p \\
+  \end{bNiceMatrix} = x_1\b_1 + x_2\b_2 + \cdots + x_p\b_p
+.\]%
+Now, we will multiply this result by $A$ to get
+\begin{align*}
+  A(B\x) &= A(x_1\b_1 + x_2\b_2 + \cdots + x_p\b_p) \\
+         &= A(x_1\b_1) + A(x_2\b_2) + \cdots + A(x_p\b_p) \\
+         &= x_1A\b_1 + x_2A\b_2 + \cdots + x_pA\b_p \\
+         &= [\,A\b_1~A\b_2~\cdots~A\b_p\,] \x
+.\end{align*}
+The matrix $[\,A\b_1~A\b_2~\cdots~A\b_p\,] \x$ is the definition of $AB$.
+
+\begin{definition}[Column Matrix Multiplication]
+  \label{def:column_matrix_multiplication}
+
+  If $A$ is an $m \times n$ matrix and $B$ is an $n \times p$ matrix with the
+  columns $\b_1$, $\b_2$, $\dots$, $\b_p$, then $AB$ is an $m \times p$ matrix
+  of the form
+  \[%
+    AB = [\,A\b_1~A\b_2~\cdots~A\b_p\,]
+  .\]%
+\end{definition}
+
+\begin{definition}[Entry-Wise Matrix Multiplication]
+  \label{def:entry_wise_matrix_multiplication}
+
+  The \textbf{dot product} between two vectors $\x = (x_1, x_2, \cdots, x_n)$
+  and $\y = (y_1, y_2, \cdots, y_n)$ is defined as
+  \[%
+    \x \cdot \y = x_1y_1 + x_2y_2 + \cdots + x_ny_n
+  .\]%
+  In general, to find the $ij$th entry of $AB$, we compute
+  \[%
+    (AB)_{ij} = row_i(A) \cdot col_j(B)
+  .\]%
+\end{definition}
+
+\begin{purpleframe}[Undefined Matrix Multiplication]
+  \label{prpl:undefined_matrix_multiplication}
+
+  The number of columns of $A$ must be equal to the number of rows of $B$.
+  Otherwise, $AB$ is undefined.
+\end{purpleframe}
+
+\begin{question}
+  \label{qst:column_matrix_multiplication}
+
+  Given the matrices $A =
+  \begin{bNiceMatrix}[columns-width=auto]
+    2 & 3 \\
+    1 & -5 \\
+  \end{bNiceMatrix}$
+  and $B = \begin{bNiceMatrix}[columns-width=auto]
+    4 & 3 & 6 \\
+    1 & -2 & 3 \\
+  \end{bNiceMatrix}$, compute $AB$ using the column matrix multiplication method
+  and the entry-wise matrix multiplication method.
+\end{question}
+
+\begin{solution}
+  \label{sol:column_matrix_multiplication}
+
+  $AB$ is defined since $A$ has $2$ columns and $B$ has $2$ rows. The resulting
+  matrix will be a $2 \times 3$ matrix. The matrix $B$ is made up of the
+  following columns
+  \[%
+    \b_1 = \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      1 \\
+    \end{bNiceMatrix},\quad
+    \b_2 = \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -2 \\
+    \end{bNiceMatrix},\aand
+    \b_3 = \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      3 \\
+    \end{bNiceMatrix}
+  .\]%
+  Then, to compute $AB$, we multiply $A$ by each of the columns of $B$. In doing
+  so, we get
+  \begin{alignat*}{5}
+    A\b_1 &= \begin{bNiceMatrix}[columns-width=auto]
+      2 & 3 \\
+      1 & -5 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      1 \\
+    \end{bNiceMatrix} &&=
+    4\begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      1 \\
+    \end{bNiceMatrix} +
+    1\begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -5 \\
+    \end{bNiceMatrix} &&=
+    \begin{bNiceMatrix}[columns-width=auto]
+      11 \\
+      -1 \\
+    \end{bNiceMatrix} \\
+    A\b_2 &= \begin{bNiceMatrix}[columns-width=auto]
+      2 & 3 \\
+      1 & -5 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -2 \\
+    \end{bNiceMatrix} &&=
+    3\begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      1 \\
+    \end{bNiceMatrix} -
+    2\begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -5 \\
+    \end{bNiceMatrix} &&=
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      13 \\
+    \end{bNiceMatrix} \\
+    A\b_3 &= \begin{bNiceMatrix}[columns-width=auto]
+      2 & 3 \\
+      1 & -5 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      3 \\
+    \end{bNiceMatrix} &&=
+    6\begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      1 \\
+    \end{bNiceMatrix} +
+    3\begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -5 \\
+    \end{bNiceMatrix} &&=
+    \begin{bNiceMatrix}[columns-width=auto]
+      21 \\
+      -9 \\
+    \end{bNiceMatrix}
+  .\end{alignat*}
+  Therefore, we get
+  \[%
+    AB = \begin{bNiceMatrix}[columns-width=auto]
+      A\b_1 & A\b_2 & A\b_3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      11 & 0 & 21 \\
+      -1 & 13 & -9 \\
+    \end{bNiceMatrix}
+  .\]%
+
+  To perform $AB$ using the entry-wise method, we get
+  \begin{align*}
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 & 3 \\
+      1 & -5 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 & 3 & 6 \\
+      1 & -2 & 3 \\
+    \end{bNiceMatrix} &=
+    \begin{bNiceMatrix}[columns-width=auto]
+      (2)(4) + (3)(1) & (2)(3) + (3)(2) & (2)(3) + (3)(3) \\
+      (1)(4) + (-5)(1) & (1)(3) + (-5)(-2) & (1)(6) + (-5)(3) \\
+    \end{bNiceMatrix} \\
+    &= \begin{bNiceMatrix}[columns-width=auto]
+      11 & 0 & 21 \\
+      -1 & 13 & -9 \\
+    \end{bNiceMatrix}
+  .\qedhere\end{align*}
+\end{solution}
+
+\begin{theorem}
+  \label{thm:matrix_multiplication_properties}
+
+  Let $A$ be an $m \times n$ matrix and let $B$ and $C$ be matrices where the
+  following sums and products are defined. Let $r$ be any scalar.
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \label{enum:matrix_multiplication_properties}
+
+      \item $A(BC) = (AB)C$.
+      \item $A(B + C) = AB + AC$.
+      \item $(B + C)A = BA + CA$.
+      \item $r(AB) = (rA)B=A(rB)$.
+      \item $AI_n = I_mA=A$.
+    \end{enumerate}
+  \end{multicols}
+\end{theorem}
+
+\begin{note}
+  \label{note:matrix_multiplication}
+
+  Here are some important facts about matrix multiplication.
+  \begin{enumerate}
+    \label{enum:nte_matrix_multiplication}
+
+    \item In general, $AB \ne BA$.
+
+    \item If $AB = AC$, it is \textbf{not} true in general that $B = C$.
+
+    \item If $AB = 0$, it is \textbf{not} true in general that $A = 0$ or $B =
+      0$. Both matrices can be nonzero.
+  \end{enumerate}
+\end{note}
+
+Taking the power of a matrix looks like
+\[%
+  A^k = \underbrace{AAA \cdots AAA}_{k~\textrm{times}}
+.\]%
+
+\begin{definition}[Tranpose of a Matrix]
+  \label{def:tranpose_of_a_matrix}
+
+  The \textbf{transpose} of a matrix switches rows into columns.
+\end{definition}
+
+\begin{example}
+  \label{exm:tranpose_of_a_matrix}
+
+  Let $A = \begin{bNiceMatrix}[r,columns-width=auto]
+    -5 & 2 \\
+    1 & -3 \\
+    0 & 4 \\
+  \end{bNiceMatrix}$
+  and
+  $\x = \begin{bNiceMatrix}[r,columns-width=auto]
+    3 \\
+    0 \\
+    -2 \\
+  \end{bNiceMatrix}$. Then the transpose of each is
+  \[%
+    A\T = \begin{bNiceMatrix}[columns-width=auto]
+			-5 & 1 & 0 \\
+			2 & -3 & 4 \\
+		\end{bNiceMatrix}\aand
+		\x\T = \begin{bNiceMatrix}[columns-width=auto]
+			3 & 0 & -2 \\
+		\end{bNiceMatrix}
+  .\]%
+\end{example}
+
+\begin{theorem}
+  \label{thm:properties_of_transpose}
+
+  Let $A$ and $B$ be matrices of appropriate size for the following sums and
+  products. Let $r$ be any scalar.
+  \begin{enumerate}
+    \label{enum:properties_of_transpose}
+
+    \item $(A\T)\T = A$.
+
+    \item $(A + B)\T = A\T + B\T$. \imp{In general, $(A_1 + A_2 + \cdots
+      + A_k)\T = A_1\T + A_2\T + \cdots + A_k\T$.}
+
+    \item $(rA)\T = rA\T$.
+
+    \item $(AB)\T = B\T A\T$. \imp{In general, $(A_1A_2 \cdots A_k)\T =
+      A_k\T A_{k-1}\T \cdots A_2\T A_1\T$.}
+  \end{enumerate}
+\end{theorem}
+
+\begin{note}
+  \label{nte:ab_transpose_not_equal_to_a_transpose_b_transpose}
+
+  In general, $(AB)\T$ is \textbf{not} equal to $A\T B\T$. Also, sometimes $A\T
+  B\T$ is not defined even if $(AB)\T$ exists.
+\end{note}
+
+% section matrix_multiplication (end)
+
+\section{The Inverse of a Matrix}
+\label{sec:the_inverse_of_a_matrix}
+
+We can find the matrix inverse of a \textbf{square matrix} $A$, denoted as
+$A\I$, such that $A\I A = I$
+
+When $A\I$ exists, we say that $A$ is \textbf{non-singular} or
+\textbf{invertible}. If $A\I$ does not exist, then we say that $A$ is
+\textbf{singular} or \textbf{not invertible}.
+
+\begin{definition}[Inverse and Determinant]
+  \label{def:inverse_and_determinant}
+
+  Let $A = \begin{bNiceMatrix}[columns-width=auto]
+    a & b \\
+    c & d \\
+  \end{bNiceMatrix}$ and let $ad - bc \ne 0$. Then, $A$ is invertible and
+  \[%
+    A\I = \frac{1}{ad - bc}
+    \begin{bNiceMatrix}[columns-width=auto]
+      d & -b \\
+      -c & a \\
+    \end{bNiceMatrix}
+  .\]%
+  If $ad - bc = 0$, then $A$ is not invertible. The quantity $ad - bc$ is called
+  the \textbf{determinant} of $A$ and is denoted as $\det(A)$.
+\end{definition}
+
+\begin{note}
+  \label{nte:determinate_of_a_2_by_2_matrix}
+
+  You can only use $ad - bc$ to find the determinate of a $2 \times 2$ matrix.
+\end{note}
+
+\begin{question}
+  \label{qst:inverse_of_a_matrix}
+
+  Given the matrix $A =
+  \begin{bNiceMatrix}[columns-width=auto]
+    3 & 4 \\
+    5 & 6 \\
+  \end{bNiceMatrix}$, compute the inverse $A\I$ if it exists.
+\end{question}
+
+\begin{solution}
+  \label{sol:inverse_of_a_matrix}
+
+  Firstly, $\det(A) = (3)(6) - (4)(5) = -2 \ne 0$. Thus, $A\I$ exists.
+  \[%
+    A\I = \frac{1}{-2}
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 & -4 \\
+      -5 & 6 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -3 & 2 \\
+      \sfrac{5}{2} & -3 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\begin{purpleframe}
+  \label{prpl:alternative_way_of_solving_a_matrix_equation}
+
+  If $A\x = \b$ for some $\b$, then multiplying both sides by $A\I$ gives
+  \[%
+    A\I A\x = A\I\b \implies I\x = A\I\b \implies \x = A\I\b
+  ,\]%
+  which shows an alternative way of solving $A\x = \b$.
+\end{purpleframe}
+
+\begin{theorem}
+  \label{thm:inverse_of_a_matrix}
+
+  If $A$ is an invertible square matrix, then $\forall \b \in \R^n$, the matrix
+  equation $A\x = \b$ has a unique solution of the form $\x = A\I\b$.
+\end{theorem}
+
+\begin{question}
+  \label{qst:solving_x_using_inverse}
+
+  Let's again consider $A =
+  \begin{bNiceMatrix}[r,columns-width=auto]
+    3 & 4 \\
+    5 & 6 \\
+  \end{bNiceMatrix}$ with the vector $\b =
+  \begin{bNiceMatrix}[r,columns-width=auto]
+    -4 \\
+    2 \\
+  \end{bNiceMatrix}$. We solve $A\x = \b$ for $\x$.
+\end{question}
+
+\begin{solution}
+  \label{sol:solving_x_using_inverse}
+
+  We already know that $A\I$ exists. Thus, by \cref{thm:inverse_of_a_matrix} $\x
+  = A\I\b$, which gives us
+  \[%
+    \x = \begin{bNiceMatrix}[columns-width=auto]
+      -3 & 2 \\
+      \sfrac{5}{2} & -3 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      -4 \\
+      2 \\
+    \end{bNiceMatrix} =
+    -4\begin{bNiceMatrix}[columns-width=auto]
+      -3 \\
+      \sfrac{5}{2} \\
+    \end{bNiceMatrix} +
+    2\begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      -\sfrac{3}{2} \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      16 \\
+      3 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\begin{note}
+  \label{nte:not_most_efficient_method}
+
+  Solving a matrix equation $A\x = \b$ with $\x = A\I\b$ is \textbf{not} the
+  most efficient method to solving this linear system. For very large matrices
+  (due to large datasets), the act of finding $A\I$ can be very computationally
+  expensive. Instead, most computer software \textbf{row reduce} the augmented
+  matrix $[\,A~\b\,]$. Row reduction is the \textbf{most efficient} method of
+  solving $A\x = \b$.
+\end{note}
+
+\begin{theorem}
+  \label{thm:properties_of_inverses}
+
+  Let $A$ and $B$ be invertible, square matrices of appropriate size such that
+  the following products are defined.
+  \begin{enumerate}
+    \label{enum:properties_of_inverses}
+
+    \item $(A\I)\I = A$.
+
+    \item $(AB)\I = B\I A\I$. \imp{In general, $(A_1A_2 \cdots A_k)\I =
+      A_k\I A_{k-1}\I \cdots A_2\I A_1\I$.}
+
+    \item $(A^T)\I = (A\I)^T$.
+  \end{enumerate}
+\end{theorem}
+
+% section the_inverse_of_a_matrix (end)
+
+\section{Inverses of Larger Matrices}
+\label{sec:inverses_of_larger_matrices}
+
+\begin{theorem}[Invertible Matrix Theorem]
+  \label{thm:invertible_matrix_theorem}
+
+  An $n \times n$ matrix $A$ is invertible if and only if $A$ is row equivalent
+  to the identity matrix $I_n$. That is, $A$ can be row reduced into $I_n$. In
+  fact, the sequence of row operations to row reduce $A$ to $I_n$ are the same
+  row operations to convert $I_n$ to $A\I$.
+\end{theorem}
+
+\begin{purpleframe}
+  \label{prpl:method_for_finding_a_inverse}
+
+  To find $A\I$ for any $n \times n$ matrix $A$, row reduce $[\,A~I_n\,]$ into
+  $[\,I_n~A\I\,]$. However, if $A$ cannot be row reduced to $I_n$, then $A\I$
+  does not exist.
+\end{purpleframe}
+
+\begin{question}
+  \label{qst:finding_a_inverse_with_row_reduction}
+
+  Given the matrix $A =
+  \begin{bNiceMatrix}[r,columns-width=auto]
+    0 & 1 & 2 \\
+    1 & 0 & 3 \\
+    4 & -3 & 8 \\
+  \end{bNiceMatrix}$, compute its inverse $A\I$ using row reduction if it
+  exists.
+\end{question}
+
+\begin{solution}
+  \label{sol:finding_a_inverse_with_row_reduction}
+
+  We row reduce $[\,A~I_3\,] \to [\,I_3~A\I\,]$ In doing so, we get
+  \begin{align*}
+    \sysdelim..\systeme*{
+      R_1 \rightarrow R_2
+    } &\longleftrightarrow
+    \begin{bNiceArray}{ccc|ccc}[columns-width=auto]
+      \circled{1} & 0 & 3 & 0 & 1 & 0 \\
+      0 & 1 & 2 & 1 & 0 & 0 \\
+      4 & -3 & 8 & 0 & 0 & 1 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme*{
+      \-4R_1 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{ccc|ccc}[columns-width=auto]
+      \circled{1} & 0 & 3 & 0 & 1 & 0 \\
+      0 & \circled{1} & 2 & 1 & 0 & 0 \\
+      0 & -3 & -4 & 0 & -4 & 1 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme*{
+      3R_2 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{ccc|ccc}[columns-width=auto]
+      \circled{1} & 0 & 3 & 0 & 1 & 0 \\
+      0 & \circled{1} & 2 & 1 & 0 & 0 \\
+      0 & 0 & \circled{1} & \sfrac{3}{2} & -2 & \sfrac{1}{2} \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme*{
+      \-2R_3 + R_2 \rightarrow R_2,
+      \-3R_3 + R_1 \rightarrow R_1
+    } &\longleftrightarrow
+    \begin{bNiceArray}{ccc|ccc}[columns-width=auto]
+      \circled{1} & 0 & 0 & -\sfrac{9}{2} & 7 & -\sfrac{3}{2} \\
+      0 & \circled{1} & 0 & -2 & 4 & -1 \\
+      0 & 0 & \circled{1} & \sfrac{3}{2} & -2 & \sfrac{1}{2} \\
+    \end{bNiceArray} \\
+  .\end{align*}
+  Therefore, $A\I$ is
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{9}{2} & 7 & -\sfrac{3}{2} \\
+      -2 & 4 & -1 \\
+      \sfrac{3}{2} & -2 & \sfrac{1}{2} \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+% section inverses_of_larger_matrices (end)
+
+\section{More Matrix Transformations}
+\label{sec:more_matrix_transformations}
+
+We can use the idea of matrix multiplication to combine or \textit{compose} two
+transformations
+
+\begin{question}
+  \label{qst:more_matrix_transformations}
+
+  Let $T : \R^2 \to \R^2$ be a linear transformation that first rotates
+  vectors by $\sfrac{2}{3}\pi$ radians counterclockwise and then reflects the
+  vectors through the $x_1$-axis. Find the standard matrix of $T$.
+\end{question}
+
+\begin{solution}
+  \label{sol:more_matrix_transformations}
+
+  We want to find $T(\x) = M\x$, where $M$ is the standard matrix. First, a
+  rotation by $\theta = \sfrac{2}{3}\pi$ is given by
+  \[%
+    B =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \cos(\theta) & -\sin(\theta) \\
+      \sin(\theta) & \cos(\theta) \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \cos\left(\sfrac{2}{3}\pi\right) & -\sin\left(\sfrac{2}{3}\pi\right) \\
+      \sin\left(\sfrac{2}{3}\pi\right) & \cos\left(\sfrac{2}{3}\pi\right) \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{2} & -\sfrac{\sqrt{2}}{2} \\
+      \sfrac{\sqrt{2}}{2} & -\sfrac{1}{2} \\
+    \end{bNiceMatrix}
+  .\]%
+  Then, the matrix for a reflection about $x_1$-axis is given by
+  \[%
+    A =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & 0 \\
+      0 & 1 \\
+    \end{bNiceMatrix}
+  .\]%
+  To rotate $\x$ first, we have $B\x$. Then, I take the result and reflect by
+  $A(B\x) = (AB)\x = M\x \rightarrow M = AB$. Therefore,
+  \[%
+    M = AB =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & 0 \\
+      0 & 1 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{2} & -\sfrac{\sqrt{2}}{2} \\
+      \sfrac{\sqrt{2}}{2} & -\sfrac{1}{2} \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{2} & \sfrac{\sqrt{3}}{2} \\
+      \sfrac{\sqrt{3}}{2} & \sfrac{1}{2} \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+% section more_matrix_transformations (end)
+
+\section{Inverse of a Transformation}
+\label{sec:inverse_of_a_transformation}
+
+Given some transformation $T : \R^n \to \R^m$, we can find some inverse
+transformation $T\I : \R^m \to \R^n$.
+
+\begin{theorem}
+  \label{thm:inverse_of_a_transformation}
+
+  Let $T : \R^n \to \R^m$ be a linear transformation and let $A$ be the
+  standard matrix of $T$. Then, $T$ is invertible if and only if $A$ is
+  invertible. Specifically, if $T(\x) = A\x$, then $T\I(\x) = A\I\x$.
+\end{theorem}
+
+\begin{question}
+  \label{qst:inverse_of_a_transformation}
+
+  Let $T : \R^n \to \R^m$ be a linear transformation given by $T(x,y) =
+  (-17x + 6y, 11x + 2y)$. Find a formula for $T\I$, that is, find
+  $T\I(x,y)=(\underline{\phantom{Ax+By}},\underline{\phantom{Ax+By}})$.
+\end{question}
+
+\begin{solution}
+  \label{sol:inverse_of_a_transformation}
+
+  First, rewrite $T$ as $T(\x) = A\x$. In doing so, we get
+  \[%
+    T\left(\begin{bNiceMatrix}[columns-width=auto]
+      x \\
+      y \\
+    \end{bNiceMatrix}\right) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -17x + 6y \\
+      4x + 2y \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -17x \\
+      4x \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      6y \\
+      2y \\
+    \end{bNiceMatrix} =
+    x\begin{bNiceMatrix}[columns-width=auto]
+      -17 \\
+      4 \\
+    \end{bNiceMatrix} +
+    y\begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      2 \\
+    \end{bNiceMatrix} =
+    \underbrace{
+      \begin{bNiceMatrix}[columns-width=auto]
+        -17 & 6 \\
+        4 & 2 \\
+      \end{bNiceMatrix}
+    }_{A}
+    \underbrace{
+      \begin{bNiceMatrix}[columns-width=auto]
+        x \\
+        y \\
+      \end{bNiceMatrix}
+    }_{\x}
+  .\]%
+  Then, we can find $A\I$. But first, we need to see if the inverse exists,
+  i.e., $\det(A) \ne 0$. In doing so, we get
+  \[%
+    \det(A) =
+    \begin{vNiceMatrix}[columns-width=auto]
+      -17 & 6 \\
+      4 & 2 \\
+    \end{vNiceMatrix} =
+    (-17)(2) - (6)(11) = -32 \ne 0
+  .\]%
+  Therefore, $A\I$ exists. So, by \cref{thm:inverse_of_a_matrix}, $A\I$ is given
+  by
+  \[%
+    A\I = \frac{1}{-32}
+    \begin{bNiceMatrix}[columns-width=auto]
+      -17 & 6 \\
+      4 & 2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{16} & \sfrac{3}{16} \\
+      \sfrac{11}{32} & \sfrac{17}{32} \\
+    \end{bNiceMatrix}
+  .\]%
+  So, we get
+  \begin{align*}
+    T\I(\x) = A\I\x \rightarrow T\I\left(\begin{bNiceMatrix}[columns-width=auto]
+      x \\
+      y \\
+    \end{bNiceMatrix}\right) &=
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{16} & \sfrac{3}{16} \\
+      \sfrac{11}{32} & \sfrac{17}{32} \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      x \\
+      y \\
+    \end{bNiceMatrix} =
+    x\begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{16} \\
+      \sfrac{11}{32} \\
+    \end{bNiceMatrix} +
+    y\begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{3}{16} \\
+      \sfrac{17}{32} \\
+    \end{bNiceMatrix} \\
+    &= \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{16}x + \sfrac{3}{16}y \\
+      \sfrac{11}{32}x + \sfrac{17}{32}y \\
+    \end{bNiceMatrix} \\
+    &= T\I(x, y) = \left(-\frac{1}{16}x + \frac{3}{16}y, \frac{11}{32}x + \frac{17}{32}y\right)
+  .\qedhere\end{align*}
+\end{solution}
+
+% section inverse_of_a_transformation (end)
+
+\newpage

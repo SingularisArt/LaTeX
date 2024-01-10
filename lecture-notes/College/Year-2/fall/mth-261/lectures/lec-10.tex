@@ -1,0 +1,488 @@
+\nte[Sections 3.1 and 3.2]{Oct 31 2023 Tue (14:01:05)}{Determinants}
+
+\section{Determinants in General}
+\label{sec:determinants_in_general}
+
+Given a generic $3 \times 3$ matrix, we can find $\det(A)$ with the following
+formula
+\[%
+  \det(A) = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33} - a_{13}a_{22}a_{31}
+.\]%
+This formula is called the \textbf{special pattern} for $3 \times 3$ matrices. A
+useful way to remember the formula is with the following visual
+\[%
+  \begin{NiceMatrix}[columns-width=auto,name=threebythree]
+    a_{11} & a_{12} & a_{13} & \textcolor{linecolor2}{a_{11}} & \textcolor{linecolor2}{a_{12}}\\
+    a_{21} & a_{22} & a_{23} & \textcolor{linecolor2}{a_{21}} & \textcolor{linecolor2}{a_{22}}\\
+    a_{31} & a_{32} & a_{33} & \textcolor{linecolor2}{a_{31}} & \textcolor{linecolor2}{a_{32}} \\
+  \end{NiceMatrix}
+.\]%
+\tikz[overlay,remember picture]{
+  \draw[linecolor1!50,thick,->] (threebythree-1-1.north west)--(threebythree-3-3.south east)node[below]{$+$};
+  \draw[linecolor1!50,thick,->] (threebythree-1-2.north west)--(threebythree-3-4.south east)node[below]{$+$};
+  \draw[linecolor1!50,thick,->] (threebythree-1-3.north)--(threebythree-3-5.south east)node[below]{$+$};
+  \draw[linecolor1!50,thick,->] (threebythree-3-1.south west)--(threebythree-1-3.north east)node[above]{$-$};
+  \draw[linecolor1!50,thick,->] (threebythree-3-2.south)--(threebythree-1-4.north east)node[above]{$-$};
+  \draw[linecolor1!50,thick,->] (threebythree-3-3.south)--(threebythree-1-5.north east)node[above]{$-$};
+}
+
+This special pattern doesn't carry on to $n \times n$ matrices, where $n > 3$.
+However, we can determine a general formula for the determinant of any $n \times
+n$ with some algebraic manipulation of the $3 \times 3$ special pattern.
+Specifically, the special pattern formula can be re-written into the following
+\[%
+  \det(A) = a_{11}\underbrace{(a_{22}a_{33} - a_{23}a_{32})}_{
+    \imp{
+      \begin{vNiceMatrix}[columns-width=auto]
+        a_{22} & a_{23} \\
+        a_{32} & a_{33} \\
+      \end{vNiceMatrix}
+    }
+  } - a_{12}\underbrace{(a_{21}a_{33} - a_{23}a_{31})}_{
+    \imp{
+      \begin{vNiceMatrix}[columns-width=auto]
+        a_{21} & a_{23} \\
+        a_{31} & a_{33} \\
+      \end{vNiceMatrix}
+    }
+  } + a_{13}\underbrace{(a_{21}a_{32} - a_{22}a_{31})}_{
+    \imp{
+      \begin{bNiceMatrix}[columns-width=auto]
+        a_{21} & a_{22} \\
+        a_{31} & a_{32} \\
+      \end{bNiceMatrix}
+    }
+  }
+.\]%
+Let $A_{ij}$ denote the submatrix of $A$ obtained by removing row $i$ and column
+$j$. With this notation, we can write $\det(A)$ as
+\[%
+  \det(A) = a_{11}\det(A_{11}) - a_{12}\det(A_{12}) + a_{13}\det(A_{13})
+.\]%
+
+\begin{definition}[Determinant of a Matrix]
+  \label{def:determinant_of_a_matrix}
+
+  For $n \ge 2$, the \textbf{determinant} of any $n \times n$ matrix $A$ is
+  given by
+  \[%
+    \det(A) = \sum_{j=1}^n (-1)^{1+j}\det(A_{1j})
+  .\]%
+\end{definition}
+
+\begin{question}
+  \label{qst:determinant_of_a_three_by_three_matrix}
+
+  Given the matrix $A =
+  \begin{bNiceMatrix}[columns-width=auto]
+    1 & 5 & 0 \\
+    2 & 4 & -1 \\
+    0 & -2 & 0 \\
+  \end{bNiceMatrix}$, use the \textbf{definition} of determinants to find
+  $\det(A)$.
+\end{question}
+
+\begin{solution}
+  \label{sol:determinant_of_a_three_by_three_matrix}
+
+  \begin{align*}
+    \det(A) &= \begin{vNiceMatrix}[columns-width=auto]
+      1 & 5 & 0 \\
+      2 & 4 & -1 \\
+      0 & -2 & 0 \\
+    \end{vNiceMatrix} \\
+    &= a_{11}\det(A_{11}) - a_{12}\det(A_{12}) + a_{13}\det(A_{13}) \\
+    &= 1\begin{vNiceMatrix}[columns-width=auto]
+      4 & -1 \\
+      -2 & 0 \\
+    \end{vNiceMatrix} -
+    5\begin{vNiceMatrix}[columns-width=auto]
+      2 & -1 \\
+      0 & 0 \\
+    \end{vNiceMatrix} +
+    0\begin{vNiceMatrix}[columns-width=auto]
+      2 & 4 \\
+      0 & -2 \\
+    \end{vNiceMatrix} \\
+    &= 1[(4)(0) - (-1)(-2)] - 5[(2)(0) - (-1)(0)] + 0[(2)(2) - (4)(0)] \\
+    &= 1(-2) - 5(0) + 0 = -2 \ne 0 \rightarrow~\textrm{$A$ is invertible}
+  .\qedhere\end{align*}
+\end{solution}
+
+Now, we can also actually determine another way to find the determinant of any
+square matrix.
+
+\begin{definition}[Cofactor]
+  \label{def:cofactor}
+
+  Given a matrix $A$, the $(i, j)$-\textbf{cofactor} of $A$ is the number
+  $C_{ij}$ given by $C_{ij} = (-1)^{i+j}\det\left(A_{ij}\right)$.
+\end{definition}
+
+\begin{theorem}
+  \label{thm:cofactor_expansion}
+
+  The determinant of an $n \times n$ matrix $A$ can be computed by a
+  \textbf{cofactor expansion} across \underline{any row or down any column} of
+  $A$. Each cofactor expansion can be computed as
+  \begin{enumerate}
+    \label{enum:cofactor_expansion}
+
+    \item The cofactor expansion across row $i$ is given by
+      \[%
+        \det(A) = a_{i1}C_{i1} + a_{i2}C_{i2} + \cdots + a_{in}C_{in}
+      .\]%
+
+    \item The cofactor expansion down column $j$ is given by
+      \[%
+        \det(A) = a_{1j}C_{1j} + a_{2j}C_{2j} + \cdots + a_{nj}C_{nj}
+      .\]%
+  \end{enumerate}
+\end{theorem}
+
+\begin{note}
+  \label{nte:cofactor_expansion}
+
+  The general strategy for computing large determinants with cofactor expansions
+  is to look out for rows or columns with many zeros.
+\end{note}
+
+\begin{question}
+  \label{qst:cofactor_expansion}
+
+  Use cofactor expansions to compute the determinant of the matrix shown below
+  \[%
+    \begin{vNiceMatrix}[columns-width=auto]
+      3 & -7 & 8 & 9 & -6 \\
+      0 & 2 & -5 & 7 & 3 \\
+      0 & 0 & 1 & 5 & 0 \\
+      0 & 0 & 2 & 4 & -1 \\
+      0 & 0 & 0 & -2 & 0 \\
+    \end{vNiceMatrix}
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:cofactor_expansion}
+
+  Pick a cofactor expansion with a lot of zeros. In this case, we can expand
+  down the first column. In doing so, we get
+  \begin{align*}
+    \begin{vNiceMatrix}[columns-width=auto]
+      3 & -7 & 8 & 9 & -6 \\
+      0 & 2 & -5 & 7 & 3 \\
+      0 & 0 & 1 & 5 & 0 \\
+      0 & 0 & 2 & 4 & -1 \\
+      0 & 0 & 0 & -2 & 0 \\
+    \end{vNiceMatrix}
+    &= a_{11}C_{11} + \rcancel{a_{21}C_{21}} + \rcancel{a_{31}C_{31}} + \rcancel{a_{41}C_{41}} + \rcancel{a_{51}C_{51}} \\
+    &= 3(-1)^{1+1} \det(A_{11}) = 3
+    \underbrace{
+      \begin{vNiceMatrix}[columns-width=auto]
+        2 & -5 & 7 & 3 \\
+        0 & 1 & 5 & 0 \\
+        0 & 2 & 4 & -1 \\
+        0 & 0 & -2 & 0 \\
+      \end{vNiceMatrix}
+    }_{\text{new}~A} \\
+    &= 3\left(a_{11}C_{11} + \rcancel{a_{21}C_{21}} + \rcancel{a_{31}C_{31}} + \rcancel{a_{41}C_{41}}\right) \\
+    &= 3a_{11}C_{11} = 3 \cdot 2 \cdot (-1)^{1+1} \det(A_{11}) \\
+    &= 6 \cdot
+    \underbrace{
+      \begin{vNiceMatrix}[columns-width=auto]
+        1 & 5 & 0 \\
+        2 & 4 & -1 \\
+        0 & -2 & 0 \\
+      \end{vNiceMatrix}
+    }_{\textrm{already computed}} 6(-2) = -12
+  .\qedhere\end{align*}
+\end{solution}
+
+\begin{definition}[Upper and Lower Triangular Matrices]
+  \label{def:upper_and_lower_triangular_matrices}
+
+  An \textbf{upper triangular matrix} is a square matrix whose entries below the
+  main diagonal are all zeros. A \textbf{lower triangular matrix} is a square
+  matrix whose entries above the main diagonal are all zeros.
+\end{definition}
+
+\begin{theorem}
+  \label{thm:determinants_of_triangular_matrices}
+
+  If $A$ is a triangular matrix (upper or lower), then $\det(A)$ is the product
+  of the entries on the main diagonal of $A$.
+\end{theorem}
+
+\begin{question}
+  \label{qst:upper_and_lower_triangular_matrices}
+
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      2 & 3 & 0 & 6 \\
+      0 & 3 & 1 & 1 \\
+      0 & 0 & 0 & 2 \\
+      0 & 0 & 0 & 3 \\
+    \end{bNiceMatrix}\aand
+    B = \begin{bNiceMatrix}[columns-width=auto]
+      1 & 0 & 0 & 0 \\
+      0 & 4 & 0 & 0 \\
+      6 & 6 & 9 & 0 \\
+      2 & -1 & 0 & 1 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:upper_and_lower_triangular_matrices}
+
+  Using \cref{thm:determinants_of_triangular_matrices}, we can compute the
+  determinants of $A$ and $B$ as
+  \[%
+    \det(A) = (2)(3)(0)(3) = 0 \aand \det(B) = (1)(4)(9)(1) = 36
+  .\qedhere\]%
+\end{solution}
+
+% section determinants_in_general (end)
+
+\section{Properties of Determinants}
+\label{sec:properties_of_determinants}
+
+\begin{theorem}
+  \label{thm:square_matrix_invertible_iff_determinant_nonzero}
+
+  A square matrix $A$ is invertible if and only if $\det(A) \ne 0$.
+\end{theorem}
+
+Another method for computing determinants is to row reduce the matrix into
+echelon form and then use \cref{thm:determinants_of_triangular_matrices} to
+compute the determinant. However, row operations will change the determinant.
+
+\begin{theorem}[Row Operations]
+  \label{thm:row_operations}
+
+  Let $A$ be a square matrix, then:
+  \begin{enumerate}
+    \label{enum:row_operations}
+
+    \item \textbf{Replacement:} If you multiple a row by some scalar, then add
+      it to another row and replace that row to produce a new matrix $B$. Then
+      the determinant remains \textit{unchanged}. That is, $\det(B) = \det(A)$.
+
+    \item \textbf{Interchange:} If two rows are switched to produce a new matrix
+      $B$, then $\det(B) = -\det(A)$.
+
+    \item \textbf{Scaling:} If a row is scaled by $k$ to produce a new matrix
+      $B$, then $\det(B) = k \cdot \det(A)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:row_operations}
+
+  The proof is by induction on the size of $A$. Suppose the theorem has been
+  verified for determinants of $k \times k$ matrices with $k \ge 2$, let $n = k
+  + 1$, and let $A$ be $n \times n$. The action of $E$ on $A$ involves either
+  two rows or only one row. So, we can expand $\det(EA)$ across a row that is
+  unchanged by the action of $E$, say, row $i$. Let $A_{ij}$ be the matrix
+  obtained by deleting row $i$ and column $j$ from $A$. Then, the rows of
+  $B_{ij}$ are obtained from the rows of $A_{ij}$ by the same type of elementary
+  row operation that $E$ performs on $A$. Since these sub matrices are only $k
+  \times k$, the induction assumption implies that
+  \[%
+    \det(B_{ij}) = \alpha\det(A_{ij})
+  ,\]%
+  where $\alpha = 1, -1$, or $r$, depending on the nature of $E$. The cofactor
+  expansion across row $i$ is
+  \begin{align*}
+    \det(EA) &= \sum_{k=1}^{n} a_{ik}(-1)^{i+k} \det(B_{ik}) \\
+             &= \sum_{k=1}^{n} \alpha a_{ik}(-1)^{i+k} \det(A_{ik}) \\
+             &= \alpha \det(A)
+  .\end{align*}
+  In particular, taking $A = I_n$, we see that $\det(E) = 1$, $-1$, or $r$,
+  depending on the nature of $E$. Thus the theorem is true for $n = 2$, and the
+  truth of the theorem for one value of $n$ implies its truth for the next value
+  of $n$. By the Principle of Mathematical Induction, the theorem must be true
+  for $n \ge 2$. The theorem is trivially true for $n = 1$.
+\end{proof}
+
+\begin{question}
+  \label{qst:row_operations}
+
+  Compute the determinant of the matrix below by row reducing it into echelon
+  form.
+  \[%
+    \begin{vNiceMatrix}[columns-width=auto]
+      2 & -8 & 6 & 8 \\
+      3 & -9 & 5 & 10 \\
+      -3 & 0 & 1 & -2 \\
+      1 & -4 & 0 & 6 \\
+    \end{vNiceMatrix}
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:row_operations}
+
+  \begin{align*}
+    \sysdelim..\systeme*{
+      R_1 \rightarrow R_4
+    } &\longleftrightarrow
+    (-1) \cdot \begin{vNiceMatrix}[columns-width=auto]
+      \circled{1} & -4 & 0 & 6 \\
+      3 & -9 & 5 & 10 \\
+      -3 & 0 & 1 & -2 \\
+      2 & -8 & 6 & 8 \\
+    \end{vNiceMatrix} \\
+    \sysdelim..\systeme*{
+      \-3R_1 + R_2 \rightarrow R_2,
+      \-3R_1 + R_3 \rightarrow R_3,
+      \-2R_1 + R_4 \rightarrow R_4
+    } &\longleftrightarrow
+    (-1) \cdot \begin{vNiceMatrix}[columns-width=auto]
+      \circled{1} & -4 & 0 & 6 \\
+      0 & \circled{3} & 5 & -8 \\
+      0 & -12 & 1 & 16 \\
+      0 & 0 & 6 & -4 \\
+    \end{vNiceMatrix} \\
+    \sysdelim..\systeme*{
+      4R_2 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    (-1) \cdot \begin{vNiceMatrix}[columns-width=auto]
+      1 & -4 & 0 & 6 \\
+      0 & 3 & 5 & -8 \\
+      0 & 0 & 21 & -16 \\
+      0 & 0 & 6 & -4 \\
+    \end{vNiceMatrix} \\
+    \sysdelim..\systeme*{
+      \sfrac{1}{21} R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    -21 \cdot \begin{vNiceMatrix}[columns-width=auto]
+      \circled{1} & -4 & 0 & 6 \\
+      0 & \circled{3} & 5 & -8 \\
+      0 & 0 & \circled{1} & \sfrac{-16}{21} \\
+      0 & 0 & 6 & -4 \\
+    \end{vNiceMatrix} \\
+    \sysdelim..\systeme*{
+      \-6R_3 + R_4 \rightarrow R_4
+    } &\longleftrightarrow
+    -21 \cdot \begin{vNiceMatrix}[columns-width=auto]
+      \circled{1} & -4 & 0 & 6 \\
+      0 & \circled{3} & 5 & -8 \\
+      0 & 0 & \circled{1} & \sfrac{-16}{21} \\
+      0 & 0 & 0 & \circled{\sfrac{4}{7}} \\
+    \end{vNiceMatrix} \\
+    &= -21 \cdot 1 \cdot 3 \cdot 1 \cdot \frac{4}{7} = -36
+  .\qedhere\end{align*}
+\end{solution}
+
+If $A$ is invertible, then $A\I$ exists. Thus, we have $\x = A\I\zero = \zero$, which
+is the trivial solution.
+
+\begin{purpleframe}
+  \label{prpl:linearly_independent_columns_and_determinants}
+
+  The columns of $A$ are linearly independent if and only if $\det(A) \ne 0$.
+
+  Similarly, given a set of vectors $\{\v_1,\v_2,\ldots,\v_n\}$ each in $\R^n$.
+  Then this set of vectors is linearly independent if and only if
+  $\det([\,\v_1~\v_2~\cdots~\v_n\,]) \neq 0$.
+\end{purpleframe}
+
+\begin{theorem}
+  \label{thm:determinant_of_transpose}
+
+  If $A$ is a square matrix, then $\det(A\T) = \det(A)$.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:determinant_of_transpose}
+
+  The theorem is obvious for $n = 1$. Suppose the theorem is true for $k \times
+  k$ determinants and let $n = k + 1$. Then, the cofactor of $a_{1j}$ in $A$
+  equals the cofactor of $a_{j_1}$ in $A\T$, because the cofactors involve $k
+  \times k$ determinants. Hence, the cofactor expansion of $\det(A)$ along the
+  first row equals the cofactor expansion of $\det\left(A\T\right)$ down the
+  first column. That is, $A$ and $A\T$ have equal determinants. The theorem is
+  true for $n = 1$, and the truth of the theorem for one value of $n$ implies
+  its truth for the next value of $n$. By the Principle of Mathematical
+  Induction, the theorem is true $\forall n \ge 1$.
+\end{proof}
+
+\begin{question}
+  \label{qst:determinant_of_product}
+
+  Given the following matrices $A$ and $B$ shown below, the product $AB$ is also
+  shown below:
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      6 & 1 \\
+      3 & 2 \\
+    \end{bNiceMatrix},\quad
+    B = \begin{bNiceMatrix}[columns-width=auto]
+      4 & 3 \\
+      1 & 2 \\
+    \end{bNiceMatrix},\aand
+    AB = \begin{bNiceMatrix}[columns-width=auto]
+      25 & 20 \\
+      14 & 13 \\
+    \end{bNiceMatrix}
+  .\]%
+
+  Find the determinants of each of the matrices.
+\end{question}
+
+\begin{solution}
+  \label{sol:determinant_of_transpose}
+
+  The determinants of each matrix can be computed ``easily'' below:
+  \begin{align*}
+    \det(A) &= (6)(2) - (1)(3) = 9 \\
+    \det(B) &= (4)(2) - (3)(1) = 5 \\
+    \det(AB) &= (25)(13) - (20)(14) = 45\imp{\,\,=9 \cdot 5=(\det A)(\det B)}
+  \end{align*}
+\end{solution}
+
+\begin{theorem}[Multiplicative Property]
+  \label{thm:multiplicative_property}
+
+  If $A$ and $B$ are square matrices, then $\det(AB) = (\det(A))(\det(B))$. In
+  general, we can write
+  \[%
+    \det(A_1 \cdots A_n) = (\det(A_1)) \cdots (\det(A_n))
+  .\]%
+\end{theorem}
+
+\begin{proof}
+  \label{prf:multiplicative_property}
+
+  If $A$ is not invertible, then neither is $AB$. In this case, $\det(AB) =
+  (\det(A))(\det(B))$, because both sides are zero, by
+  \cref{thm:square_matrix_invertible_iff_determinant_nonzero}. If $A$ is
+  invertible, then $A$ and the identity matrix $I_n$ are row equivalent by the
+  \cref{thm:invertible_matrix_theorem}. So, there exists elementary matrices
+  $E_1,~\dots~E_p$ such that
+  \[%
+    A = E_pE_{p-1} \cdots E_1I_n = E_pE_{p-1} \cdots E_1
+  .\]%
+  For brevity, write $\lvert A \rvert$ for $\det(A)$. Then repeated application
+  of \cref{thm:row_operations}, as rephrased above shows that
+  \begin{align*}
+    \lvert AB \rvert &= \lvert E_p \cdots E_1B \rvert = \lvert E_p \rvert \lvert E_{p-1} \cdots E_1B \rvert = \cdots \\
+                     &= \lvert E_p \rvert \cdots \lvert E_1 \rvert \lvert B \rvert = \cdots = \lvert E_p \cdots E_1 \rvert \lvert B \rvert \\
+                     &= \lvert A \rvert \lvert B \rvert
+  .\qedhere\end{align*}
+\end{proof}
+
+\begin{purpleframe}
+  \label{prpl:determinant_of_a_product}
+
+  With the theorem above, we can compute the determinant of $A^k$ for some
+  positive integer $k$ as
+  \[%
+    \det(A^k) = \det(\underbrace{A \cdots A}_{k~\textrm{times}}) = \underbrace{\det(A)\cdots\det(A)}_{k~\textrm{times}} = \det(A)^k
+  .\]%
+\end{purpleframe}
+
+% section properties_of_determinants (end)
+
+\newpage

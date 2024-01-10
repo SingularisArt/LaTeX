@@ -1,0 +1,91 @@
+%% Creator: Inkscape 1.3 (0e150ed6c4, 2023-07-21), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'vector-span.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{680.31496063bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.5)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{vector-span.pdf}}%
+    \put(0.43636094,0.2697715){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$1\overrightarrow{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{vector-span.pdf}}%
+    \put(0.40203215,0.33254963){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$2\overrightarrow{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{vector-span.pdf}}%
+    \put(0.36770383,0.39532742){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$3\overrightarrow{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{vector-span.pdf}}%
+    \put(0.3333755,0.45810575){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$4\overline{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{vector-span.pdf}}%
+    \put(0.63873737,0.02708747){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-4\overrightarrow{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{vector-span.pdf}}%
+    \put(0.60365701,0.09599877){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-3\overrightarrow{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{vector-span.pdf}}%
+    \put(0.57024154,0.15788714){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-2\overrightarrow{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{vector-span.pdf}}%
+    \put(0.53941942,0.21434347){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-1\overrightarrow{v_1}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{vector-span.pdf}}%
+    \put(0.66276404,0.31981554){\color[rgb]{0,0,0}\rotatebox{18.10347004}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$2\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0.59483781,0.38477809){\color[rgb]{0,0,0}\rotatebox{14.72620993}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$2\overrightarrow{v_1} + 2\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{vector-span.pdf}}%
+    \put(0.53467993,0.28479446){\color[rgb]{0,0,0}\rotatebox{18.10347004}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$1\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{vector-span.pdf}}%
+    \put(0.78498216,0.35382751){\color[rgb]{0,0,0}\rotatebox{18.10347004}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$3\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{vector-span.pdf}}%
+    \put(0.90827499,0.38772911){\color[rgb]{0,0,0}\rotatebox{18.10347004}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$4\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{vector-span.pdf}}%
+    \put(0.42693304,0.19207787){\color[rgb]{0,0,0}\rotatebox{14.42532247}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-1\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{vector-span.pdf}}%
+    \put(0.30059588,0.15490284){\color[rgb]{0,0,0}\rotatebox{14.42532247}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-2\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{vector-span.pdf}}%
+    \put(0.17823426,0.12032899){\color[rgb]{0,0,0}\rotatebox{14.42532247}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-3\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{vector-span.pdf}}%
+    \put(0.05107008,0.08570378){\color[rgb]{0,0,0}\rotatebox{14.42532247}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-4\overrightarrow{v_2}$\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{vector-span.pdf}}%
+  \end{picture}%
+\endgroup%

@@ -1,0 +1,556 @@
+\nte[Sections 6.3 and 6.4]{Nov 30 2023 Thu (14:04:02)}{More Projections and the Gram-Schmidt Process}
+
+\section{Orthogonal Projections In General}
+\label{sec:orthogonal_projections_in_general}
+
+\begin{theorem}[The Orthogonal Decomposition Theorem]
+  \label{thm:the_orthogonal_decomposition_theorem}
+
+  Let $W$ be a subspace of $\R^n$. Then, $\forall \y \in \R^n$ can be written
+  uniquely in the form
+  \begin{equation}\label{eqt:thm_the_orthogonal_decomposition_theorem_1}
+    \y = \yh + \z
+  ,\end{equation}
+  where $\yh \in W$ and $\z \in W^{\perp}$. In fact, if $\left\{\u_1, \dots,
+  \u_p\right\}$ is any orthogonal basis of $W$, then
+  \begin{equation}\label{eqt:thm_the_orthogonal_decomposition_theorem_2}
+    \yh = \frac{\y \cdot \u_1}{\u_1 \cdot \u_1} \u_1 + \cdots + \frac{\y \cdot \u_p}{\u_p \cdot \u_p} \u_p
+  ,\end{equation}
+  and $\z = \y - \yh$
+\end{theorem}
+
+\begin{proof}
+  \label{prf:the_orthogonal_decomposition_theorem}
+
+  Let $\left\{\u_1, \dots, \u_p\right\}$ be any orthogonal basis for $W$, and
+  define $\yh$ by \cref{eqt:thm_the_orthogonal_decomposition_theorem_2}. Then
+  $\yh \in W$ because $\yh$ is a linear combination of the basis $\u, \dots,
+  \u_p$. Let $\z = \y - \yh$. Since $\u_1$ is orthogonal to $\u_2, \dots, \u_p$
+  it follows from \cref{eqt:thm_the_orthogonal_decomposition_theorem_2} that
+  \begin{align*}
+    \z \cdot \u_1 = (\y - \yh) \cdot \u_1 &= \y \cdot \u_1 - \left(\frac{\y \cdot \u_1}{\u_1 \cdot \u_1}\right) \u_1 \cdot \u_1 - 0 - \cdots - 0 \\
+                                          &= \y \cdot \u_1 - \y \cdot \u_1 = 0
+  .\end{align*}
+  Thus, $\z$ is orthogonal to $\u_1$. Similarly, $\z$ is orthogonal to each
+  $\u_j$ in the basis for $W$. Hence $\z$ is orthogonal to every vector in $W$.
+  That is, $\z \in W^{\perp}$.
+
+  This shows that the decomposition in
+  \cref{eqt:thm_the_orthogonal_decomposition_theorem_1} is unique, suppose $\y$
+  can also be written as $\y = \yh_1 + \z_1$, with $\yh_1 \in W$ and $\z_1 \in
+  W^{\perp}$. Then $\yh + \z = \y_1 + \z_1$ (since both sides equal $\y$), and
+  so
+  \[%
+    \yh - \yh_1 = \z_1 - \z
+  .\]%
+  This equality shows that the vector $\v = \yh - \yh_1$ is in $W$ and in
+  $W^{\perp}$ (because $\z_1$ and $\z$ are both in $W^{\perp}$, and $W$ is a
+  subspace). Hence $\v \cdot \v = 0$, which shows that $\v = \zero$. This proves
+  that $\yh = \yh_1$ and also $\z_1 = \z$.
+\end{proof}
+
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \draw[linecolor1!25,fill=linecolor1!25] (-0.5,0)--(2.5,3.5)--(9.5,3.5)--(6,0)--cycle node[left,linecolor1]{$W$};
+    \draw[->,very thick,linecolor1](2,1)--++(2,2) node[left]{\small$\u_1$};
+    \draw[->,very thick,linecolor1](2,1)--++(3.25,0) node[below]{$\u_2$};
+    \draw[->,very thick,linecolor1](2,1)--++(2.5,1) node[right]{$\yh = \underbrace{\frac{\y \cdot \u_1}{\u_1 \cdot \u_1}\u_1}_{\imp{\y_1}}+\underbrace{\frac{\y \cdot \u_2}{\u_2 \cdot \u_2}\u_2}_{\imp{\y_2}}$};
+    \draw[dashed,thick,black](4.5,2)--++(0,2.5);
+    \draw[->,very thick,linecolor2](2,1)--++(1.5,0) node[below]{$\y_2$};
+    \draw[dashed,thick,black](3.5,1)--++(1,1);
+    \draw[->,very thick,linecolor2](2,1)--++(1,1);
+    \node[left,linecolor2] at (3.4,1.75) {\small$\y_1$};
+    \draw[dashed,thick,black](3,2)--++(1.5,0);
+    \filldraw[black] (2,1) circle (2pt) node[below left]{$\zero$};
+    \draw[->,very thick,black](2,1)--++(2.5,3.5) node[right]{$\y$};
+    \draw[->,very thick,black](2,1)--++(0,2.5) node[left]{$\z$};
+    \draw[dashed,thick,black](2,3.5)--++(2.5,1);
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:the_orthogonal_decomposition_theorem}
+\end{figure}
+
+\begin{question}
+  \label{qst:the_orthogonal_decomposition_theorem}
+
+  Consider the following set of vectors
+  \[%
+    \u_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      5 \\
+      -1 \\
+    \end{bNiceMatrix},\quad
+    \u_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -2 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix},\aand
+    \y =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+      3 \\
+    \end{bNiceMatrix}
+  .\]%
+  Observe that $\{\u_1,\u_2\}$ is an orthogonal basis for the subspace $W =
+  \Sspan\{\u_1, \u_2\}$. Find $\yh$ and $\z$ such that $\y = \yh + \z$ where
+  $\yh$ and $\z$ are orthogonal.
+\end{question}
+
+\begin{solution}
+  \label{sol:the_orthogonal_decomposition_theorem}
+
+  \Cref{thm:the_orthogonal_decomposition_theorem} gives us the following
+  formulation for $\yh$
+  \begin{align*}
+    \yh &= \frac{\y \cdot \u_1}{\u_1 \cdot \u_1} \u_1 + \frac{\y \cdot \u_2}{\u_2 \cdot \u_2} = \frac{(1)(2) + (2)(5) + (3)(-1)}{(2)^2 + (5)^2 + (-1)^2}
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      5 \\
+      -1 \\
+    \end{bNiceMatrix} +
+    \frac{(1)(-2) + (2)(1) + (3)(1)}{(-2)^2 + (1)^2 + (1)^2}
+    \begin{bNiceMatrix}[columns-width=auto]
+      -2 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix} \\
+    &= \frac{9}{30}
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      5 \\
+      -1 \\
+    \end{bNiceMatrix} +
+    \frac{3}{6}
+    \begin{bNiceMatrix}[columns-width=auto]
+      -2 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{2}{5} \\
+      2 \\
+      \sfrac{1}{5} \\
+    \end{bNiceMatrix}
+  .\qedhere\end{align*}
+\end{solution}
+
+\begin{theorem}
+  \label{thm:orthogonal_projections_in_general}
+
+  If $\left\{\u_1, \dots, \u_p\right\}$ is an orthonormal basis for a subspace
+  $W$ of $\R^n$, then
+  \begin{equation}\label{eqt:thm_orthogonal_projections_in_general_1}
+    \proj_W(\y) = (\y \cdot \u_1) + \cdots + (\y \cdot \u_p) \u_p
+  .\end{equation}
+  If $U = [\,\u_1~\cdots~\u_p\,]$, then
+  \begin{equation}\label{eqt:thm_orthogonal_projections_in_general_2}
+    \proj_W(\y) = UU\T\y \quad \forall \y \in \R^n
+  .\end{equation}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:orthogonal_projections_in_general}
+
+  \Cref{eqt:thm_orthogonal_projections_in_general_1} follows immediately from
+  \cref{eqt:thm_orthogonal_projections_in_general_2} in
+  \cref{thm:the_orthogonal_decomposition_theorem}. Also,
+  \cref{eqt:thm_orthogonal_projections_in_general_1} shows that $\proj_W(\y)$ is
+  a linear combination of he columns of $U$ using the weights $\y \cdot \u_1,
+  \dots, \y \cdot \u_p$. The weights can be written as $\u_1\T\y, \dots,
+  \u_p\T\y$, showing that they are the entries in $U\T\y$ and justifying
+  \cref{eqt:thm_orthogonal_projections_in_general_2}.
+\end{proof}
+
+% section orthogonal_projections_in_general (end)
+
+\section{Gram-Schmidt Process}
+\label{sec:gram_schmidt_process}
+
+\begin{theorem}[The Gram-Schmidt Process]
+  \label{thm:the_gram_schmidt_process}
+
+  Given a basis $\{\x_1, \x_2, \dots, \x_p\}$ for a nonzero subspace $W$ of
+  $\R^n$, define
+  \begin{align*}
+    \v_1 &= \x_1 \\
+    \v_2 &= \x_2 - \frac{\x_2 \cdot \v_1}{\v_1 \cdot \v_1}\v_1 \\
+    \v_3 &= \x_3 - \frac{\x_3 \cdot \v_1}{\v_1 \cdot \v_1}\v_1 - \frac{\x_3 \cdot \v_2}{\v_2 \cdot \v_2}\v_2 \\
+         &\vdots \\
+    \v_p &= \x_p - \frac{\x_p \cdot \v_1}{\v_1 \cdot \v_1}\v_1 - \frac{\x_p \cdot \v_2}{\v_2 \cdot \v_2}\v_2 - \cdots - \frac{\x_p \cdot \v_{p-1}}{\v_{p-1} \cdot \v_{p-1}}\v_{p-1}
+  .\end{align*}
+  Then, $\{\v_1, \dots, \v_p\}$ is an \textbf{orthogonal} basis for $W$.
+  In addition,
+  \begin{equation}
+    \label{eqt:thm_the_gram_schmidt_process_1}
+    \Sspan\{\v_1, \dots, \v_k\} = \Sspan\{\x_1, \dots, \x_k\}~\textrm{for}~1 \le k \le p
+  .\end{equation}
+  Furthermore, to find an \textbf{orthonormal} basis for $W$, normalize
+  each vector $\v_i$, for $i = 1, 2, \dots, p$. That is, compute the set
+  \[%
+    \left\{\frac{\v_1}{\lVert \v_1 \rVert}, \frac{\v_2}{\lVert \v_2 \rVert}, \dots, \frac{\v_p}{\lVert \v_p \rVert}\right\}
+  .\]%
+\end{theorem}
+
+\begin{proof}
+  \label{prf:the_gram_schmidt_process}
+
+  For $1 \le k \le p$, let $W_k = \Sspan\left\{\x_1, \dots, \x_k\right\}$. Set
+  $\v_1 = \x_1$, so that $\Sspan\left\{\v_1\right\} =
+  \Sspan\left\{\x_1\right\}$. Suppose, for some $k < p$, we have constructed
+  $\v_1, \dots, \v_k$ so that $\left\{\v_1, \dots, \v_k\right\}$ is an
+  orthogonal basis for $W_k$. Define
+  \begin{equation}
+    \label{eqt:prf_the_gram_schmidt_process_1}
+    \v_{k+1} = \x_{k+1} - \proj_{W_k}(\x_{k+1})
+  \end{equation}
+  By \cref{thm:the_orthogonal_decomposition_theorem}, $\v_{k+1}$ is orthogonal
+  to $W_k$. Note that $\proj_{W_k}(\x_{k+1})$ and hence also in $W_{k+1}$. Since
+  $\x_{k+1}$ is in $W_{k+1}$, so is $\v_{k+1}$. Furthermore, $\v_{k+1} \ne
+  \zero$ because $\x_{k+1}$ is not in $W_k = \Sspan\left\{\x_1, \dots,
+  \x_k\right\}$. Hence, $\left\{\v_1, \dots, \v_{k+1}\right\}$ is an orthogonal
+  set of nonzero vectors in $(k + 1)$-dimensional space $W_{k+1}$. This set is
+  an orthogonal basis for $W_{k+1}$. Hence $W_{k+1} = \Sspan\left\{\v_1, \dots,
+  \v_{k+1}\right\}$. When $k + 1 = p$, the process stops.
+\end{proof}
+
+\begin{question}
+  \label{qst:gram_schmidt_process}
+
+  Consider the following vectors
+  \[%
+    \x_1 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      1 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix},\quad
+    \x_2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      1 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix},\aand
+    \x_3 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      0 \\
+      1 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\]%
+  Then let $\{\x_1, \x_2, \x_3\}$ be a basis for a subspace $W$ of $\R^4$. That
+  is, $W = \Sspan\{\x_1, \x_2, \x_3\}$. Construct an orthogonal basis $\{\v_1,
+  \v_2, \v_3\}$ for $W$ using the Gram-Schmidt process.
+\end{question}
+
+\begin{solution}
+  \label{sol:gram_schmidt_process} $ $
+
+  \begin{enumerate}
+    \label{enum:gram_schmidt_process_sol}
+
+    \item[\underline{STEP 1}] Let $\v_1 = \x_1$ and $W_1 = \Sspan\{\v_1\}$.
+
+    \item[\underline{STEP 2}] Compute $\v_2 = \x_2 - \proj_{W_1}(\x_2)$.
+      \[%
+        \v_2 = \x_2 - \frac{\x_2 \cdot \v_1}{\v_1 \cdot \v_1} \v_1 =
+        \begin{bNiceMatrix}[columns-width=auto]
+          0 \\
+          1 \\
+          1 \\
+          1 \\
+        \end{bNiceMatrix} -
+        \frac{3}{4}
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          1 \\
+          1 \\
+          1 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          -\sfrac{3}{4} \\
+          \sfrac{1}{4} \\
+          \sfrac{1}{4} \\
+          \sfrac{1}{4} \\
+        \end{bNiceMatrix}
+        \xrightarrow[4]{\textrm{scale by}}
+        \underset{\imp{\v_2}}{
+          \begin{bNiceMatrix}[columns-width=auto]
+            -3 \\
+            1 \\
+            1 \\
+            1 \\
+          \end{bNiceMatrix}
+        }
+      .\]%
+
+    \item[\underline{STEP 3}] Compute $\v_3 = \x_3 - \proj_{W_2}(\x_3)$.
+      \begin{align*}
+        \v_3 &= \x_3 - \left(\frac{\x_3 \cdot \v_1}{\v_1 \cdot \v_1} \v_1 + \frac{\x_3 \cdot \v_2}{\v_2 \cdot \v_2} \v_2\right) = \x_3 - \frac{\x_3 \cdot \v_1}{\v_1 \cdot \v_1} \v_1 - \frac{\x_3 \cdot \v_2}{\v_2 \cdot \v_2} \v_2 \\
+        &= \begin{bNiceMatrix}[columns-width=auto]
+          0 \\
+          0 \\
+          1 \\
+          1 \\
+        \end{bNiceMatrix} -
+        \frac{2}{4} \begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          1 \\
+          1 \\
+          1 \\
+        \end{bNiceMatrix} -
+        \frac{2}{12} \begin{bNiceMatrix}[columns-width=auto]
+          -3 \\
+          1 \\
+          1 \\
+          1 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          0 \\
+          -\sfrac{2}{3} \\
+          \sfrac{1}{3} \\
+          \sfrac{1}{3} \\
+        \end{bNiceMatrix}
+        \xrightarrow[3]{\textrm{scale by}}
+        \underset{\imp{\v_3}}{
+          \begin{bNiceMatrix}[columns-width=auto]
+            0 \\
+            -2 \\
+            1 \\
+            1 \\
+          \end{bNiceMatrix}
+        }
+      .\end{align*}
+  \end{enumerate}
+
+  An orthogonal basis for $W$ is
+  \[%
+    \left\{
+      \begin{bNiceMatrix}[columns-width=auto]
+        1 \\
+        1 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto]
+        -3 \\
+        1 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        -2 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix}
+    \right\}
+  .\qedhere\]%
+\end{solution}
+
+\subsection{QR Factorization}
+\label{sub_sec:qr_factorization}
+
+Similar to being able to factor a matrix into $PDP\I$ through
+diagonalization, we can also factor $A$ into $QR$, called the ``QR
+factorization''.
+
+\begin{theorem}[QR Factorization]
+  \label{thm:qr_factorization}
+
+  If $A$ is an $m \times n$ matrix with linearly independent columns, then
+  $A$ can be factored as $A = QR$, where $Q$ is an $m \times n$ matrix
+  whose columns form an orthonormal basis for $\Col(A)$ and $R$ is an $n
+  \times n$ upper triangular, invertible matrix whose main diagonal
+  entries are positive.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:qr_factorization}
+
+  The columns of $A$ form a basis $\left\{\x_1, \dots, \x_n\right\}$ for
+  $\Col(A)$. Construct an orthonormal basis $\left\{\u_1, \dots, \u_n\right\}$
+  for $W = \Col(A)$ with the property from
+  \cref{eqt:thm_the_gram_schmidt_process_1} in
+  \cref{thm:the_gram_schmidt_process}. This basis may be constructed by the
+  Gram-Schmidt process or some other means. Let
+  \[%
+    Q = [\,\u_1~\u_2~\cdots~\u_n\,]
+  .\]%
+  For $k = 1, \dots, n$, $\x_k$ is in $\Sspan\left\{\x_1, \dots, \x_n\right\}$.
+  So there are constants, $r_{1k}, \dots, r_{kk}$, such that
+  \[%
+    \x_k = r_{1k}\u_1 + \cdots + r_{kk}\u_k + 0\u_{k+1} + \cdots + 0\u_n
+  .\]%
+  We may assume that $r_{kk} \ge 0$. This shows that $\x_k$ is a linear
+  combination of the columns of $Q$ using as weights the entries in the vector
+  \[%
+    \r_k = \begin{bNiceMatrix}[columns-width=auto]
+      r_{1k} \\
+      \vdots \\
+      r_{kk} \\
+      0 \\
+      \vdots \\
+      0 \\
+    \end{bNiceMatrix}
+  .\]%
+  That is, $\x_k = Q\r_k$ for some $k = 1, \dots, n$. Let $R =
+  [\,\r_1~\cdots~\r_n\,]$. Then
+  \[%
+    A = [\,\x_1~\cdots~\x_n\,] = [\,Q\r_1~\cdots~Q\r_n\,] = QR
+  .\]%
+  The fact that $R$ is invertible follows easily from the fact that the columns
+  of $A$ are linearly independent. Since $R$ is clearly upper triangular, its
+  nonegative diagonal entries must be positive.
+\end{proof}
+
+\begin{question}
+  \label{qst:qr_factorization}
+
+  Find a QR factorization of $A =
+  \begin{bNiceMatrix}[columns-width=auto]
+    1 & 0 & 0 \\
+    1 & 1 & 0 \\
+    1 & 1 & 1 \\
+    1 & 1 & 1 \\
+  \end{bNiceMatrix}$.
+\end{question}
+
+\begin{solution}
+  \label{sol:qr_factorization}
+
+  To find an orthonormal basis for $W = \Col(A)$, we use the Gram-Schmidt
+  Process. Luckily, we already completed this part in
+  \cref{sol:gram_schmidt_process}, where we got
+  \[%
+    \{v_1, \v_2, \v_3\} = \left\{
+      \begin{bNiceMatrix}[columns-width=auto]
+        1 \\
+        1 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto]
+        -3 \\
+        1 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        -2 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix}
+    \right\}
+  .\]%
+  To get an orthonormal basis, we need to normalize each vector in the set
+  above. That is, we need to divide each vector by its length. First, let's
+  calculate the length of each vector. In doing so, we get
+  \begin{alignat*}{4}
+    \lVert \v_1 \rVert &= \sqrt{(1)^2 + (1)^2 + (1)^2 + (1)^2} &&= \sqrt{4} = 2 \\
+    \lVert \v_2 \rVert &= \sqrt{(-3)^2 + (1)^2 + (1)^2 + (1)^2} &&= \sqrt{12} \\
+    \lVert \v_3 \rVert &= \sqrt{(0)^2 + (-2)^2 + (1)^2 + (1)^2} &&= \sqrt{6}
+  .\end{alignat*}
+  Thus, an orthonormal basis for $W$ is
+  \[%
+    \left\{\frac{\v_1}{\lVert \v_1 \rVert}, \frac{\v_2}{\lVert \v_2 \rVert}, \frac{\v_3}{\lVert \v_3 \rVert}\right\} = \left\{
+      \frac{1}{2}\begin{bNiceMatrix}[columns-width=auto]
+        1 \\
+        1 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix},
+      \frac{1}{\sqrt{12}}\begin{bNiceMatrix}[columns-width=auto]
+        -3 \\
+        1 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix},
+      \frac{1}{\sqrt{6}}\begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        -2 \\
+        1 \\
+        1 \\
+      \end{bNiceMatrix}
+    \right\} = \left\{
+      \begin{bNiceMatrix}[columns-width=auto]
+        \sfrac{1}{2} \\
+        \sfrac{1}{2} \\
+        \sfrac{1}{2} \\
+        \sfrac{1}{2} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto]
+        -\sfrac{3}{\sqrt{12}} \\
+        \sfrac{1}{\sqrt{12}} \\
+        \sfrac{1}{\sqrt{12}} \\
+        \sfrac{1}{\sqrt{12}} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        -\sfrac{2}{\sqrt{6}} \\
+        \sfrac{1}{\sqrt{6}} \\
+        \sfrac{1}{\sqrt{6}} \\
+      \end{bNiceMatrix}
+    \right\}
+  .\]%
+  Since the columns of $Q$ are orthonormal, we know $Q\T Q = I$. Thus,
+  \[%
+    A = QR \rightarrow Q\T A = \rcancel{Q\T Q}R \rightarrow Q\T A = IR \rightarrow R = Q\T A
+  .\]%
+  So,
+  \[%
+    R =
+    \underset{\imp{\underline{3} \times 4}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{1}{2} & \sfrac{1}{2} \\
+        -\sfrac{3}{\sqrt{12}} & \sfrac{1}{\sqrt{12}} & \sfrac{1}{\sqrt{12}} & \sfrac{1}{\sqrt{12}} \\
+        0 & -\sfrac{2}{\sqrt{6}} & \sfrac{1}{\sqrt{6}} & \sfrac{1}{\sqrt{6}} \\
+      \end{bNiceMatrix}
+    }
+    \underset{\imp{4 \times \underline{3}}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        1 & 0 & 0 \\
+        1 & 1 & 0 \\
+        1 & 1 & 1 \\
+        1 & 1 & 1 \\
+      \end{bNiceMatrix}
+    } =
+    \underset{\imp{3 \times 3}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        2 & \sfrac{3}{2} & 1 \\
+        0 & \sfrac{3}{\sqrt{12}} & \sfrac{2}{\sqrt{12}} \\
+        0 & 0 & \sfrac{2}{\sqrt{6}} \\
+      \end{bNiceMatrix}
+    }
+  .\]%
+  Thus, the QR factorization of $A$ is
+  \[%
+    A =
+      \begin{bNiceMatrix}[columns-width=auto]
+        \sfrac{1}{2} & -\sfrac{3}{\sqrt{12}} & 0 \\
+        \sfrac{1}{2} & \sfrac{1}{\sqrt{12}} & -\sfrac{2}{\sqrt{6}} \\
+        \sfrac{1}{2} & \sfrac{1}{\sqrt{12}} & \sfrac{1}{\sqrt{6}} \\
+        \sfrac{1}{2} & \sfrac{1}{\sqrt{12}} & \sfrac{1}{\sqrt{6}} \\
+      \end{bNiceMatrix}
+      \begin{bNiceMatrix}[columns-width=auto]
+        2 & \sfrac{3}{2} & 1 \\
+        0 & \sfrac{3}{\sqrt{12}} & \sfrac{2}{\sqrt{12}} \\
+        0 & 0 & \sfrac{2}{\sqrt{6}} \\
+      \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+% subsection qr_factorization (end)
+
+% section gram_schmidt_process (end)
+
+\newpage

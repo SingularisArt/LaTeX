@@ -1,0 +1,598 @@
+\nte[Sections 1.4 and 1.6]{Oct 05 2023 Thu (14:02:33)}{Matrix Equations}
+
+If $A$ is an $m \times n$ matrix with columns $\a_1, \a_2, \dots, \a_n \in \R^m$
+and $\x \in \R^m$, then the matrix-vector multiplication $A\x$ is defined as:
+\[%
+  A\x=
+  \begin{bNiceMatrix}[columns-width=auto,last-row]
+    \a_1 & \a_2 & \cdots & \a_n \\
+         & \imp{A} & & \\
+  \end{bNiceMatrix}
+  \begin{bNiceMatrix}[columns-width=auto,last-row]
+    x_1 \\
+    x_2 \\
+    \vdots \\
+    x_n \\
+    \imp{\x} \\
+  \end{bNiceMatrix} = \sum_{i=1}^n x_i \a_i
+.\]%
+
+\begin{note}
+  \label{nte:defined_matrix_vector_multiplication}
+
+  The matrix-vector multiplication $A\x$ is defined only when the number of
+  columns of $A$ is equal to the number of entries in $\x$.
+\end{note}
+
+\begin{question}
+  \label{qst:matrix_equations_1}
+
+  Let
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      1 & 2 & -1 \\
+      0 & -5 & 3 \\
+    \end{bNiceMatrix} \aand
+    x = \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      3 \\
+      7 \\
+    \end{bNiceMatrix}
+  .\]%
+
+  Find $A\x$.
+\end{question}
+
+\begin{solution}
+  \label{sol:matrix_equations_1}
+
+  \begin{align*}
+    A\x &= \begin{bNiceMatrix}[columns-width=auto]
+      1 & 2 & -1 \\
+      0 & -5 & 3 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      3 \\
+      7 \\
+    \end{bNiceMatrix} =
+    4\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+    \end{bNiceMatrix} +
+    3\begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      -5 \\
+    \end{bNiceMatrix} +
+    7\begin{bNiceMatrix}[columns-width=auto]
+      -1 \\
+      3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      -15 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      -7 \\
+      21 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      6 \\
+    \end{bNiceMatrix}
+  .\qedhere\end{align*}
+\end{solution}
+
+\begin{question}
+  \label{qst:matrix_equations_2}
+
+  For $\v_1, \v_2, \v_3 \in \R^m$, write the linear combination $3\v_1 - 5\v_2 +
+  7\v_3$
+\end{question}
+
+\begin{solution}
+  \label{sol:matrix_equations_2}
+
+  Place $\v_1, \v_2, \v_3$ into the columns of a matrix $A$ and place the
+  weights $3$, $-5$, and $7$ into a vector $\x$
+  \[%
+    3\v_1 - 5\v_2 + 7\v_3 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \v_1 & \v_2 & \v_3 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      -5 \\
+      7 \\
+    \end{bNiceMatrix} = A\x
+  .\qedhere\]%
+\end{solution}
+
+\begin{definition}[Identity Matrix]
+  \label{def:identity_matrix}
+
+  The \textbf{identity matrix} $I_n$ is an $n \times n$ matrix with all $1$'s in
+  its diagonal positions and $0$'s everywhere else. In general, $I_n$ takes the
+  shape of
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & 0 & \dots & 0 \\
+      0 & 1 & \dots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \dots & 1 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{definition}
+
+\begin{note}
+  \label{nte:identity_matrix}
+
+  We know that $\forall \x \in \R^n$, $I_n\x = x$.
+\end{note}
+
+\begin{theorem}
+  \label{thm:properties_of_matrix_vector_multiplication}
+
+  If $A$ is an $m \times n$ matrix, $\u, \v \in \R^n$, and $c$ is a scaler, then
+  \begin{enumerate}
+    \label{enum:properties_of_matrix_vector_multiplication}
+
+    \item $A\left(\u + \v\right) = A\u + A\v$.
+    \item $A\left(c\u\right) = c\left(A\u\right)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:properties_of_matrix_vector_multiplication}
+
+  Take $n$ to be the number of columns in $A$ and $\u, \v \in \R^n$. Let $u_i$
+  and $v_i$ be the $i$th entries in $\u$ and $\v$, respectively. To prove
+  statement $1$, compute $A(\u + \v)$ as a linear combination of the columns of
+  $A$ using the entries in $\u + \v$ as weights, giving us
+  \begin{align*}
+    A(\u + \v) &=
+    \begin{bNiceMatrix}[columns-width=auto]
+      \a_1 & \dots & \a_n \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      u_1 + v_1 \\
+      \vdots \\
+      u_n + v_n \\
+    \end{bNiceMatrix} \\
+    &= \sum_{i=1}^{n} (u_i + v_i)\a_i \\
+    &= \sum_{i=1}^{n} u_i\a_i + \sum_{i=1}^{n} v_i\a_i \\
+    &= A\u + A\v
+  .\end{align*}
+  To prove statement, compute $A(c\u)$ as linear combination of the columns of
+  $A$ using the entries in $c\u$ as weights, giving us
+  \begin{align*}
+    A(c\u) &=
+    \begin{bNiceMatrix}[columns-width=auto]
+      \a_1 & \dots & \a_n \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      cu_1 \\
+      \vdots \\
+      cu_n \\
+    \end{bNiceMatrix} \\
+    &= \sum_{i=1}^{n} (cu_i)\a_i \\
+    &= \sum_{i=1}^{n} c(u_i\a_i) \\
+    &= c\left(\sum_{i=1}^{n} u_i\a_i\right) \\
+    &= c(A\u)
+  .\qedhere\end{align*}
+\end{proof}
+
+\begin{theorem}
+  \label{thm:augmented_matrix}
+
+  If $A$ is an $m \times n$ matrix, with columns $\a_1, \a_2, \dots, \a_n$ and
+  if $\b \in \R^m$, then the matrix equation
+  \[%
+    A\x = \b
+  ,\]%
+  has the same solution set as the vector equation
+  \[%
+    \sum_{i=1}^{n} x_i\a_i = \b
+  ,\]%
+  which, in turn, has the same solution set as the system of linear equations
+  whose augmented matrix is
+  \[%
+    \begin{bNiceArray}{cccc|c}
+      \a_1 & \a_2 & \cdots & \a_n & \b \\
+    \end{bNiceArray}
+  .\]%
+\end{theorem}
+
+A recurring problem for this course is the solving of the \textbf{matrix
+equation} $A\x = \b$, where matrix $A$ and $\b$ are given. If $A =
+[\,\a_1~\a_2~\cdots~\a_n\,]$ and $\x = (x_1, x_2, \dots, x_n)$, then we know
+that
+\[%
+  A\x = \sum_{i=1}^n x_i\a_i
+,\]%
+which must be equivalent to the vector equation
+\[%
+  \sum_{i=1}^n x_i\a_i = \b
+.\]%
+
+\begin{example}
+  \label{exm:augmented_matrix_equals_vector_equation_equals_matrix_equation}
+
+  Here's an example of a linear system with its three equivalent representations
+  \[%
+    \sysdelim..\systeme{
+      \-8x_1 + x_2 = 2,
+      4x_1 + 2x_2 = \-5
+    } \longleftrightarrow
+    \begin{bNiceArray}{cc|c}[columns-width=auto]
+      -8 & 1 & 2 \\
+      4 & 2 & -5 \\
+    \end{bNiceArray}
+    \longleftrightarrow
+    x_1\begin{bNiceMatrix}[columns-width=auto]
+      -8 \\
+      4 \\
+    \end{bNiceMatrix}
+    +
+    x_2\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      -5 \\
+    \end{bNiceMatrix}
+    \longleftrightarrow
+    \begin{bNiceMatrix}[columns-width=auto]
+      -8 & 1 \\
+      4 & 2 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      -5 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{example}
+
+\begin{purpleframe}
+  \label{prpl:matrix_equation_solutions}
+
+  The matrix equation $A\x = \b$ has a solution if and only if $\b$ is a linear
+  combination of the columns of $A$, which, in turn only happens when the linear
+  system whose augmented matrix is $[\,\a_1~\a_2~\cdots~\a_n~\vert~\b\,]$ is
+  consistent.
+\end{purpleframe}
+
+\section{Vector in Span}
+\label{sec:vector_in_span}
+
+Let's try and answer the question
+
+\begin{center}
+  $\forall \b \in \R^n$, is $\b \in$ $\Sspan\left\{\v_1, \v_2, \dots,
+  \v_n\right\}$?
+\end{center}
+
+\begin{definition}[Set of Vectors]
+  \label{def:set_of_vectors}
+
+  A \textbf{set of vectors} $\left\{\v_1, \v_2, \dots, \v_p\right\} \in \R^m$
+  spans $\R^m$ if every vector in $\R^m$ is a linear combination of $\v_1, \v_2,
+  \dots, \v_p$. If this set of vectors satisfies this, then we write
+  $\Sspan\left\{\v_1, \v_2, \dots, \v_p\right\} = \R^m$.
+\end{definition}
+
+\begin{theorem}
+  \label{thm:vector_in_span}
+
+  Let $A$ be an $m \times n$ matrix. Then the following statements are logically
+  equivalent. That is, if one statement is true, then all are true. Also, if one
+  statement is false, then all are false.
+  \begin{enumerate}
+    \label{enum:vector_in_span}
+
+    \item $\forall \b \in \R^m$, the equation $A\x = \b$ has a
+      solution.
+
+    \item $\forall \b \in \R^m$ is a linear combination of the columns
+      of $A$.
+
+    \item The columns of $A$ span $\R^m$.
+
+    \item $A$ has a pivot position in every row.
+
+      \begin{note}
+        \label{nte:vector_in_span_4}
+
+        $A$ is the coefficient matrix of a linear system, not the augmented
+        matrix.
+      \end{note}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \label{prf:vector_in_span}
+
+  Statements $1$, $2$, and $3$ are logically equivalent. So, it suffices to show
+  (for an arbitrary matrix $A$) that $1$ and $d$ are either both true or both
+  false. This will tie all four statements together.
+
+  Let $U$ be an echelon form of $A$. Given $\b \in  \R^m$, we can row reduce the
+  augmented matrix $[\,A~\vert~\b\,]$ to an augmented matrix $[\,U~\vert~\d\,]$,
+  for some $\d \in \R^m$. If statement $4$ is true, then each row of $U$
+  contains a pivot position and there can be no pivot in the augmented column.
+  So $A\x = \b$ has a solution for any $\b$, and $1$ is true. If $4$ is false,
+  the last row of $U$ is all zeros. Let $\d$ be any vector with a $1$ in its
+  entry. Then, $[\,U~\vert~\d\,]$ represents an inconsistent system. Since row
+  operations are reversible, $[\,U~\vert~\d\,]$ can be transformed into the form
+  $[\,A~\vert~\b\,]$. The new system $A\x = \b$ is also inconsistent and $1$ is
+  false.
+\end{proof}
+
+\begin{example}
+  \label{exm:vector_in_span}
+
+  A basic example would be $\Sspan\left\{\v_1, \v_2\right\} = \R^2$, $\forall
+  \v_1, \v_2 \in \R^2$, where $\v_1 \ne \v_2$
+  \begin{figure}[H]
+    \centering
+    \incfig{vector-span}
+    \caption{Vector Span}
+    \label{fig:vector_span}
+  \end{figure}
+\end{example}
+
+\begin{note}
+  \label{nte:vector_in_span}
+
+  To check statement $4$ in \cref{thm:vector_in_span}, all you need to do is row
+  reduce the matrix $A$ into echelon form form not all the way to reduced
+  echelon form, since you only need to check if each row has a pivot.
+\end{note}
+
+% section vector_in_span (end)
+
+\section{Applications}
+\label{sec:applications}
+
+\subsection{Equilibrium Prices}
+\label{sub_sec:equilibrium_prices}
+
+In an economy divided into sectors, the total dollar value of a sector’s output
+output is called its \textbf{price}. A sector's \textbf{equilibrium price} is
+the price (or output) of a sector that exactly balances its expenses.
+
+\begin{question}
+  \label{qst:equilibrium_prices}
+
+  Consider an economy with three sectors: Fuel and Power (F), Manufacturing (M),
+  and Services (S). The output data of each sector is described below.
+  \begin{enumerate}
+    \label{enum:equilibrium_prices_qst}
+
+    \item Sector F sells $75\%$ of its output to Sector M, $10\%$ to Sector S,
+      and retains the rest.
+
+    \item  Sector M sells $10\%$ of its output to Sector F, $70\%$ to Sector S,
+      and retains the rest.
+
+    \item  Sector S sells $20\%$ of its output to Sector F, $50\%$ to Sector M,
+      and retains the rest.
+  \end{enumerate}
+
+  The total value of the economy is $\$1,000,000,000$ (1 billion). Find the
+  equilibrium price for each sector. \textit{You may use the row reducing
+  function on your calculator.}
+\end{question}
+
+\begin{solution}
+  \label{sol:equilibrium_prices}
+
+  We need to first construct a table to show the information for each sector.
+
+  \begin{figure}[H]
+    \centering
+
+    \begin{tabular}{ccc|c}
+      F & M & S & Purchased By: \\
+      \hline
+      $0.15$ & $0.10$ & $0.20$ & F \\
+      $0.75$ & $0.20$ & $0.50$ & M \\
+      $0.10$ & $0.70$ & $0.30$ & S \\
+    \end{tabular}
+
+    \caption{Equilibrium Prices}
+    \label{fig:equilibrium_prices}
+  \end{figure}
+
+  Let $P_F$, $P_M$, and $P_S$ be the equilibrium prices for each sector.
+  \[%
+    (\textrm{expenses of Sector}) = (\textrm{output of Sector})
+  .\]%
+
+  Solving for all sectors gives us the following
+  \[%
+    \sysdelim..\systeme{
+      0.15P_F + 0.10P_M + 0.20P_S = P_F,
+      0.75P_F + 0.20P_M + 0.50P_S = P_M,
+      0.10P_F + 0.70P_M + 0.30P_S = P_S
+    } \implies
+    \sysdelim..\systeme*{
+      \-0.85P_F + 0.10P_M + 0.20P_S = 0,
+      0.75P_F \- 0.80P_M + 0.50P_S = 0,
+      0.10P_F + 0.70P_M \- 0.70P_S = 0,
+      P_F + P_M + P_S = 1
+    }
+  .\]%
+
+  We can then convert that system of linear equations to an augmented matrix and
+  solve using the Row Reduction Algorithm
+  \[%
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      -0.85 & 0.10 & 0.20 & 0 \\
+      -0.75 & -0.80 & 0.50 & 0 \\
+      0.10 & 0.70 & -0.70 & 0 \\
+      1 & 1 & 1 & 1 \\
+    \end{bNiceArray}
+    \rref
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      \circled{1} & 0 & 0 & 0.151 \\
+      0 & \circled{1} & 0 & 0.414 \\
+      0 & 0 & \circled{1} & 0.435 \\
+      0 & 0 & 0 & 0 \\
+    \end{bNiceArray} \rightarrow
+    \sysdelim..\systeme*{
+      P_F \approx 0.151~\textrm{billion},
+      P_M \approx 0.414~\textrm{billion},
+      P_S \approx 0.435~\textrm{billion}
+   }
+  .\qedhere\]%
+\end{solution}
+
+% subsection equilibrium_prices (end)
+
+\subsection{Balancing Chemical Equations}
+\label{sub_sec:balancing_chemical_equations}
+
+We can vector equations to solve unbalanced chemical equations.
+
+\begin{question}
+  \label{qst:balancing_chemical_equations}
+
+  Balance this chemical equation by solving the appropriate vector equation.
+  The solution must be in integers and in lowest possible terms. \textit{You
+  may use the row reducing function on your calculator.}
+
+  \[%
+    \textrm{C}_{3}\textrm{H}_{8} + \textrm{O}_{2} \rightarrow \textrm{CO}_{2} + \textrm{H}_{2}\textrm{O}
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:balancing_chemical_equations}
+
+  The first step is to always write out the each molecule as a vector
+  \[%
+    \textrm{C}_{3}\textrm{H}_{8}: \, \begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      8 \\
+      0 \\
+    \end{bNiceMatrix}\quad
+    \textrm{O}_{2}: \, \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      0 \\
+      2 \\
+    \end{bNiceMatrix}\quad
+    \textrm{C}\textrm{O}_{2}: \, \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+      2 \\
+    \end{bNiceMatrix}\quad
+    \textrm{H}_{2}\textrm{O}: \, \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      2 \\
+      1 \\
+    \end{bNiceMatrix}\quad
+  .\]%
+
+  We can then use those vectors to write out a vector equation in standard form
+  \begin{align*}
+    &x_1\begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      8 \\
+      0 \\
+    \end{bNiceMatrix} +
+    x_2\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      0 \\
+      2 \\
+    \end{bNiceMatrix}
+    = x_3\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+      2 \\
+    \end{bNiceMatrix} +
+    x_4\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      2 \\
+      1 \\
+    \end{bNiceMatrix} \\
+    &x_1\begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      8 \\
+      0 \\
+    \end{bNiceMatrix} +
+    x_2\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      0 \\
+      2 \\
+    \end{bNiceMatrix} +
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      -1 \\
+      0 \\
+      -2 \\
+    \end{bNiceMatrix} +
+    x_4\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      -2 \\
+      -1 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      0 \\
+      0 \\
+    \end{bNiceMatrix}
+  .\end{align*}
+
+  We then convert it to an augmented matrix and solve it using the Row Reduction
+  Algorithm
+  \[%
+    \begin{bNiceArray}{cccc|c}[columns-width=auto]
+      3 & 0 & -1 & 0 & 0 \\
+      8 & 0 & 0 & -2 & 0 \\
+      0 & 2 & -2 & -1 & 0 \\
+    \end{bNiceArray}
+    \rref
+    \begin{bNiceArray}{cccc|c}[columns-width=auto]
+      \circled{1} & 0 & 0 & -\sfrac{1}{4} & 0 \\
+      0 & \circled{1} & 0 & -\sfrac{5}{4} & 0 \\
+      0 & 0 & \circled{1} & -\sfrac{3}{4} & 0 \\
+    \end{bNiceArray}
+  .\]%
+
+  This gives us the following general solution
+  \[%
+    \sysdelim..\systeme*{
+      x_1 = \sfrac{1}{4}x_4,
+      x_2 = \sfrac{5}{4}x_4,
+      x_3 = \sfrac{3}{4}x_4,
+      x_4 = x_4
+    }
+  .\]%
+
+  We need to pick an $x_4$ such that all coefficients are integers that are
+  coprime. That would be $x_4 = 4$. This gives us our final solution of
+  \[%
+    \sysdelim..\systeme*{
+      x_1 = 1,
+      x_2 = 5,
+      x_3 = 3,
+      x_4 = 4
+    } \implies
+    1\textrm{C}_{3}\textrm{H}_{8} + 5\textrm{O}_{2} \rightarrow 3\textrm{CO}_{2} + 4\textrm{H}_{2}\textrm{O}
+  .\qedhere\]%
+\end{solution}
+
+% subsection balancing_chemical_equations (end)
+
+% section applications (end)
+
+\newpage

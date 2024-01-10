@@ -1,0 +1,409 @@
+\nte[Section 3.3]{Nov 2 2023 Thu (14:02:00)}{Crammer's Rule}
+
+\section{Deriving Cramer’s Rule}
+\label{sec:deriving_crammers_rule}
+
+Let $A$ be an $n \times n$ invertible matrix whose columns are $\a_1, \dots,
+\a_n$. Consider the equation $A\x = \b$ where $\x,~\b \in \R^n$ Specifically, we
+say that $\x = (x_1, \cdots, x_n)$ Normally, since $A$ is invertible, we could
+solve for $\x$ as $\x = A\I\b$. However, it is sometimes useful to find a
+formula for each individual entry $x_i$, for $i = 1, \dots, n$.
+
+\begin{notation}
+  \label{nta:denote_matrix_with_replaced_column}
+
+  Let $A_i(\v)$ denote the matrix obtained from $A$ by replacing column $\a_i$
+  with the vector $\v$. So, $A_i(\v) =
+  [\,\a_1~\a_{i-1}~\imp{\v}~\a_{i+1}~\a_n\,]$
+\end{notation}
+
+Consider $I_n$ matrix whose columns are $\e_1, \dots, \e_n$. Then, we know that
+$I_i(\x) = [\,\e_1~\cdots~\e_{i-1}~\x~\e_{i+1}~\cdots~\e_n\,]$ Next, consider
+the matrix product
+\[%
+  AI_i(\x) = A[\,\e_1~\cdots~\e_{i-1}~\x~\e_{i+1}~\cdots~\e_n\,] = [\,A\e_1~\cdots~A\e_{i-1}~A\x~A\e_{i+1}~\cdots~A\e_n\,]
+.\]%
+Recall that $A\e_i = a_i$ and also notice that $A\x = \b$. Thus, we have
+\[%
+  AI_i(\x) = [\,\a_1~\cdots~a_{i-1}~\b~a_{i+1}~\cdots~a_n\,] = A_i(\b)
+.\]%
+If we take the determinant of both sides and use the multiplicative property,
+then we get
+\[%
+  \det(AI_i(\x)) = \det(A_i(\b)) \rightarrow (\det(A))(\det(I_i(\x))) = \det(A_i(\b))
+.\]%
+Notice that $I_i(\x)$ takes the form of
+\[%
+  I_i(\x)=
+  \begin{bNiceMatrix}[columns-width=auto,last-row,last-col]
+    1 & 0 & \cdots & x_1 & \cdots & 0 & \\
+    0 & 1 & \cdots & x_2 & \cdots & 0 & \\
+    \vdots & \vdots & \ddots & \vdots & \vdots & \vdots \\
+    0 & 0 & \cdots & x_i & \cdots & 0 & \imp{\leftarrow\text{row}~i} \\
+    \vdots & \vdots & \cdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \cdots & x_n & \cdots & 1 & \\
+    \imp{\e_1} & \imp{\e_2} & & \imp{\x} & & \imp{\e_n} & \\
+  \end{bNiceMatrix}
+.\]%
+When we take the cofactor expansion across row $i$, we can compute
+$\det(I_i(\x))$ as
+\[%
+  \det(I_i(\x)) = \rcancel{a_{i1}C_{i1}} + \rcancel{a_{i2}C_{i2}} + \cdots + a_{ii}C_{ii} + \cdots + \rcancel{a_{in}C_{in}} = x_i\underbrace{(-1)^{i+i}}_{(-1)^{2i} = 1}\det(A_{ii}) = x_i\det(I) = x_i
+,\]%
+which can be re-written as
+\[%
+  (\det(A))(x_i) = \det(A_i(\b)) \rightarrow x_i = \frac{\det(A_i(\b))}{\det(A)}
+,\]%
+which gives us a formula for each entry $x_i$ in the solution vector $\x$.
+
+\begin{theorem}[Cramer's Rule]
+  \label{thm:crammers_rule}
+
+  Let $A$ be an $n \times n$ invertible matrix. $\forall \b \in \R^n$, the
+  equation $A\x = \b$ has a unique solution $\x = (x_1, x_2, \ldots, x_n)$ whose
+  entries are given by
+  \[%
+    x_i = \frac{\det(A_i(\b))}{\det(A)} \quad\textrm{for}~i=1,2,\ldots,n
+  .\]%
+\end{theorem}
+
+\begin{question}
+  \label{qst:crammers_rule_1}
+
+  Use Cramer's rule to solve the following linear system.
+  \[%
+    \sysdelim..\systeme{
+      3x_1 - 2x_2 = 6,
+      -5x_1 + 4x_2 = 8
+    }
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:crammers_rule_1}
+
+  First, rewrite this linear system as $A\x = \b$. In doing so, we get
+  \[%
+    \underset{\imp{A}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        3 & -2 \\
+        -5 & 4 \\
+      \end{bNiceMatrix}
+    }
+    \underset{\imp{\x}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        x_1 \\
+        x_2 \\
+      \end{bNiceMatrix}
+    } =
+    \underset{\b}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        6 \\
+        8 \\
+      \end{bNiceMatrix}
+    } \rightarrow
+    A_1(\imp{\b}) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \imp{6} & -2 \\
+      \imp{8} & 4 \\
+    \end{bNiceMatrix}\aand
+    A_2(\imp{\b}) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 & \imp{6} \\
+      -5 & \imp{8} \\
+    \end{bNiceMatrix}
+  .\]%
+  Then, Cramer's rule gives
+  \begin{align*}
+    x_1 = \frac{\det(A_1(\b))}{\det(A)} = \frac{(6)(4) - (-2)(8)}{(3)(4) - (-2)(-5)} = \frac{40}{2} = 20 \\
+    x_2 = \frac{\det(A_2(\b))}{\det(A)} = \frac{(3)(8) - (6)(-5)}{(3)(4) - (-2)(-5)} = \frac{54}{2} = 27
+  .\end{align*}
+  This gives us
+  \[%
+    \x = \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      20 \\
+      27 \\
+    \end{bNiceMatrix} \rightarrow
+    \begin{bNiceMatrix}[columns-width=auto]
+      3 & -2 \\
+      -5 & 4 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      20 \\
+      27 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      6 \\
+      8 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\begin{question}
+  \label{qst:crammers_rule_2}
+
+  Consider the following linear system whose coefficients contain the
+  unspecified parameter $s$.
+  \begin{align*}
+    3sx_1 - 2x_2 &= 4 \\
+    -6x_1 + sx_2 &= 1
+  \end{align*}
+  Determine the value(s) of $s$ for which this linear system has a unique
+  solution. Then use Cramer's rule to write the solution in terms of the
+  parameter $s$.
+\end{question}
+
+\begin{solution}
+  \label{sol:crammers_rule_2}
+
+  First, rewrite this linear system as $A\x = \b$. In doing so, we get
+  \[%
+    \underset{\imp{A}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        3s & -2 \\
+        -6 & 2 \\
+      \end{bNiceMatrix}
+    }
+    \underset{\imp{\x}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        x_1 \\
+        x_2 \\
+      \end{bNiceMatrix}
+    } =
+    \underset{\imp{\b}}{
+      \begin{bNiceMatrix}[columns-width=auto]
+        4 \\
+        1 \\
+      \end{bNiceMatrix}
+    } \rightarrow
+    A_1(\imp{\b}) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \imp{4} & -2 \\
+      \imp{1} & s \\
+    \end{bNiceMatrix}\aand
+    A_2(\imp{\b}) =
+    \begin{bNiceMatrix}[columns-width=auto]
+      3s & \imp{4} \\
+      -6 & \imp{1} \\
+    \end{bNiceMatrix}
+  .\]%
+  For a unique solution, we need $\det(A) \neq 0$.
+  \[%
+    \det(A) = (3s)(s) - (-2)(-6) = 3s^2 - 12 \rightarrow  3s^2 - 12 \ne 0 \rightarrow 3(s^2 - 4) \ne 0 \rightarrow  3(s + 2)(5 - 2) \ne 0 \rightarrow s \ne \pm 2
+  .\]%
+  Then, Cramer's rule gives
+  \begin{align*}
+    x_1 &= \frac{\det(A_1(\b))}{\det(A)} = \frac{(4)(5) - (-2)(1)}{3(s + 2)(s - 2)} = \frac{4s + 2}{3(s + 2)(s - 2)} \\
+    x_2 &= \frac{\det(A_2(\b))}{\det(A)} = \frac{(3s)(1) -  (4)(-6)}{3(s + 2)(s - 2)} = \frac{\rcancel{3}(s + 8)}{\rcancel{3}(s + 2)(s - 2)} = \frac{s + 8}{(s + 2)(s - 2)}
+  .\end{align*}
+  This gives us
+  \[%
+    \x = \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      \frac{4s + 2}{3(s + 2)(s - 2)} \\
+      \frac{s + 8}{(s + 2)(s - 2)} \\
+    \end{bNiceMatrix} \rightarrow
+    \begin{bNiceMatrix}[columns-width=auto]
+      3s & -2 \\
+      -6 & 2 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      \frac{4s + 2}{3(s + 2)(s - 2)} \\
+      \frac{s + 8}{(s + 2)(s - 2)} \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      1 \\
+    \end{bNiceMatrix}~\textrm{where}~s \ne \pm 2
+  .\qedhere\]%
+\end{solution}
+
+% section deriving_crammers_rule (end)
+
+\section{A Formula for the Inverse}
+\label{sec:a_formula_for_the_inverse}
+
+Consider an $n \times n$ invertible matrix $A$. Thus, $A\I$ exists with columns
+$\c_1,\dots,\c_n$. We can write this as
+\[%
+  A^{-1} =
+  \begin{bNiceMatrix}[columns-width=auto]
+    \color{black!50}{|} & \color{black!50}{|} & & \color{black!50}{|} & & \color{black!50}{|} \\
+    \c_1 & \c_2 & \cdots & \c_j & \cdots & \c_n \\
+    \color{black!50}{|} & \color{black!50}{|} & & \color{black!50}{|} & & \color{black!50}{|} \\
+  \end{bNiceMatrix}
+.\]%
+Remember that $AA\I = I$. Thus, if we take just one column $\c_j$ of $A\I$, then
+\[%
+  A\c_j = \e_j
+,\]%
+where $\e_j$ is the $j$th column of the identity matrix $I$. Any $(i, j)$-entry
+in $A\I$ can be written as $\c_{ij}$. Then, we can write out $\c_j$ as $\c_j =
+(\c_{1j}, \cdots, \underbrace{\c_{ij}}_{x_i}, \cdots, c_{nj})$. The $i$th entry
+in $\c_{ij}$ is the $(i, j)$-entry of $A\I$. Thus, with Crammer's rule, we can
+write
+\[%
+  \c_{ij} = \frac{\det(A_i(\e_j))}{\det(A)}
+.\]%
+Let's take a close look at $A_i(\e_j)$, which looks like
+\[%
+  A_i(\e_j) =
+  \begin{bNiceMatrix}[columns-width=auto]
+    \color{black!50}{|} & \color{black!50}{|} & & \color{black!50}{|} & \color{red!50}{|} & \color{black!50}{|} & & \color{black!50}{|} \\
+    \a_1 & \a_2 & \cdots & \a_{i-1} & \color{red}{\e_j} & \a_{i+1} & \cdots & \a_n \\
+    \color{black!50}{|} & \color{black!50}{|} & & \color{black!50}{|} & \color{red!50}{|} & \color{black!50}{|} & & \color{black!50}{|} \\
+  \end{bNiceMatrix}
+.\]%
+To find $\det(A_i(\e_j))$, we will compute the cofactor expansion down
+\underline{column $i$}. However, notice that column $i$ is $\e_j = (0, \cdots,
+0, 1, 0, \cdots, 0)$, where the $1$ is the row in row $j$. Thus, the cofactor
+expansion down \underline{column $i$} must be
+\[%
+  \det(A_i(\e_j)) = \rcancel{0 \cdot C_{1i}} + \cdots + 1 \cdot C_{ji} + \cdots + \rcancel{0 \cdot C_{ni}} = C_{ji}
+.\]%
+Thus, the $(i, j)$-entry of $A\I$ must be
+\[%
+  C_{ij} = \frac{C_{ji}}{\det(A)}
+.\]%
+When we write each entry in $A\I$ as this expression, we get
+\[%
+  A\I = \begin{bNiceMatrix}[columns-width=auto]
+    c_{11} & c_{12} & \cdots & c_{1n} \\
+    c_{21} & c_{22} & \cdots & c_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    c_{n1} & c_{n2} & \cdots & c_{nn} \\
+  \end{bNiceMatrix}=
+  \begin{bNiceMatrix}[columns-width=auto]
+    \sfrac{C_{11}}{\det A} & \sfrac{C_{21}}{\det A} & \cdots & \sfrac{C_{n1}}{\det A} \\
+    \sfrac{C_{12}}{\det A} & \sfrac{C_{22}}{\det A} & \cdots & \sfrac{C_{n2}}{\det A} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \sfrac{C_{1n}}{\det A} & \sfrac{C_{2n}}{\det A} & \cdots & \sfrac{C_{nn}}{\det A} \\
+  \end{bNiceMatrix} = \frac{1}{\det A}
+  \underset{\textrm{adjugate of}~A}{
+    \begin{bNiceMatrix}[columns-width=auto]
+      C_{11} & C_{21} & \cdots & C_{n1} \\
+      C_{12} & C_{22} & \cdots & C_{n2} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      C_{1n} & C_{2n} & \cdots & C_{nn} \\
+    \end{bNiceMatrix}
+  }
+.\]%
+
+The last matrix above is called the \textbf{adjugate} of $A$, denoted as
+$\adj(A)$. Notice that the indices of $C_{ji}$ are reversed from the indices of
+the entries of $C_{ij}$.
+
+\begin{theorem}
+  \label{thm:inverse_matrix_formula}
+
+  Let $A$ be an invertible square matrix. Then, its inverse $A\I$ is given by
+  \[%
+    A\I = \frac{1}{\det(A)} \adj(A)
+  .\]%
+\end{theorem}
+
+\begin{question}
+  \label{qst:find_inverse_matrix}
+
+  Consider the invertible matrix
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      2 & 1 & 3 \\
+      1 & -1 & 1 \\
+      1 & 4 & -2 \\
+    \end{bNiceMatrix}
+  .\]%
+  Find $A\I$ by computing $\det(A)$ and $\adj(A)$.
+\end{question}
+
+\begin{solution}
+  \label{sol:find_inverse_matrix}
+
+  First, let's find $\adj(A)$ by computing the cofactors: $C_{ji} =
+  (-1)^{j+i}\det(A_{ji})$.
+  \noindent\begin{multicols}{3}
+    \noindent\begin{alignat*}{4}
+      C_{11} &= (-1)^{1+1}
+      \begin{vNiceMatrix}[columns-width=auto]
+        -1 & 1 \\
+        4 & -2 \\
+      \end{vNiceMatrix} &&= -2 \\
+      C_{12} &= (-1)^{1+2}
+      \begin{vNiceMatrix}[columns-width=auto]
+        1 & 1 \\
+        1 & -2 \\
+      \end{vNiceMatrix} &&= 3 \\
+      C_{13} &= (-1)^{1+3}
+      \begin{vNiceMatrix}[columns-width=auto]
+        1 & -1 \\
+        1 & 4 \\
+      \end{vNiceMatrix} &&= 5
+    .\end{alignat*}
+
+    \noindent\begin{alignat*}{4}
+      C_{21} &= (-1)^{2+1}
+      \begin{vNiceMatrix}[columns-width=auto]
+        1 & 3 \\
+        4 & -2 \\
+      \end{vNiceMatrix} &&= 14 \\
+      C_{22} &= (-1)^{2+2}
+      \begin{vNiceMatrix}[columns-width=auto]
+        2 & 3 \\
+        1 & -2 \\
+      \end{vNiceMatrix} &&= -7 \\
+      C_{23} &= (-1)^{2+3}
+      \begin{vNiceMatrix}[columns-width=auto]
+        2 & 1 \\
+        1 & 4 \\
+      \end{vNiceMatrix} &&= -7
+    .\end{alignat*}
+
+    \noindent\begin{alignat*}{4}
+      C_{31} &= (-1)^{3+1}
+      \begin{vNiceMatrix}[columns-width=auto]
+        1 & 3 \\
+        -1 & 1 \\
+      \end{vNiceMatrix} &&= 4 \\
+      C_{32} &= (-1)^{3+2}
+      \begin{vNiceMatrix}[columns-width=auto]
+        2 & 3 \\
+        1 & 1 \\
+      \end{vNiceMatrix} &&= 1 \\
+      C_{33} &= (-1)^{3+3}
+      \begin{vNiceMatrix}[columns-width=auto]
+        2 & 1 \\
+        1 & -1 \\
+      \end{vNiceMatrix} &&= -3
+    .\end{alignat*}
+  \end{multicols}
+
+  Now we can find $\det(A)$ by just any cofactor expansion
+  \[%
+    \det(A) = a_{11}C_{11} + a_{12}C_{12} + a_{13}C_{13} = 2(-2) + 1(3) + 3(5) = 14
+  .\]%
+  From \cref{thm:inverse_matrix_formula}, we have
+  \[%
+    A\I = \frac{1}{\det(A)} \adj(A) = \frac{1}{14}
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 & 1 & 3 \\
+      1 & -1 & 1 \\
+      1 & 4 & -2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{1}{7} & 1 & \sfrac{2}{7} \\
+      \sfrac{3}{14} & -\sfrac{1}{2} & \sfrac{1}{14} \\
+      \sfrac{5}{14} & -\sfrac{1}{2} & -\sfrac{3}{14} \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+% section a_formula_for_the_inverse (end)
+
+\newpage

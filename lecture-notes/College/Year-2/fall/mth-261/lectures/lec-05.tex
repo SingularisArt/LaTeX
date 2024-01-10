@@ -1,0 +1,541 @@
+\nte[Section 1.5]{Oct 10 2023 Tue (14:00:26)}{Solution Sets and More Application}
+
+\section{Homogeneous Linear Systems}
+\label{sec:homogeneous_linear_systems}
+
+\begin{definition}[Homogeneous Linear Systems]
+  \label{def:homogeneous_linear_systems}
+
+  $A$ linear system is called \textbf{homogeneous} if it can be written in the
+  form $A\x = \zero$ where $A$ is the $m \times n$ coefficient matrix.
+\end{definition}
+
+This system always has at least one solution, which is $\x = \zero$, which is
+called the \textbf{trivial solution}. The important question is whether the
+linear system has a \textbf{nontrivial solution}.
+
+\begin{purpleframe}
+  \label{prpl:homogeneous_linear_systems}
+
+  The homogeneous equation $A\x = \zero$ has a nontrivial solution if and only
+  if the equation has at least one free variable. Hence, we need only row reduce
+  the augmented matrix $[\,A~\vert~\zero\,]$, into echelon form and check if
+  there are any non-pivot columns.
+\end{purpleframe}
+
+\begin{question}
+  \label{qst:homogeneous_linear_systems}
+
+  Determine if the following homogeneous system has a nontrivial solution. Then
+  describe the solution set.
+  \[%
+    \sysdelim..\systeme{
+      3x_1 + 5x_2 - 4x_3 = 0,
+      -3x_1 - 2x_2 + 4x_3 = 0,
+      6x_1 + x_2 - 8x_3 = 0
+    }
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:homogeneous_linear_systems}
+
+  Let A be the matrix of coefficients of the system and row reduce the
+  augmented matrix $[\,A~\vert~\zero\,]$ to echelon form
+  \begin{align*}
+    \sysdelim..\systeme{
+      R_1 + R_2 \rightarrow R_2,
+      -2R_2 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      \circled{-3} & 5 & -4 & 0 \\
+      0 & \circled{-3} & 0 & 0 \\
+      0 & -9 & 0 & 0 \\
+    \end{bNiceArray} \\
+    \sysdelim..\systeme{
+      3R_2 + R_3 \rightarrow R_3
+    } &\longleftrightarrow
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      \circled{-3} & 5 & -4 & 0 \\
+      0 & \circled{-3} & 0 & 0 \\
+      0 & 0 & 0 & 0 \\
+    \end{bNiceArray}
+  .\end{align*}
+
+  Since $x_3$ is a free variable, $A\x = \zero$ has nontrivial solutions (one for
+  each nonzero choice of $x_3$). To describe the solution set, we need to
+  continue the row reduction of $[\,A~\vert~\zero\,]$ to reduced echelon form
+  \[%
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      1 & 0 & -\sfrac{4}{3} & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 0 \\
+    \end{bNiceArray} \longleftrightarrow
+    \sysdelim..\systeme*{
+      x_1 - \sfrac{4}{3}x_3 = 0,
+      x_2 = 0,
+      0 = 0,
+    } \longleftrightarrow
+    \sysdelim..\systeme*{
+      x_1 = \sfrac{4}{3}x_3,
+      x_2 = 0,
+      0 = 0,
+    }
+  .\]%
+
+  As a vector, the general solution of $[\,A~\vert~\zero\,]$ has the form
+  \begin{equation}\label{eqt:parametric_vector_form}
+    \x = \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{4}{3}x_3 \\
+      0 \\
+      x_3 \\
+    \end{bNiceMatrix} =
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{4}{3} \\
+      0 \\
+      1 \\
+    \end{bNiceMatrix} = x_3\v
+  ,\end{equation}
+  where
+  \[%
+    \v = \begin{bNiceMatrix}[columns-width=auto]
+      \sfrac{4}{3} \\
+      0 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\qedhere\]%
+\end{solution}
+
+\subsection{Parametric Vector Form}
+\label{sub_sec:parametric_vector_form}
+
+The solution found in \cref{eqt:parametric_vector_form} is called
+\textbf{parametric vector form} of the solution where $x_3$ is the parameter.
+\begin{example}
+  \label{exm:parametric_vector_form}
+
+  Here's another more complicated example of the solution in parametric vector
+  form
+  \[%
+    \v = \begin{bNiceMatrix}[columns-width=auto]
+      -4x_1 + 3x_2 \\
+      x_3 \\
+      -3x_3 - x_1 \\
+    \end{bNiceMatrix}
+    = x_1\begin{bNiceMatrix}[columns-width=auto]
+      -4 \\
+      0 \\
+      -1 \\
+    \end{bNiceMatrix}
+    +
+    x_2\begin{bNiceMatrix}[columns-width=auto]
+      3 \\
+      0 \\
+      0 \\
+    \end{bNiceMatrix}
+    +
+    x_3\begin{bNiceMatrix}[columns-width=auto]
+      0 \\
+      1 \\
+      -3 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{example}
+
+% subsection parametric_vector_form (end)
+
+\begin{question}
+  \label{qst:parametric_vector_form}
+
+  Find the solution of $A\x = \zero$ in parametric vector form where
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      2 & -6 & 14 & 6 \\
+      0 & -9 & 9 & 5 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:parametric_vector_form}
+
+  First, convert everything to an augmented matrix
+  \[%
+    \begin{bNiceArray}{c|c}[columns-width=auto]
+      A & \zero \\
+    \end{bNiceArray} =
+    \begin{bNiceArray}{cccc|c}[columns-width=auto]
+      2 & -6 & 14 & 6 & 0 \\
+      0 & -9 & 9 & 5 & 0 \\
+    \end{bNiceArray}
+    \rref
+    \begin{bNiceArray}{cccc|c}[columns-width=auto]
+      \circled{1} & 0 & 4 & \sfrac{4}{3} & 0 \\
+      0 & \circled{1} & -1 & -\sfrac{5}{9} & 0 \\
+    \end{bNiceArray}
+    \longleftrightarrow
+    \sysdelim..\systeme*{
+      x_1 + 4x_3 + \sfrac{4}{3}x_4 = 0,
+      x_2 - x_3 - \sfrac{5}{9}x_4 = 0,
+      x_3 = x_3,
+      x_4 = x_4
+    }
+  .\]%
+
+  We can then convert it to the general solution, and from there, convert it to
+  the parametric vector form
+  \begin{align*}
+    \sysdelim..\systeme*{
+      x_1 = -4x_3 - \sfrac{4}{3}x_4,
+      x_2 = x_3 + \sfrac{5}{9}x_4,
+      x_3 = x_3,
+      x_4 = x_4
+    } \longleftrightarrow
+    \x &= \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+      x_4 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -4x_3 - \sfrac{4}{3}x_4 \\
+      x_3 + \sfrac{5}{9}x_4 \\
+      x_3 \\
+      x_4 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -4x_3 \\
+      x_3 \\
+      x_3 \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{4}{3}x_4 \\
+      \sfrac{5}{9}x_4 \\
+      0 \\
+      x_4 \\
+    \end{bNiceMatrix} \\
+    &= x_3\begin{bNiceMatrix}[columns-width=auto]
+      -4 \\
+      1 \\
+      1 \\
+      0 \\
+    \end{bNiceMatrix} +
+    x_4\begin{bNiceMatrix}[columns-width=auto]
+      -\sfrac{4}{3} \\
+      \sfrac{5}{9} \\
+      0 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\qedhere\end{align*}
+\end{solution}
+
+Given vectors $\u$ and $\w$, the line $L$ that is parallel to $\u$ and passes
+through $\w$ is given by
+\[%
+  \v(r) = r\u + \w
+,\]%
+for any parameter $r$. Also, the line $M$ that passes through both $\u$ and
+$\w$ is given by
+\[%
+  \v(r) = r(\w - \u) + \u
+,\]%
+for any parameter $r$.
+
+\begin{note}
+  \label{nte:each_line_treated_as_a_vector_function}
+
+  Each line is treated as a vector function $\v(r)$ where different inputs of
+  $r$ will result in different vectors (or points) on the lines.
+\end{note}
+
+\begin{question}
+  \label{qst:parallel_and_passes_through_line_with_vectors}
+
+  Consider vectors $\u = (4, 3)$ and $\w = (-1, 4)$. Find the line $L$ that is
+  parallel to $\u$ and passes through $\w$. Find the line $M$ that passes
+  through both $\u$ and $\w$.
+\end{question}
+
+\begin{solution}
+  \label{sol:parallel_and_passes_through_line_with_vectors}
+
+  The line $L$ that is parallel to $\u$ and passes through $\w$ is given by
+  \[%
+    \v(r) = r\u + \w = r
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      -3 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      -1 \\
+      4 \\
+    \end{bNiceMatrix}
+  ,\]%
+  and the line $M$ that passes through both $\u$ and $\w$ is given by
+  \[%
+    \v(r)=r(\w-\u)+\u=
+    r\left(
+      \begin{bNiceMatrix}[columns-width=auto]
+        4 \\
+        -3 \\
+      \end{bNiceMatrix} -
+      \begin{bNiceMatrix}[columns-width=auto]
+        -1 \\
+        4 \\
+      \end{bNiceMatrix}
+    \right) +
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      -3 \\
+    \end{bNiceMatrix} = s
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 \\
+      -7 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      -3 \\
+    \end{bNiceMatrix}
+  .\]%
+  And we can also graph the vectors $\u$ and $\w$ along with the lines $L$ and
+  $M$ as shown below.
+  \begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}
+      \begin{axis}[
+        scale=0.85,
+        xmin=-5.75, xmax=5.75,
+        ymin=-5.75, ymax=5.75,
+        ]
+
+        \addplot coordinates{(0,0)(4,-3)} node[below left]{$\u$};
+        \addplot coordinates{(0,0)(-1,4)} node[below left]{$\w$};
+        \addplot+[latex-latex,domain=-3.25:5.75,mark=none]{(-3/4)*(x+1)+4} node[midway,above right]{$L$};
+        \addplot+[latex-latex,domain=-2.25:5.75,mark=none]{(-7/5)*(x+1)+4} node[pos=0.70,above right]{$M$};
+      \end{axis}
+    \end{tikzpicture}
+
+    \caption{}
+    \label{fig:parallel_and_passes_through_line_with_vectors}
+  \end{figure}
+\end{solution}
+
+% section homogeneous_linear_systems (end)
+
+\section{Solutions of Nonhomogeneous Systems}
+\label{sec:solutions_of_nonhomogeneous_systems}
+
+When a nonhomogeneous linear system has many solutions, the general solution
+can be written in parametric vector form as one vector plus an arbitrary linear
+combination of vectors that satisfy the corresponding homogeneous system.
+
+\begin{theorem}
+  \label{thm:solution_in_parametric_vector_form}
+
+  The solution for $A\x = \b$ in parametric vector form can be written as $\v_h
+  + \p$ where $\p$ is a particular solution (i.e. $A\p = \b$) and $\v_h$ is any
+  solution of $A\x = \zero$.
+\end{theorem}
+
+\Cref{thm:solution_in_parametric_vector_form} says that $A\x = \b$ has a
+solution, then the solution set is obtained by translating the solution set of
+$A\x = \b$, using any particular solution $\p$ of $A\x = \b$ for the
+translation. Even when $n > 3$, our mental image of the solution set of a
+consistent system $A\x = \b$ (with $\b \ne 0$) is either a single nonzero point
+or a line or plane not passing through the origin.
+
+\begin{note}
+  \label{nte:solution_in_parametric_vector_form}
+
+  \Cref{thm:solution_in_parametric_vector_form} applies only to an equation
+  $A\x = \b$ that has at least one nonzero solution $\p$. When $A\x = \b$ has
+  no solution, the solution set is empty.
+\end{note}
+
+% section solutions_of_nonhomogeneous_systems (end)
+
+\section{More Applications}
+\label{sec:more_applications}
+
+\subsection{Candy}
+\label{sub_sec:candy}
+
+\begin{question}
+  \label{qst:candy}
+
+  A candy company sells three types of chocolate boxes as shown below that each
+  contain a combination of three types of chocolate pieces (circle, triangle,
+  and square chocolates).
+
+  \begin{align*}
+    \underset{\displaystyle\$43}{\begin{array}{cc}
+      \square & \bigcirc \\
+      \bigtriangleup & \bigtriangleup \\
+    \end{array}}\qquad
+    \underset{\displaystyle\$45}{\begin{array}{cc}
+      \square & \bigcirc \\
+      \bigcirc & \bigtriangleup \\
+    \end{array}}\qquad
+    \underset{\displaystyle\$42}{\begin{array}{cc}
+      \square & \square \\
+      \bigtriangleup & \bigtriangleup \\
+    \end{array}}\qquad
+    \underset{\displaystyle?}{\begin{array}{ccc}
+      \square & \bigtriangleup & \bigcirc \\
+      \square & \bigtriangleup & \bigcirc \\
+    \end{array}}
+  \end{align*}
+
+  What should the price be for the six piece box?
+\end{question}
+
+\begin{solution}
+  \label{sol:candy}
+
+  Let $P_C$, $P_T$, and $P_S$ be the prices of the circle, triangle, and square
+  pieces.
+
+  \begin{align*}
+    \begin{array}{l}
+      \textrm{Box $1$:} \  1P_S + 1P_C + 2P_T = 43 \\
+      \textrm{Box $2$:} \  1P_S + 2P_C + 1P_T = 45 \\
+      \textrm{Box $3$:} \  2P_S + 0P_C + 2P_T = 42 \\
+    \end{array}
+    \longleftrightarrow
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      1 & 1 & 2 & 43 \\
+      1 & 2 & 1 & 45 \\
+      2 & 0 & 2 & 42 \\
+    \end{bNiceArray}
+    \rref
+    \begin{bNiceArray}{ccc|c}[columns-width=auto]
+      \circled{1} & 0 & 0 & 11 \\
+      0 & \circled{1} & 0 & 12 \\
+      0 & 0 & \circled{1} & 10 \\
+    \end{bNiceArray}
+  .\end{align*}
+
+  This gives us the following answers
+  \[%
+    \sysdelim..\systeme*{
+      P_S = \$11,
+      P_C = \$12,
+      P_T = \$10,
+    } \implies
+    2P_S + 2P_C + 2P_T = 2(11) + 2(12) + 2(10) = 66
+  .\qedhere\]%
+\end{solution}
+
+% subsection candy (end)
+
+\subsection{Dealing with Derivatives}
+\label{sub_sec:dealing_with_derivatives}
+
+\begin{question}
+  \label{qst:dealing_with_derivatives}
+
+  Consider the function $f(x) = ae^{-3x} + be^{-2x} + cxe^{-x}$, where $a$,
+  $b$, and $c$ are constants.
+
+  \begin{enumerate}
+    \label{enum:dealing_with_derivatives_qst}
+
+    \item Find the derivatives $f^{\prime}$ and $f^{\prime\prime}$.
+
+    \item Suppose that we know the initial conditions $f(0) = -3$,
+      $f^{\prime}(0) = 5$, and $f^{\prime\prime}(0) = 0$. Using your answers in
+      part $1$, construct a linear system by finding a linear equation for each
+      initial condition.
+
+    \item Find the values of $a$, $b$, and $c$ by solving for the linear system
+      found in part $2$. \textit{You may use the row reducing function on your
+      calculator.}
+
+    \item Using your answers in part $3$, find the value of $f(1)$.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:dealing_with_derivatives}
+
+  \begin{enumerate}
+    \label{enum:dealing_with_derivatives_sol}
+
+    \item To find the first and second derivatives, we must use the product
+      rule, which states
+      \[%
+        \odv{}{x}[f \cdot g] = f^{\prime} \cdot g + g^{\prime} \cdot f
+      ,\]%
+      and the chain rule, which states that
+      \[%
+        \odv{}{x}[f(g(x))] = f^{\prime}(g(x)) \cdot g^{\prime}(x)
+      .\]%
+
+      Using that, we can find the first derivative
+      \begin{align*}
+        \odv{}{x}[f(x)] &= \odv{}{x}\left[ae^{-3x} + be^{-2x} + cxe^{-x}\right] \\
+                        &= \odv{}{x}[ae^{-3x}] + \odv{}{x}[be^{-2x}] + \odv{}{x}[cxe^{-x}] \\
+                        &= -3ae^{-3x} - 2be^{-2x} + \odv{}{x}[cx] \cdot e^{-x} + \odv{}{x}[e^{-x}] \cdot cx \\
+                        &= -3ae^{-3x} - 2be^{-2x} + ce^{-x} - cxe^{-x}
+      .\end{align*}
+
+      We can then do the same thing for the second derivative
+      \begin{align*}
+        \odv[order={2,2}]{}{x}[f(x)] &= \odv{}{x}\left[\odv{}{x}\left[ae^{-3x} + be^{-2x} + cxe^{-x}\right]\right] \\
+                                     &= \odv{}{x}[-3ae^{-3x} - 2be^{-2x} + ce^{-x} - cxe^{-x}] \\
+                                     &= \odv{}{x}[-3ae^{-3x}] + \odv{}{x}[-2be^{-2x}] + \odv{}{x}[ce^{-x}] - \odv{}{x}[cxe^{-x}] \\
+                                     &= 9ae^{-3x} + 4be^{-2x} - ce^{-x} - \left(\odv{}{x}[cx] \cdot e^{-x} + \odv{}{x}[e^{-x}] \cdot cx\right) \\
+                                     &= 9ae^{-3x} + 4be^{-2x} - ce^{-x} - (ce^{-x} - cxe^{-x}) \\
+                                     &= 9ae^{-3x} + 4be^{-2x} - 2ce^{-x} + cxe^{-x})
+      .\end{align*}
+
+    \item We can then use our previous answer to construct our system of
+      equations
+      \begin{alignat*}{10}
+        f(0) &= ae^{-3(0)} + be^{-2(0)} + c(0)e^{-0} &&= 3 &&\implies a + b &&= -3 \\
+        f^{\prime}(0) &= -3ae^{-3(0)} - 2be^{-2(0)} + ce^{-(0)} - c(0)e^{-(0)} &&= 5 &&\implies -3a - 2b + c &&= 5 \\
+        f^{\prime\prime}(0) &= 9ae^{-3(0)} + 4be^{-2(0)} - 2ce^{-(0)} + c(0)e^{-(0)} &&= 0 &&\implies 9a + 4b - 2c &&= 0
+      .\end{alignat*}
+
+    \item We can then convert our previous answer to a linear system and solve
+      it using the Row Reduce Algorithm
+      \[%
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & 1 & 0 & -3 \\
+          -3 & -2 & 1 & 5 \\
+          9 & 4 & -2 & 0 \\
+        \end{bNiceArray}
+        \rref
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & 0 & 0 & \sfrac{10}{3} \\
+          0 & \circled{1} & 0 & -\sfrac{19}{3} \\
+          0 & 0 & \circled{1} & \sfrac{7}{3} \\
+        \end{bNiceArray}
+        \implies
+        \sysdelim..\systeme*{
+          a = \sfrac{10}{3},
+          b = -\sfrac{19}{3},
+          c = \sfrac{7}{3}
+        }
+      .\]%
+
+    \item Using all the information that we've collected, when can then find
+      $f(1)$, which is
+      \[%
+        f(1) = \frac{10}{3}e^{-3(1)} - \frac{19}{3}e^{-2(1)} + \frac{7}{3}e^{-(1)} \approx 0.167
+      .\qedhere\]%
+  \end{enumerate}
+\end{solution}
+
+% subsection dealing_with_derivatives (end)
+
+% section more_applications (end)
+
+\newpage

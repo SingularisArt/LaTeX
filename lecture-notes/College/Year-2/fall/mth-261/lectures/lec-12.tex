@@ -1,0 +1,544 @@
+\nte[Sections 2.8, 2.9 and 4.3]{Nov 07 2023 Tue (14:00:43)}{Subspaces}
+
+\section{What is a Subspace}
+\label{sec:what_is_a_subspace}
+
+\begin{definition}[Subspace]
+  \label{def:subspace}
+
+  A \textbf{subspace} of $\R^n$ is any set $H \in \R^n$ that has the
+  following properties
+  \begin{enumerate}
+    \label{enum:subspace}
+
+    \item $\zero \in H$.
+
+    \item $\forall \u,\v \in H$, $\u + \v \in H$. (\imp{Closed under
+      addition}).
+
+    \item $\forall \u \in H$ and any scalar $k$, $k\u \in H$. (\imp{Closed under
+      scalar multiplication}).
+  \end{enumerate}
+\end{definition}
+
+\begin{question}
+  \label{qst:subspace}
+
+  Consider any two vectors $\v_1,\v_2 \in \R^n$ and let $H =
+  \Sspan\{\v_1,\v_2\}$. Show that $H$ is a subspace of $\R^n$.
+\end{question}
+
+\begin{solution}
+  \label{sol:subspace}
+
+  First, $\Sspan\{\v_1,\v_2\}$ is the set of all linear combinations of $\v_1$
+  and $\v_2$.
+
+  \begin{enumerate}
+    \label{enum:subspace_solution}
+
+    \item Notice that $\zero = 0\v_1 + 0\v_2 \implies \zero \in H$.
+
+    \item Let $\u,\w \in H$. Then, $\u = a\v_1 + b\v_1$ and $\w = c\v_1 +
+      d\v_2$. We need to show that $\u + \w \in H$.
+      \[%
+        \u + \w = a\v_1 + b\v_2 + c\v_1 + d\v_2 = a\v_1 + c\v_2 + b\v_2 + d\v_2 = \underbrace{(a + c)}_{\textrm{scalar}}\v_1 + \underbrace{(b + d)}_{\textrm{scalar}}\v_2 \in H
+      .\]%
+
+    \item Show that $k\u \in H$.
+      \[%
+        k\u = k(a\v_1 + b\v_2) = ka\v_1 + kb\v_2 \in \Sspan\{\v_1,\v_2\} \implies k\u \in H
+      .\qedhere\]%
+  \end{enumerate}
+\end{solution}
+
+\begin{note}
+  \label{nte:span_is_a_subspace}
+
+  In fact, $\forall \v_1,\v_2,\cdots,\v_p \in \R^n$,
+  $\Sspan\{\v_1,\v_2,\cdots,\v_p\}$ is a subspace of $\R^n$.
+
+  Also, $\zero$ is a subspace of $\R^n$. This is sometimes called the \textbf{zero
+  subspace}.
+\end{note}
+
+% section what_is_a_subspace (end)
+
+\section{Column Space and Null Space}
+\label{sec:column_space_and_null_space}
+
+\begin{definition}[Column and Null Space]
+  \label{def:column_and_null_space}
+
+  Given some matrix $A$, the \textbf{column space} of $A$, denoted $\Col(A)$ is
+  the set of all linear combinations of the columns of $A$.
+
+  The \textbf{null space} of $A$, denoted $\Nul(A)$ is the set the solutions of
+  the equation $A\x = \zero$.
+\end{definition}
+
+\begin{purpleframe}
+  \label{prpl:column_and_null_space}
+
+  If $A$ is an $m \times n$ matrix, then $\Col(A)$ is a subspace of $\R^m$ and
+  $\Nul(A)$ is a subspace of $\R^n$.
+\end{purpleframe}
+
+\begin{question}
+  \label{qst:column_and_null_space} $ $
+
+  \begin{enumerate}
+    \label{enum:column_and_null_space_qst}
+
+    \item How many vectors are in $\{\v_1,\v_2,\v_3\}$?
+    \item Consider the matrix $A = [\,\v_1~\v_2~\v_3\,]$. How many vectors does $\Col(A)$ have?
+    \item Is $\p$ in $\Col(A)$? Justify your answer.
+    \item Is $\p$ in $\Nul(A)$? Justify your answer.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:column_and_null_space} $ $
+
+  \begin{enumerate}
+    \label{enum:column_and_null_space_sol}
+
+    \item $\{\v_1,\v_2,\v_3\}$ is a set of 3 vectors.
+
+    \item $\Col(A)$ is the set of all linear combinations of $\v_1,\v_2,\v_3$.
+      \[%
+        \Col(A) = \Sspan\{\v_1,\v_2,\v_3\}
+      .\]%
+      This is an infinite set.
+
+    \item In order for $\p$ to be in $\Col(A)$, $\p$ must be a linear
+      combination of the columns of $A$. So, $\p = x_1\v_1 + x_2\v_2 + x_3\v_3$
+      must have a solution. In doing so, we get
+      \[%
+        \begin{bNiceMatrix}[columns-width=auto]
+          \v_1 & \v_2 & \v_3 & \p \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          -1 & 6 & 2 & -31 \\
+          1 & -2 & -4 & 11 \\
+          3 & 1 & 3 & -2 \\
+        \end{bNiceMatrix} \echelon
+        \begin{bNiceMatrix}[columns-width=auto]
+          -1 & 6 & 2 & -31 \\
+          0 & 4 & -2 & -20 \\
+          0 & 0 & \sfrac{37}{2} & 0 \\
+        \end{bNiceMatrix}
+      .\]%
+      Since there is no row of the form $[\,0~0~0~b\,]$ with $b \ne 0$, then the
+      original equation is consistent, meaning $\p \in \Col(A)$.
+
+    \item In order for $\p$ to be in $\Nul(A)$, $\p$ must be a solution to $A\x
+      = \zero$. In doing so, we get
+      \[%
+        \begin{bNiceMatrix}[columns-width=auto]
+          -1 & 6 & 2 \\
+          1 & -2 & -4 \\
+          3 & 1 & 3 \\
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[columns-width=auto]
+          -31 \\
+          11 \\
+          -2 \\
+        \end{bNiceMatrix} =
+        -31\begin{bNiceMatrix}[columns-width=auto]
+          -1 \\
+          1 \\
+          3 \\
+        \end{bNiceMatrix} +
+        11\begin{bNiceMatrix}[columns-width=auto]
+          6 \\
+          -2 \\
+          1 \\
+        \end{bNiceMatrix} -
+        2\begin{bNiceMatrix}[columns-width=auto]
+          2 \\
+          -4 \\
+          3 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          93 \\
+          -45 \\
+          -88 \\
+        \end{bNiceMatrix} \ne \zero
+      .\]%
+      Thus, $\p \notin \Nul(A)$.
+  \end{enumerate}
+\end{solution}
+
+\begin{definition}[Basis]
+  \label{def:basis}
+
+  A \textbf{basis} for a subspace $H$ of $\R^n$ is a finite subset of $S$ of $H$
+  that is linearly independent and spans $H$. That is, all vectors in $H$ can be
+  written as a linear combination of the vectors in $S$.
+\end{definition}
+
+\begin{example}
+  \label{exm:basis}
+
+  The columns of the identity matrix $I_n$ which are $\e_1,\e_2,\dots\e_n$ form
+  a basis for $\R^n$.
+\end{example}
+
+\begin{purpleframe}
+  \label{prpl:basis}
+
+  Given a matrix $A$, to find a basis for $\Nul(A)$, solve the equation $A\x =
+  \zero$ and write the solution $\x$ in parametric vector form. The vectors in this
+  solution set form a basis for $\Nul(A)$.
+\end{purpleframe}
+
+\begin{question}
+  \label{qst:basis_for_null_space}
+
+  Find a basis for the null space of the matrix $A$ shown below.
+  \[%
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      -3 & 6 & -1 & 1 & -7 \\
+      1 & -2 & 2 & 3 & -1 \\
+      2 & -4 & 5 & 8 & -4 \\
+    \end{bNiceMatrix}
+  .\]%
+\end{question}
+
+\begin{solution}
+  \label{sol:basis_for_null_space}
+
+  We solve $A\x = \zero$ in parametric vector form
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto]
+      A & \zero \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      -3 & 6 & -1 & 1 & -7 & 0 \\
+      1 & -2 & 2 & 3 & -1 & 0 \\
+      2 & -4 & 5 & 8 & -4 & 0 \\
+    \end{bNiceMatrix} \rref
+    \begin{bNiceMatrix}[columns-width=auto,last-row]
+      \circled{1} & -2 & 0 & -1 & 3 & 0 \\
+      0 & 0 & \circled{1} & 2 & -2 & 0 \\
+      0 & 0 & 0 & 0 & 0 & 0 \\
+      \imp{x_1} & \imp{x_2} & \imp{x_3} & \imp{x_4} & \imp{x_r} & \\
+    \end{bNiceMatrix}
+  .\]%
+  This gives us the following general solution
+  \[%
+    \sysdelim..\systeme*{
+      x1 - 2x_2 - x_4 + 3x_5 = 0,
+      x_2 = x_2,
+      x_3 + 2x_4 - 2x_5 = 0,
+      x_4 = x_4,
+      x_5 = x_5
+    } \generalsol
+    \sysdelim..\systeme*{
+      x_1 = 2x_2 + x_4 - 3x_5,
+      x_2 = x_2,
+      x_3 = -2x_4 + 2x_5,
+      x_4 = x_4,
+      x_5 = x_5
+    }
+  .\]%
+  Using that, we can solve for $\x$. In doing so, we get
+  \begin{align*}
+    \x &= \begin{bNiceMatrix}[columns-width=auto]
+      x_1 \\
+      x_2 \\
+      x_3 \\
+      x_4 \\
+      x_5 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2x_2 + x_4 - 3x_5 \\
+      x_2 \\
+      -2x_4 + 2x_5 \\
+      x_4 \\
+      x_5 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2x_2 \\
+      x_2 \\
+      0 \\
+      0 \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      x_4 \\
+      0 \\
+      -2x_4 \\
+      x_4 \\
+      0 \\
+    \end{bNiceMatrix} +
+    \begin{bNiceMatrix}[columns-width=auto]
+      -3x_5 \\
+      0 \\
+      2x_5 \\
+      0 \\
+      x_5 \\
+    \end{bNiceMatrix} \\
+    &= x_2\begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      1 \\
+      0 \\
+      0 \\
+      0 \\
+    \end{bNiceMatrix} +
+    x_4\begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      0 \\
+      -2 \\
+      1 \\
+      0 \\
+    \end{bNiceMatrix} +
+    x_5\begin{bNiceMatrix}[columns-width=auto]
+      -3 \\
+      0 \\
+      2 \\
+      0 \\
+      1 \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  Thus, a basis for $\Nul(A)$ is
+  \[%
+    \left\{
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        2 \\
+        1 \\
+        0 \\
+        0 \\
+        0 \\
+        \imp{\v_1} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        1 \\
+        0 \\
+        -2 \\
+        1 \\
+        0 \\
+        \imp{\v_2} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        -3 \\
+        0 \\
+        2 \\
+        0 \\
+        1 \\
+        \imp{\v_3} \\
+      \end{bNiceMatrix}
+    \right\}
+  .\qedhere\]%
+\end{solution}
+
+\begin{question}
+  \label{qst:basis_for_column_space}
+
+  Find a basis for the column space of the matrix $A$ shown below.
+  \begin{equation*}
+    A = \begin{bNiceMatrix}[columns-width=auto]
+      1 & 3 & 3 & 2 & -9 \\
+      -2 & -2 & 2 & -8 & 2 \\
+      2 & 3 & 0 & 7 & 1 \\
+      3 & 4 & -1 & 11 & 8 \\
+    \end{bNiceMatrix}
+  \end{equation*}
+\end{question}
+
+\begin{solution}
+  \label{sol:basis_for_column_space}
+
+  We row reduce $A$ into echelon form. In doing so, we get
+  \begin{align*}
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & 3 & 3 & 2 & -9 \\
+      -2 & -2 & 2 & -8 & 2 \\
+      2 & 3 & 0 & 7 & 1 \\
+      3 & 4 & -1 & 11 & 8 \\
+    \end{bNiceMatrix} \echelon
+    \begin{bNiceMatrix}[columns-width=auto,last-row]
+      \circled{1} & 0 & -3 & 5 & 0 \\
+      0 & \circled{1} & 2 & -1 & 0 \\
+      0 & 0 & 0 & 0 & \circled{1} \\
+      0 & 0 & 0 & 0 & 0 \\
+      \imp{\a_1} & \imp{\a_2} & \imp{\a_3} & \imp{\a_4} & \imp{\a_5} \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  Thus, the basis for $\Col(A)$ is
+  \[%
+    \left\{
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        1 \\
+        0 \\
+        0 \\
+        0 \\
+        \imp{\a_1} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        0 \\
+        1 \\
+        0 \\
+        0 \\
+        \imp{\a_2} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        0 \\
+        0 \\
+        1 \\
+        0 \\
+        \imp{\a_5} \\
+      \end{bNiceMatrix}
+    \right\}
+  .\qedhere\]%
+\end{solution}
+
+% section column_space_and_null_space (end)
+
+\section{Dimension and Rank}
+\label{sec:dimension_and_rank}
+
+\begin{definition}[Dimension and Rank]
+  \label{def:dimension_and_rank}
+
+  The \textbf{dimension} of a nonzero subspace $H$, denoted as $\dim(H)$, is the
+  number of vectors in any basis of $H$. The dimension of the zero subspace is
+  defined to be $0$. \noindent The \textbf{rank} of a matrix $A$, denoted as
+  $\ran(A)$, is the dimension of the column space of $A$.
+\end{definition}
+
+\begin{theorem}[The Rank Theorem]
+  \label{thm:the_rank_theorem}
+
+  If a matrix $A$ has $n$ columns, then $\ran(A) + \dim(\Nul(A)) = n$.
+\end{theorem}
+
+\begin{question}
+  \label{qst:dimension_and_rank}
+
+  Again consider the matrix $A$ shown below.
+  \[%
+    A = \begin{bNiceMatrix}[r,columns-width=auto]
+      -3 & 6 & -1 & 1 & -7 \\
+      1 & -2 & 2 & 3 & -1 \\
+      2 & -4 & 5 & 8 & -4 \\
+    \end{bNiceMatrix}
+  .\]%
+  Find the dimension of the null space of $A$ (sometimes called the
+  \textit{nullity} of $A$) and also the rank of $A$.
+\end{question}
+
+\begin{solution}
+  \label{sol:dimenson_and_rank}
+
+  Recall, we found a basis for $\Nul(A)$ in \cref{sol:basis_for_null_space},
+  which was
+  \[%
+    \left\{
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        2 \\
+        1 \\
+        0 \\
+        0 \\
+        0 \\
+        \imp{\v_1} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        1 \\
+        0 \\
+        -2 \\
+        1 \\
+        0 \\
+        \imp{\v_2} \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto,last-row]
+        -3 \\
+        0 \\
+        2 \\
+        0 \\
+        1 \\
+        \imp{\v_3} \\
+      \end{bNiceMatrix}
+    \right\} \rightarrow \dim(\Nul(A)) = 3
+  .\]%
+  Also, let's take a look at the pivot columns of $A$. We already row reduced
+  $[\,A~\zero\,]$ in \cref{sol:basis_for_column_space}, which was
+  \[%
+    \begin{bNiceMatrix}[columns-width=auto,last-row]
+      \circled{1} & 0 & -3 & 5 & 0 \\
+      0 & \circled{1} & 2 & -1 & 0 \\
+      0 & 0 & 0 & 0 & \circled{1} \\
+      0 & 0 & 0 & 0 & 0 \\
+      \imp{\v_1} & \imp{\v_2} & \imp{\v_3} & \imp{\v_4} & \imp{\v_5} \\
+    \end{bNiceMatrix} \rightarrow \ran(A) = \dim(\Col(A)) = 2
+  .\qedhere\]%
+\end{solution}
+
+\begin{theorem}
+  \label{thm:nullity_plus_rank_is_n}
+
+  If a matrix $A$ has $n$ columns, then $\dim(\Nul(A)) + \ran(A) = n$.
+\end{theorem}
+
+% section dimension_and_rank (end)
+
+\section{Row Space}
+\label{sec:row_space}
+
+\begin{definition}[Row Space]
+  \label{def:row_space}
+
+  Given some matrix $A$, the \textbf{row space} of $A$, denoted as $\Row(A)$, is
+  the set of all linear combinations of the rows of $A$.
+\end{definition}
+
+Similar to column space, some rows may be redundant. Hence, to remove the
+redundant rows, you need to row reduce $A$ into echelon form and look for the
+nonzero rows.
+
+\begin{purpleframe}
+  \label{prpl:row_space}
+
+  If two matrices $A$ and $B$ are row equivalent, then $\Row(A) = \Row(B)$. If
+  $B$ is the reduced echelon form of $A$, then the nonzero rows of $B$ form a
+  basis for row $A$.
+\end{purpleframe}
+
+\begin{example}
+  \label{exm:row_space}
+
+  In \cref{sol:dimenson_and_rank}, a basis for $\Row(A)$ should be
+  \[%
+    \left\{
+      \begin{bNiceMatrix}[columns-width=auto]
+        1 \\
+        -2 \\
+        0 \\
+        -1 \\
+        3 \\
+        0 \\
+      \end{bNiceMatrix},
+      \begin{bNiceMatrix}[columns-width=auto]
+        0 \\
+        0 \\
+        1 \\
+        2 \\
+        -2 \\
+        0 \\
+      \end{bNiceMatrix}
+    \right\}
+  .\]%
+\end{example}
+
+\begin{note}
+  \label{nte:row_space}
+
+  When the columns of $A\T$ are the rows in the original matrix $A$. Hence,
+  $\Col(A\T) = \Row(A)$. Similarly, the rows in $A\T$ are actually the columns
+  in $A$. So, $\Row(A\T) = \Col(A)$.
+\end{note}
+
+% section row_space (end)
+
+\newpage

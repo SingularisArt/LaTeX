@@ -1,0 +1,434 @@
+\nte[Section 1.7]{Oct 12 2023 Thu (14:03:01)}{Linear Independence}
+
+\begin{definition}[Linear Independent/Dependent]
+  \label{def:linear_independent_dependent}
+
+  A set of vectors $\{\v_1, \v_2, \ldots, \v_p\} \in \R^n$ is \textbf{linearly
+  independent} if the vector equation
+  \[%
+    \sum_{i=1}^p x_i\v_i = z
+  ,\]%
+  has only the trivial solution $\x = z$.
+
+  If the vector equation above has a nontrivial solution $\x = (c_1, c_2,
+  \ldots, c_p)$, then the set of vectors is \textbf{linearly dependent} and we
+  can write
+  \[%
+    \sum_{i=1}^p c_i\v_i = z
+  ,\]%
+  which is called a \textbf{linear dependence relation}.
+\end{definition}
+
+\begin{question}
+  \label{qst:linear_independent_dependent}
+
+  Consider the following vectors
+  \[%
+    \v_1 = \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      2 \\
+      3 \\
+    \end{bNiceMatrix},\quad
+    \v_2 = \begin{bNiceMatrix}[columns-width=auto]
+      4 \\
+      5 \\
+      6 \\
+    \end{bNiceMatrix},\aand
+    \v_3 = \begin{bNiceMatrix}[columns-width=auto]
+      2 \\
+      1 \\
+      0 \\
+    \end{bNiceMatrix}
+  .\]%
+
+  \begin{enumerate}
+    \label{enum:linear_independent_dependent_qst}
+
+    \item Determine if the set $\{\v_1, \v_2, \v_3\}$ is linearly independent.
+
+    \item If it is not linearly independent, find $a$ linearly dependent
+      solution.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:linear_independent_dependent} $ $
+
+  \begin{enumerate}
+    \label{enum:linear_independent_dependent_sol}
+
+    \item Recall a linear system has a nontrivial solution if and only if it
+      has at least one free variable. The equivalent augmented matrix of
+      $x_1\v_1 + x_2\v_2 + x_3\v_3 = z$ is
+      \[%
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \v_1 & \v_2 & \v_3 & z \\
+        \end{bNiceArray} =
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          1 & 4 & 2 & 0 \\
+          2 & 5 & 1 & 0 \\
+          3 & 6 & 0 & 0 \\
+        \end{bNiceArray}
+        \echelon
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & 4 & 2 & 0 \\
+          0 & \circled{-3} & -3 & 0 \\
+          0 & 6 & 0 & 0 \\
+        \end{bNiceArray}
+      .\]%
+
+      $x_3$ is a free variable, so $\left\{\v_1, \v_2, \v_3\right\}$ has a
+      nontrivial solution, which means it is not linearly independent, making it
+      linearly dependent.
+
+    \item To find a linearly dependent solution, we need to solve the augmented
+      matrix using the Row Reduction Algorithm
+      \[%
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & 4 & 2 & 0 \\
+          0 & \circled{-3} & -3 & 0 \\
+          0 & 6 & 0 & 0 \\
+        \end{bNiceArray}
+        \rref
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & 0 & -2 & 0 \\
+          0 & \circled{1} & 1 & 0 \\
+          0 & 6 & 0 & 0 \\
+        \end{bNiceArray}
+        \longleftrightarrow
+        \sysdelim..\systeme*{
+          x_1 - 2x_2 = 0,
+          x_2 + x_3 = 0,
+          x_3 = x_3
+        }
+        \longleftrightarrow
+        \sysdelim..\systeme*{
+          x_1 = 2x_2,
+          x_2 = -x_3,
+          x_3 = x_3
+        }
+      .\]%
+
+      We then pick any nonzero value for $x_3$.
+
+      \begin{note}
+        \label{nte:dont_pick_trivial_number}
+
+        You shouldn't pick any trivial values, such as $1$ or $-1$
+      \end{note}
+
+      Let $x_3 = 5$. Thus, $x_1 = 10$ and $x_2 = -5$.
+
+      So, we get the following linear dependence relation
+      \[%
+        10\v_1 - 5\v_2 + 5\v_3 = z
+      .\qedhere\]%
+  \end{enumerate}
+\end{solution}
+
+\begin{purpleframe}
+  \label{prpl:linear_dependent_matrix_equation}
+
+  The columns of a matrix $A$ are linearly independent if and only if the matrix
+  equation $A\x = z$ has only the trivial solution.
+\end{purpleframe}
+
+\begin{theorem}[Characterization of Linearly Dependent Sets]
+  \label{thm:characterization_of_linearly_dependent_sets}
+
+  An indexed set $S = \left\{\v_1, \dots, \v_p\right\}$ of two or more vectors
+  is linearly dependent if and only if at least one of the vectors in $S$ is a
+  linear combination of the others. In fact, if $S$ is linearly dependent and
+  $\v_1 \ne \zero$, then some $\v_j$, with $j > 1$, is a linear combination of
+  the preceding vectors, $\v_1, \dots, \v_{j-1}$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:linearly_dependent}
+
+  A set of vectors $S = \left\{\v_1, \v_2, \ldots, \v_p\right\}$ is linearly
+  dependent dependent if and only if at least one of the vectors in $S$ is a
+  linear combination of the other vectors.
+\end{theorem}
+
+\section{Linear Independence by Inspection}
+\label{sec:linear_independence_by_inspection}
+
+Consider two vectors $\v_1, \v_2 \in
+\R^2$, as shown below
+
+\begin{figure}[H]
+  \centering
+
+  \begin{tikzpicture}
+    \begin{axis}[
+      xmin=-4.75, xmax=5.75,
+      ymin=-0.75, ymax=5.75,
+      ]
+
+      \addplot+[->,thick,mark=none] coordinates{(0,0)(4,1)} node[above right]{$\v_2$};
+      \addplot+[->,thick,mark=none] coordinates{(0,0)(-3,5)} node[below left]{$\v_1$};
+    \end{axis}
+  \end{tikzpicture}
+
+  \caption{}
+  \label{fig:linear_independence_by_inspection}
+\end{figure}
+
+Is there any way to add a 3rd vector $\v_3$ so that all three are linearly
+independent? \incorrect{No! Recall that for any vectors $\v_1$ and $\v_2$ such
+that $\v_1 \neq \v_2$ then $\Sspan\{\v_1, \v_2\} = \R^2$. In other words, every
+vector in $\R^2$ is a linear combination of $\v_1$ and $\v_2$. So any third
+vector $\v_3$ will just be a linear combination of $\v_1$ and $\v_2$.}
+
+\begin{theorem}
+  \label{thm:linear_independence_by_inspection}
+
+  A set $\left\{\v_1, \v_2, \ldots, \v_p\right\} \in \R^n$ is
+  linearly dependent if $p > n$.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:linear_independence_by_inspection}
+
+  Let $A = [\,\v_1~\cdots~\v_p\,]$. Then $A$ is $n \times p$, and the equation
+  $A\x = \zero$ corresponds to a system of $n$ equations in $p$ unknowns. If $p
+  > n$, there are more variables than equations, so there must be a free
+  variable. Hence, $A\x = \zero$ has a nontrivial solution, and the columns of
+  $A$ are linearly dependent.
+\end{proof}
+
+\begin{note}
+  \label{nte:linear_independence_by_inspection}
+
+  If $p \leq n$ in the theorem above, then we don't know if the set is linearly
+  dependent or independent. It could be either.
+\end{note}
+
+\begin{theorem}
+  \label{thm:contains_zero_vector}
+
+  If a set $\{\v_1, \v_2, \ldots, \v_p\} \in \R^n$ contains the
+  zero vector, then the set is linearly dependent.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:contains_zero_vector}
+
+  By renumbering the vectors, we may suppose $\v_1 = \zero$. Then, the equation
+  $1\v_1 + 0\v_2 + \cdots + 0\v_p = \zero$ shows that $S$ is linear dependent.
+\end{proof}
+
+\begin{question}
+  \label{qst:linear_independence_by_inspection}
+
+  Determine by inspection if the following sets of vectors are linearly
+  dependent or not.
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \label{enum:linear_independence_by_inspection_qst}
+
+      \item
+        $\begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          7 \\
+          6 \\
+        \end{bNiceMatrix},
+        \begin{bNiceMatrix}[columns-width=auto]
+          2 \\
+          0 \\
+          9 \\
+        \end{bNiceMatrix},
+        \begin{bNiceMatrix}[columns-width=auto]
+          3 \\
+          1 \\
+          5 \\
+        \end{bNiceMatrix},
+        \begin{bNiceMatrix}[columns-width=auto]
+          4 \\
+          1 \\
+          8 \\
+        \end{bNiceMatrix}$
+      \item
+        $\begin{bNiceMatrix}[columns-width=auto]
+          2 \\
+          3 \\
+          5 \\
+        \end{bNiceMatrix},
+        \begin{bNiceMatrix}[columns-width=auto]
+          0 \\
+          0 \\
+          0 \\
+        \end{bNiceMatrix},
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 \\
+          1 \\
+          8 \\
+        \end{bNiceMatrix}$
+      \item
+        $\begin{bNiceMatrix}[columns-width=auto]
+          -2 \\
+          4 \\
+          6 \\
+          10 \\
+        \end{bNiceMatrix},
+        \begin{bNiceMatrix}[columns-width=auto]
+          3 \\
+          -6 \\
+          -9 \\
+          -15 \\
+        \end{bNiceMatrix}$
+    \end{enumerate}
+  \end{multicols}
+\end{question}
+
+\begin{solution}
+  \label{sol:linear_independence_by_inspection} $ $
+
+  \begin{enumerate}
+    \label{enum:linear_independence_by_inspection_sol}
+
+    \item These vectors are in $\R^3$, but there are $4$ vectors.
+      Thus, by \cref{thm:linear_independence_by_inspection}, this set is
+      linearly dependent.
+
+    \item This set of vectors contains the zero vector. Thus, by
+      \cref{thm:contains_zero_vector}, this set is linearly dependent.
+
+    \item Notice that $\v_2 = -\sfrac{3}{2}\v_1$, which is a linear
+      combination. Thus, by \cref{thm:linearly_dependent} is linearly dependent.
+  \end{enumerate}
+\end{solution}
+
+\begin{question}
+  \label{qst:for_what_values_of_h_is_the_set_linearly_independent}
+
+  Consider the following vectors
+  \begin{align*}
+    \v_1 = \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      -1 \\
+      3 \\
+    \end{bNiceMatrix},\quad
+    \v_2 = \begin{bNiceMatrix}[columns-width=auto]
+      -5 \\
+      7 \\
+      8 \\
+    \end{bNiceMatrix},\aand
+    \v_3 = \begin{bNiceMatrix}[columns-width=auto]
+      1 \\
+      1 \\
+      h \\
+    \end{bNiceMatrix}
+  .\end{align*}
+  \begin{enumerate}
+    \label{enum:for_what_values_of_h_is_the_set_linearly_independent_qst}
+
+    \item For what value(s) of $h$ is $\v_3$ in $\Sspan\{\v_1, \v_2\}$?
+      Justify your answer.
+
+    \item For what value(s) of $h$ is $\{\v_1, \v_2 ,\v_3\}$ linearly
+      \textit{dependent}? Justify your answer.
+
+    \item For what value(s) of $h$ is $\{\v_1, \v_2, \v_3\}$ linearly
+      \textit{independent}? Justify your answer.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:for_what_values_of_h_is_the_set_linearly_independent}
+
+  \begin{enumerate}
+    \label{enum:for_what_values_of_h_is_the_set_linearly_independent_sol}
+
+    \item Recall that if $\v_3 \in \Sspan\left\{\v_1, \v_2\right\}$, it means
+      that $x_1\v_1 + x_2\v_2 = \v_3$ has a solution for $x_1$ and $x_2$. In
+      other words, we need to find $h$, such that $[\,\v_1~\v_2~\v_3\,]$ is
+      consistent.
+
+      \begin{align*}
+        \sysdelim..\systeme{
+          R_1 + R_2 \rightarrow R_3,
+          \-3R_1 + R_3 \rightarrow R_3
+        } &\longleftrightarrow
+        \begin{bNiceArray}{cc|c}[columns-width=auto]
+          \circled{1} & -5 & 1 \\
+          0 & \circled{2} & 2 \\
+          0 & 23 & h - 3 \\
+        \end{bNiceArray} \\
+        \sysdelim..\systeme{
+          \sfrac{1}{2}R_2 \rightarrow R_2
+        } &\longleftrightarrow
+        \begin{bNiceArray}{cc|c}[columns-width=auto]
+          \circled{1} & -5 & 1 \\
+          0 & \circled{1} & 1 \\
+          0 & 23 & h - 3 \\
+        \end{bNiceArray} \\
+        \sysdelim..\systeme{
+          \-23R_2 + R_3 \rightarrow R_3
+        } &\longleftrightarrow
+        \begin{bNiceArray}{cc|c}[columns-width=auto]
+          \circled{1} & -5 & 1 \\
+          0 & \circled{1} & 1 \\
+          0 & 0 & \boxed{h - 26} \\
+        \end{bNiceArray}
+      .\end{align*}
+
+      If $h - 26 \ne 0$, then the third row becomes $[\,0~0~b\,]$, with $b \ne
+      0$, which would make this system inconsistent.
+
+      So, $h - 26 = 0 \implies h = 26$.
+
+    \item Recall that a set $\left\{\v_1, \v_2, \v_3\right\}$ is linearly
+      dependent if $x_1\v_1 + x_2\v_2 + x_3\v_3 = z$ has a nontrivial
+      solution, so it has at least one free variable. Thus, we find $h$ such
+      that it will have one free variable
+      \begin{align*}
+        \sysdelim..\systeme{
+          R_1 + R_2 \rightarrow R_3,
+          \-3R_1 + R_3 \rightarrow R_3
+        } &\longleftrightarrow
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & -5 & 1 & 0 \\
+          0 & \circled{2} & 2 & 0 \\
+          0 & 23 & h - 3 & 0 \\
+        \end{bNiceArray} \\
+        \sysdelim..\systeme{
+          \sfrac{1}{2}R_2 \rightarrow R_2
+        } &\longleftrightarrow
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & -5 & 1 & 0 \\
+          0 & \circled{1} & 1 & 0 \\
+          0 & 23 & h - 3 & 0 \\
+        \end{bNiceArray} \\
+        \sysdelim..\systeme{
+          \-23R_2 + R_3 \rightarrow R_3
+        } &\longleftrightarrow
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          \circled{1} & -5 & 1 & 0 \\
+          0 & \circled{1} & 1 & 0 \\
+          0 & 0 & \boxed{h - 26} & 0 \\
+        \end{bNiceArray}
+      .\end{align*}
+
+      If $h - 26 = 0$, then the third column has no pivot, which makes $x_3$ a
+      free variable.
+
+      \noindent If $h - 26 \ne 0$, then the third column has a pivot, which
+      makes $x_3$ a basic variable.
+
+    \item We know that $h = 26$ makes it linearly dependent, so $h \ne 26$ will
+      make it linearly independent. \qedhere
+  \end{enumerate}
+\end{solution}
+
+\begin{note}
+  Given a matrix equation $A\x = \b$ where $A = [\,\a_1~\a_2~\cdots~\a_n\,]$,
+  row reducing the coefficient matrix $[\,\a_1~\a_2~\cdots~\a_n\,]$ has the
+  same row operations as row reducing the augmented matrix
+  $[\,\a_1~\a_2~\cdots~\a_n~\b\,]$.
+\end{note}
+
+% section linear_independence_by_inspection (end)
+
+\newpage

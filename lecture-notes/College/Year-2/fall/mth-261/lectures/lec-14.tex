@@ -1,0 +1,453 @@
+\nte[Section 5.3]{Nov 14 2023 Tue (14:00:58)}{Diagonalization}
+
+\section{Powers of Matrices}
+\label{sec:powers_of_matrices}
+
+Consider the diagonal matrix $D =
+\begin{bNiceMatrix}[columns-width=auto]
+  5 & 0 \\
+  0 & 3 \\
+\end{bNiceMatrix}$. Let's compute some different power of $D$ as shown below.
+
+\begin{enumerate}
+  \label{enum:powers_of_matrices}
+
+  \item $D^2 = DD =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 & 0 \\
+      0 & 3 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 & 0 \\
+      0 & 3 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      (5)(5) + (0)(0) & (5)(0) + (0)(3) \\
+      (0)(5) + (3)(0) & (0)(0) + (3)(3) \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5^2 & 0 \\
+      0 & 3^2 \\
+    \end{bNiceMatrix}$
+    \bigskip
+  \item $D^3 = DDD = DD^2 =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 & 0 \\
+      0 & 3 \\
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[columns-width=auto]
+      5^2 & 0 \\
+      0 & 3^2 \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[r,columns-width=auto]
+      (5)(5^2) + (0)(0) & (5)(0) + (0)(3^2) \\
+      (0)(5^2) + (3)(0) & (0)(0) + (3)(3^2) \\
+    \end{bNiceMatrix} =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5^3 & 0 \\
+      0 & 3^3 \\
+    \end{bNiceMatrix}$
+    \bigskip
+  \item In general, $D^k =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5^k & 0 \\
+      0 & 3^k \\
+    \end{bNiceMatrix}\quad\textrm{for}~k \geq 1$
+\end{enumerate}
+
+If $D$ is an $n \times n$ diagonal matrix whose main diagonal entries are
+$d_{11}, d_{22}, \ldots, d_{nn}$, then $D^k$ is also a diagonal matrix whose
+main diagonal entries are $d_{11}^k, d_{22}^k, \ldots, d_{nn}^k$ for $k \geq 1$.
+\textit{Also, remember that all non-main diagonal entries in $D$ are zero.}
+
+Let's use this factorization to compute different powers of $A$ as shown below.
+\begin{align*}
+  A^2 &= AA = (PDP\I)(PDP\I) = PD\underbrace{P^{-1}P}_{=I}DP\I = PDIDP\I = PDDP\I = PD^2P\I \\
+  A^3 &= AAA = AA^2 = (PDP\I)(PD^2P\I) = PD\rcancel{P\I P}D^{2}P\I = PDD^2P\I = PD^3P\I
+\end{align*}
+In general, $A^k = PD^kP\I$ for $k \geq 1$.
+
+\begin{question}
+  \label{qst:powers_of_matrices}
+
+  Let $A = PDP\I$ where each matrix is given below.
+  \[%
+    A =
+    \begin{bNiceMatrix}[columns-width=auto]
+      7 & 2 \\
+      -4 & 1 \\
+    \end{bNiceMatrix},\quad
+    P =
+    \begin{bNiceMatrix}[columns-width=auto]
+      1 & 1 \\
+      -1 & -2 \\
+    \end{bNiceMatrix},\quad
+    D =
+    \begin{bNiceMatrix}[columns-width=auto]
+      5 & 0 \\
+      0 & 3 \\
+    \end{bNiceMatrix},\aand
+    P\I =
+    \begin{bNiceMatrix}[columns-width=auto]
+      2 & 1 \\
+      -1 & -1 \\
+    \end{bNiceMatrix}
+  .\]%
+  \begin{enumerate}
+    \label{enum:powers_of_matrices_exm}
+
+    \item Compute $A^k$ where $k$ is a positive integer ($k \geq 1$).
+
+    \item Use your answer in part $1$ to find $A^7$.
+  \end{enumerate}
+\end{question}
+
+\begin{solution}
+  \label{sol:powers_of_matrices} $ $
+
+  \begin{enumerate}
+    \label{enum:powers_of_matrices_sol}
+
+    \item We know $A^k = PD^kP\I$, so we can get the following formula
+      \begin{align*}
+        A^k &=
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 & 1 \\
+          -1 & -2 \\
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[columns-width=auto]
+          5^k & 0 \\
+          0 & 3^k \\
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[columns-width=auto]
+          2 & 1 \\
+          -1 & -1 \\
+        \end{bNiceMatrix} \\
+        &= \begin{bNiceMatrix}[columns-width=auto]
+          1 & 1 \\
+          -1 & -2 \\
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[columns-width=auto]
+          (5^k)(2) + (0)(-1) & (5^k)(1) + (0)(-1) \\
+          (0)(2) + (3^k)(-1) & (0)(1) + (3^k)(-1) \\
+        \end{bNiceMatrix} \\
+        &= \begin{bNiceMatrix}[columns-width=auto]
+          1 & 1 \\
+          -1 & -2 \\
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[columns-width=auto]
+          2(5^k) & 5^k \\
+          -3^k & -3^k \\
+        \end{bNiceMatrix} \\
+        &= \begin{bNiceMatrix}[columns-width=auto]
+          (1)(2)(5^k) + (1)(-3^k) & (1)(5^k) + (1)(-3^k) \\
+          (-1)(2)(5^k) + (-2)(-3^k) & (-1)(5^k) + (-2)(-3^k) \\
+        \end{bNiceMatrix} \\
+        &= \begin{bNiceMatrix}[columns-width=auto]
+          2(5^k) - 3^k & 5^k - 3^k \\
+          2(3^k) - 2(5^k) & 2(3^k) - 5^k \\
+        \end{bNiceMatrix}
+      .\end{align*}
+
+    \item $A^7 =
+      \begin{bNiceMatrix}[columns-width=auto]
+        2(5^7) - 3^7 & 5^7 - 3^7 \\
+        2(3^7) - 2(5^7) & 2(3^7) - 5^7 \\
+      \end{bNiceMatrix} =
+      \begin{bNiceMatrix}[columns-width=auto]
+        154063 & 75938 \\
+        -151876 & -73751 \\
+      \end{bNiceMatrix}$.\qedhere
+  \end{enumerate}
+\end{solution}
+
+% section powers_of_matrices (end)
+
+\section{Diagonalizing Matrices}
+\label{sec:diagonalizing_matrices}
+
+
+Given a square matrix $A$, if $A = PDP\I$ where $D$ is a diagonal matrix and $P$
+is invertible (both the same size of $A$), then we say that $A$ is
+\underline{diagonalizable} and, in particular, the matrix product $PDP\I$ is
+called the \underline{diagonalization} of $A$.
+
+\begin{theorem}[The Diagonalization Theorem]
+  \label{thm:the_diagonalization_theorem}
+
+  An $n \times n$ matrix $A$ is diagonalizable if and only if $A$ has $n$
+  linearly independent eigenvectors.
+
+  In fact, $A = PDP\I$, with $D$ a diagonal matrix, if and only if the columns
+  of $P$ are $n$ linearly independent eigenvectors of $A$. In this case, the
+  diagonal entries of $D$ are eigenvalues of $A$ that correspond, respectively,
+  to the eigenvectors in $P$.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:the_diagonalization_theorem}
+
+  First, observe if $P$ is any $n \times n$ matrix with columns $\v_1, \dots,
+  \v_n$, and if $D$ is any diagonal matrix with diagonal entries $\lambda_1,
+  \dots, \lambda_n$, then
+  \begin{equation}\label{eqt:prf_the_diagonalization_theorem_1}
+    AP = A[\,\v_1~\v_2~\cdots~\v_n\,] = [\,A\v_1~A\v_2~\cdots~A\v_n\,]
+  ,\end{equation}
+  while
+  \begin{equation} \label{eqt:prf_the_diagonalization_theorem_2}
+    PD = P \begin{bNiceMatrix}[columns-width=auto]
+      \lambda_1 & 0 & \cdots & 0 \\
+      0 & \lambda_2 & \cdots & 0 \\
+      \vdots & \vdots &  & \vdots \\
+      0 & 0 & \cdots & \lambda_n \\
+    \end{bNiceMatrix} = [\,\lambda_1\v_1~\lambda_2\v_2~\cdots~\lambda_n\v_n\,]
+  .\end{equation}
+  Now suppose $A$ is diagonalizable and $A = PDP\I$. Then, right-multiplying
+  this relation by $P$, we have $AP = PD$. In this case,
+  \cref{eqt:prf_the_diagonalization_theorem_1,eqt:prf_the_diagonalization_theorem_2}
+  imply that
+  \begin{equation} \label{eqt:prf_the_diagonalization_theorem_3}
+    [\,A\v_1~A\v_2~\cdots~A\v_n\,] = [\,\lambda_1\v_1~\lambda_2\v_2~\cdots~\lambda_n\v_n\,]
+  .\end{equation}
+  Equating columns, we find that
+  \begin{equation} \label{eqt:prf_the_diagonalization_theorem_4}
+    A\v_1 = \lambda_1\v_1, \quad A\v_2 = \lambda_2\v_2, \quad \dots A\v_n = \lambda_n\v_n
+  .\end{equation}
+  Since $P$ is invertible, its columns $\v_1, \dots, \v_n$ must be linearly
+  independent. Also, since these columns are nonzero, the equations in
+  \cref{eqt:prf_the_diagonalization_theorem_4} show that $\lambda_1, \dots,
+  \lambda_n$ are eigenvalues and $\v_1, \dots, \v_n$ are corresponding
+  eigenvectors. This argument proves the ''only if`` parts of the first and
+  second statements, along with the third statement, of the theorem.
+
+  Finally, given any $n$ eigenvectors $\v_1, \dots, \v_n$, use them to construct
+  the columns of $P$ and use corresponding eigenvalues $\lambda_1, \dots,
+  \lambda_n$ to construct $D$. By
+  \cref{eqt:prf_the_diagonalization_theorem_1,eqt:prf_the_diagonalization_theorem_2,eqt:prf_the_diagonalization_theorem_3},
+  $AP = PD$. This is true without any condition on the eigenvectors. If, in
+  fact, the eigenvectors are linearly independent, then $P$ in invertible by
+  \cref{thm:invertible_matrix_theorem}, and $AP = PD$ implies that $A = PDP\I$.
+\end{proof}
+
+\begin{note}
+  \label{nte:ordering_eigenvalues}
+
+  It is typical math convention to order the eigenvalues in $D$ from least to
+  greatest (increasing order). Ordering from greatest-to-least is technically
+  okay as well, however you must remember, whichever order your choose, the
+  eigenvector columns in $P$ must be in the \underline{same order}. If an
+  eigenvalue has more than one corresponding eigenvector, then you should order
+  the eigenvectors so that the ones with the most zeros go first, and so on.
+\end{note}
+
+\begin{question}
+  \label{qst:diagonalizing_matrices}
+
+  Diagonalize the matrix $A =
+  \begin{bNiceMatrix}[r,columns-width=auto]
+    1 & 3 & 3 \\
+    -3 & -5 & -3 \\
+    3 & 3 & 1 \\
+  \end{bNiceMatrix}$ if possible. If not, explain why.
+\end{question}
+
+\begin{solution}
+  \label{sol:diagonalizing_matrices} $ $
+
+  \begin{enumerate}
+    \label{enum:diagonalizing_matrices_sol}
+
+    \item Step 1: Find the eigenvalues of $A$ and state the multiplicity of
+      each.
+
+      We solve $\det(A - \lambda I) = \zero$.
+      \begin{align*}
+        \det(A - \lambda I) &=
+        \begin{vNiceMatrix}[columns-width=auto]
+          1 - \lambda & 3 & 3 \\
+          -3 & -5 - \lambda & -3 \\
+          3 & 3 & 1 - \lambda \\
+        \end{vNiceMatrix} \\
+        &= (1 - \lambda) \cdot
+        \begin{vNiceMatrix}[columns-width=auto]
+          -5 - \lambda & -3 \\
+          3 & 1 - \lambda \\
+        \end{vNiceMatrix} - 3 \cdot
+        \begin{vNiceMatrix}[columns-width=auto]
+          -3 & -3 \\
+          3 & 1 - \lambda \\
+        \end{vNiceMatrix} + 3 \cdot
+        \begin{vNiceMatrix}[columns-width=auto]
+          -3 & -5 - \lambda \\
+          3 & 3 \\
+        \end{vNiceMatrix} \\
+        &= (1 - \lambda)[\lambda^{2} + 4\lambda + 4] \rcancel{- 3[3\lambda + 6]} + \rcancel{3[3\lambda + 6]} \sz 0 \\
+        &\rightarrow \sysdelim..\systeme*{
+          \lambda = 1~\textrm{mult.}~1,
+          \lambda = 2~\textrm{mult.}~2
+        }
+      .\end{align*}
+
+    \item Step 2: Find $n$ linearly independent eigenvectors of $A$. Here, $n=3$
+      since $A$ is $3 \times 3$. These eigenvectors are found by finding basis
+      vectors (which are already linearly independent) of each eigenspace
+      corresponding to each eigenvalues found in the previous step. \imp{This
+      step in \underline{crucial} because if you can't find $n=3$ linearly
+      independent vectors, then $A$ is \underline{not} diagonalizable.}
+
+      We solve $(A - \lambda I)\x = \zero$ by row reducing $[\,(A - \lambda
+      I)~\zero~\,]$, for each $\lambda = -2, 1$.
+      \begin{align*}
+        \underline{\lambda = -2}:\quad&
+        \begin{bNiceMatrix}[columns-width=auto]
+          (A + 2I)~\zero \\
+        \end{bNiceMatrix} =
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          3 & 3 & 3 & 0 \\
+          -3 & -3 & -3 & 0 \\
+          3 & 3 & 3 & 0 \\
+        \end{bNiceArray} \rref
+        \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+          \circled{1} & 1 & 1 & 0 \\
+          0 & 0 & 0 & 0 \\
+          0 & 0 & 0 & 0 \\
+          \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+        \end{bNiceArray} \\
+        & \sysdelim..\systeme*{
+          x_1 = -x_2 - x_3,
+          x_2 = x_2,
+          x_3 = x_3
+        } \rightarrow \x =
+        \begin{bNiceMatrix}[columns-width=auto]
+          x_1 \\
+          x_2 \\
+          x_3 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          -x_2 - x_3 \\
+          x_2 + 0 \\
+          x_3 + 0 \\
+        \end{bNiceMatrix} =
+        x_2\underset{\imp{\v_1}}{
+          \begin{bNiceMatrix}[columns-width=auto]
+            -1 \\
+            1 \\
+            0 \\
+          \end{bNiceMatrix}
+        }
+        x_3\underset{{\v_2}}{
+          \begin{bNiceMatrix}[columns-width=auto]
+            -1 \\
+            0 \\
+            1 \\
+          \end{bNiceMatrix}
+        } \\
+        \underline{\lambda = 1}:\quad&
+        \begin{bNiceMatrix}[columns-width=auto]
+          (A - I)~\zero \\
+        \end{bNiceMatrix} =
+        \begin{bNiceArray}{ccc|c}[columns-width=auto]
+          0 & 3 & 3 & 0 \\
+          -3 & -6 & -3 & 0 \\
+          3 & 3 & 0 & 0 \\
+        \end{bNiceArray} \rref
+        \begin{bNiceArray}{ccc|c}[columns-width=auto,last-row]
+          \circled{1} & 0 & -1 & 0 \\
+          0 & \circled{1} & 1 & 0 \\
+          0 & 0 & 0 & 0 \\
+          \imp{x_1} & \imp{x_2} & \imp{x_3} \\
+        \end{bNiceArray} \\
+        & \sysdelim..\systeme*{
+          x_1 = x_3,
+          x_2 = -x_3,
+          x_3 = x_3
+        } \rightarrow \x =
+        \begin{bNiceMatrix}[columns-width=auto]
+          x_1 \\
+          x_2 \\
+          x_3 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          x_3 \\
+          -x_3 \\
+          x_3 \\
+        \end{bNiceMatrix} =
+        x_3\underset{\imp{\v_3}}{
+          \begin{bNiceMatrix}[columns-width=auto]
+            1 \\
+            -1 \\
+            1 \\
+          \end{bNiceMatrix}
+        }
+      .\end{align*}
+
+      $A$ is diagonalizable since we have $n = 3$ linearly independent
+      eigenvectors.
+
+    \item Step 3: Construct $D$ and $P$ from the eigenvalues and eigenvectors
+      found previously. The multiplicity of each eigenvalue tells you how many
+      times the eigenvalue is repeated in $D$. Again, we generally order the
+      eigenvalues from least-to-greatest. The eigenvectors in $P$ should be in
+      the \underline{same order} as the corresponding eigenvalues in $D$.
+
+      \begin{align*}
+        D =
+        \begin{bNiceMatrix}[columns-width=auto]
+          -2 & 0 & 0 \\
+          0 & 1 & 0 \\
+          0 & 0 & 1 \\
+        \end{bNiceMatrix},\quad
+        P =
+        \begin{bNiceMatrix}[columns-width=auto]
+          \v_1 & \v_2 & \v_3 \\
+        \end{bNiceMatrix} =
+        \begin{bNiceMatrix}[columns-width=auto]
+          -1 & 1 & 1 \\
+          1 & -1 & -1 \\
+          0 & 1 & 1 \\
+        \end{bNiceMatrix},\aand
+        P\I =
+        \begin{bNiceMatrix}[columns-width=auto]
+          1 & 2 & 1 \\
+          -1 & -1 & 0 \\
+          1 & 1 & 1 \\
+        \end{bNiceMatrix}
+      .\end{align*}
+
+    \item Step 4: Compute $P\I$ using any technique.
+
+    \item Optional: Compute $PDP\I$ and confirm that it is equal to $A$.
+      \qedhere
+  \end{enumerate}
+\end{solution}
+
+The number of linearly independent eigenvectors of $A$ is the same as the total
+number of free variables among each augmented matrix $[\,(A-\lambda I)~\zero\,]$
+for each eigenvalue $\lambda$ of $A$.
+
+\begin{note}
+  \label{nte:n_free_variables}
+
+  This means that you only need to count if there are a total of $n$ free
+  variables among each $[\,(A-\lambda I)~\zero\,]$ to confirm whether or not a
+  matrix is diagonalizable, no need to actually find the eigenvectors.
+\end{note}
+
+\begin{theorem}
+  \label{thm:diagonalizable_matrix_with_n_distinct_eigenvalues}
+
+  An $n \times n$ matrix with $n$ distinct eigenvalues is diagonalizable.
+\end{theorem}
+
+\begin{proof}
+  \label{prf:diagonalizable_matrix_with_n_distinct_eigenvalues}
+
+  Let $\v_1, \dots, \v_n$ be eigenvectors corresponding to the $n$ distinct
+  eigenvalues of a matrix $A$. Then, $\left\{\v_1, \dots, \v_n\right\}$ is
+  linearly independent, by \cref{thm:eigenvectors_are_linearly_independent}.
+  Hence, $A$ is diagonalizable by \cref{thm:the_diagonalization_theorem}.
+\end{proof}
+
+% section diagonalizing_matrices (end)
+
+\newpage
